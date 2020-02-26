@@ -3,6 +3,8 @@ import { Link } from "gatsby"
 
 import { rhythm, scale } from "../utils/typography"
 
+import CreativeCommons from "../../content/assets/creative-commons.svg";
+
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   let header
@@ -60,10 +62,10 @@ const Layout = ({ location, title, children }) => {
     >
       <header>{header}</header>
       <main>{children}</main>
-      <footer>
-        © {new Date().getFullYear()}, Built with
+      <footer style={{ display: 'flex', alignItems: 'center' }}>
+        <CreativeCommons style={{ height: '1rem', width: '1rem', marginRight: '.25rem' }} />
         {` `}
-        <a href="https://www.gatsbyjs.org">Gatsby</a>
+        {new Date().getFullYear()}, BY-NC-SA
       </footer>
     </div>
   )
