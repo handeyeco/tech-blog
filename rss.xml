@@ -1,1 +1,215 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 26 Feb 2020 21:05:35 GMT</lastBuildDate><item><title><![CDATA[The Browser as a Medium]]></title><description><![CDATA[TODO]]></description><link>https://gatsby-starter-blog-demo.netlify.com/hello-world/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/hello-world/</guid><pubDate>Wed, 26 Feb 2020 20:29:13 GMT</pubDate><content:encoded>&lt;p&gt;TODO&lt;/p&gt;</content:encoded></item></channel></rss>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 02 Mar 2020 16:11:12 GMT</lastBuildDate><item><title><![CDATA[The Browser as a Medium]]></title><description><![CDATA[When we think of art we tend to think of New York museums and galleries, people pouring paint onto canvas to the sounds of bebop jazz, or…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/browser-as-a-medium/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/browser-as-a-medium/</guid><pubDate>Wed, 26 Feb 2020 20:29:13 GMT</pubDate><content:encoded>&lt;p&gt;When we think of art we tend to think of New York museums and galleries, people pouring paint onto canvas to the sounds of bebop jazz, or sculptors with rolled up sleeves and clay drying on their faces. We rarely picture computer screens being involved. Alternatively tools available to the artist might come to mind - Photoshop and Illustrator for the visual artists or Ableton and Reason for the sound artists.&lt;/p&gt;
+&lt;p&gt;We’ll be taking a look at a different kind of art. Whereas photo editors might be used to make prints and digital audio workstations might be used to make songs, we’ll be looking at art where the program itself is the product.&lt;/p&gt;
+&lt;p&gt;Specifically we’ll be looking through the lense of modern web browsers. Tools for making digital art have been available for decades (some notable examples being Processing and openFrameworks), but people, even people within the web development community, are often surprised by wealth of resources available to us natively in the browser.&lt;/p&gt;
+&lt;h2&gt;Before We Start&lt;/h2&gt;
+&lt;h3&gt;Why make art with code?&lt;/h3&gt;
+&lt;p&gt;As a general rule, everyone should make art. It’s fun, therapeutic, and a great opportunity to join larger communities with similar interests. Everyone has the capacity for arts and crafts, and I’d argue that it’s a natural urge intrinsic to all people. By why digital art specifically?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;It’s expressive.&lt;/strong&gt; We have the ability to create mixed media, immersive experiences and surprising, generative pieces&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;It’s open / distributed.&lt;/strong&gt; Open web standards means people around the world can easily access and interact with your art. The web also makes international collaboration a breeze.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;It’s a great way to get better at programming.&lt;/strong&gt; Since there’s not a ton of information available on creative coding for the web, it’s a pastime that forces people to experiment with bleeding edge technology.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;It can be a viral portfolio piece.&lt;/strong&gt; People love quirky web projects, so it’s a great way to have your portfolio spread across the web dev community.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Not enough people are doing it.&lt;/strong&gt; The world needs more web art - it’ll make the world better and it will push browsers to prioritize the development of these web standards.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;JavaScript vs. Browser APIs vs. Libraries&lt;/h3&gt;
+&lt;p&gt;JavaScript is a general purpose programming language. It’s standards are guided by a committee and includes functionality that is useful to all programming environment (front-end, back-end, embedded, etc). These are things like &lt;code class=&quot;language-text&quot;&gt;if&lt;/code&gt;/&lt;code class=&quot;language-text&quot;&gt;else&lt;/code&gt; statements, &lt;code class=&quot;language-text&quot;&gt;function&lt;/code&gt; declarations, &lt;code class=&quot;language-text&quot;&gt;Array.map&lt;/code&gt;, and &lt;code class=&quot;language-text&quot;&gt;Object.keys&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Then we have environment specific APIs. It doesn’t make sense to try and access GPIO pins from a browser. Similarly it doesn’t make sense to try to access DOM nodes in an embedded environment. We’ll be talking about Browser APIs - APIs agreed upon by committees usually made up of browser developers. These APIs give web developers access to features built into the browser (usually giving access to code written in lower-level languages such as C++ or Rust).&lt;/p&gt;
+&lt;p&gt;Finally there are libraries. Libraries are chunks of reusable code that extend JavaScript the language and/or environment APIs. They can be created by anyone, to any specification that they prefer. We’ll be talking about these too.&lt;/p&gt;
+&lt;h2&gt;Artistic Browser APIs&lt;/h2&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 51.796875%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAKABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAEDBAX/xAAWAQEBAQAAAAAAAAAAAAAAAAADAQL/2gAMAwEAAhADEAAAAdOO4yRgXP8A/8QAGBABAQADAAAAAAAAAAAAAAAAAgEAAxD/2gAIAQEAAQUCaUuturJ3/8QAFhEAAwAAAAAAAAAAAAAAAAAAARAR/9oACAEDAQE/AaF//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFxAAAwEAAAAAAAAAAAAAAAAAAAEhIP/aAAgBAQAGPwKIqz//xAAaEAACAwEBAAAAAAAAAAAAAAABEQAQMVFx/9oACAEBAAE/IU5wXIhLHlYhyv/aAAwDAQACAAMAAAAQaA//xAAWEQEBAQAAAAAAAAAAAAAAAAARECH/2gAIAQMBAT8QyCf/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAaEAACAwEBAAAAAAAAAAAAAAABEQAhMRBx/9oACAEBAAE/EMVAW5Rg6U421iDJp6YFuf/Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Patatap Canvas API Example&quot;
+        title=&quot;Patatap Canvas API Example&quot;
+        src=&quot;/tech-blog/static/23f905904d5bd0c22ebbbfaf4d57ae5d/1c72d/patatap.jpg&quot;
+        srcset=&quot;/tech-blog/static/23f905904d5bd0c22ebbbfaf4d57ae5d/a80bd/patatap.jpg 148w,
+/tech-blog/static/23f905904d5bd0c22ebbbfaf4d57ae5d/1c91a/patatap.jpg 295w,
+/tech-blog/static/23f905904d5bd0c22ebbbfaf4d57ae5d/1c72d/patatap.jpg 590w,
+/tech-blog/static/23f905904d5bd0c22ebbbfaf4d57ae5d/a8a14/patatap.jpg 885w,
+/tech-blog/static/23f905904d5bd0c22ebbbfaf4d57ae5d/fbd2c/patatap.jpg 1180w,
+/tech-blog/static/23f905904d5bd0c22ebbbfaf4d57ae5d/eea4a/patatap.jpg 1280w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;figcaption&gt;
+  &lt;a href=&quot;https://patatap.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
+    Patatap by Jono Brandel
+  &lt;/a&gt;
+&lt;/figcaption&gt;
+&lt;h3&gt;Canvas API&lt;/h3&gt;
+&lt;p&gt;The Canvas API is an API for “painting pixels” to a digital canvas - typically used for 2D art. It’s an extremely versatile and powerful tool for creating and editing raster images (images that are described in pixels). If we were to create a web version of Photoshop or MS Paint, it’d be with the Canvas API.&lt;/p&gt;
+&lt;p&gt;The name of the API is very indicative of its use and makes for a great analogy. When using the Canvas API, the artist is layering “paint” (in the form of pixels, shapes, and paths) onto the canvas. The canvas can be reused just like a physical canvas can, but the paint layer has to be covered over before starting again.&lt;/p&gt;
+&lt;p&gt;When looking at the underlying DOM of a Canvas API project, you’ll notice there’s just a &lt;code class=&quot;language-text&quot;&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; DOM node. This is a strength and weakness of the API. On the one hand it’s good: it means there aren’t a lot of DOM nodes to manage so it can be a very performant way to draw graphics or images. On the other hand, since there are no DOM nodes available to us, we aren’t able to manipulate specific parts of the image; if we want to change something we have to paint over and redraw the part we want to change.&lt;/p&gt;
+&lt;p&gt;However due to its performant nature, it’s still a great way to animate an image. We can &lt;code class=&quot;language-text&quot;&gt;requestAnimationFrame&lt;/code&gt;, tween the animation, and redraw at around 50 frames per second (FPS depend on a large number of factors). Also thanks to its ability to give us pixel-by-pixel information of the canvas, we’re able to do complex image manipulation with the API.&lt;/p&gt;
+&lt;h4&gt;P5&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://p5js.org/&quot;&gt;p5&lt;/a&gt; is an open source (LGPL) library created by &lt;a href=&quot;https://twitter.com/laurenleemack&quot;&gt;Lauren McCarthy&lt;/a&gt; to simplify working with the Canvas API. Probably the most accessible way to get started with creative coding in JavaScript, it handles things like creating the canvas, managing the &lt;code class=&quot;language-text&quot;&gt;canvasContext&lt;/code&gt; (the interface for manipulating the canvas), and requesting animation frames - all while providing helper functions that simplify drawing and math.&lt;/p&gt;
+&lt;p&gt;It does a lot of other things too, including 3D and sound, so it’s possible to build an entire career in digital art just on p5.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 56.38020833333333%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAABYlAAAWJQFJUiTwAAAC/ElEQVQozxWR20+aBwDF+Y+WZdnrnjbrxC6tAsIEQS4DUfFaUETgA76P+/VDOp2CSiZKXbWz4sZao229kXSZNk3aLnUva7a3JntbsuU39nBykpOTX05yFJZOkWVdJ+YODyVNF87PZ1nRd1OYkXng1hG2x9mZUFPzJTj19rIyLnHh72U/mOBwqo+6N8fXjjzxngCLugCK6JcO0noTPo2LrMFIQDdOfX6CdZ/A1pyLzZBAIzzG05iH54lRforM8zQyxqHo5VCwUItUqQTKFGwZvOooipr1Mya1STZsSu4YEjR9GsqxKge+HmShQsU5QI9yhSmVD3m6RCuupx5b4iys4nFmiWeSmZq0Qdm/RsqcQ3HHEKfq0BIaFNh0W6hGC3wfslMRM/isC9z8OIHywwSdHxTp/0ggbinwc9LAUbZAKzrIQTJBLbXHahu6Ga6iiJjnWLX3Iw4FaUgjVMJZfog4kP3rRJQ+hK446e4Aue4QuRtBFrs9NIQZfkyKPBEtfCstsyMVWY1usxbbQrE70sm0PsVDt4pCsEIzqKMkVjh0a9nSBGhoJthRB3isGuOR2svxbRd7vrs8T2rZji3zItZLVSxTj26wm2kDA1aRks3EXsjFacZKMxvgWdrOSXSYV5ZxfjUNcW0c4ve2/jDYeGeY4K14k1ZplsuslUt5nIa8Sj1RpRzfRjFnCrFmu0Xd4+Qq28tR0c+L9G3282HeT9/i78FhMOn4x2gBXT9/TWp5U1TRkj28yX7Bedtfyg6209+1oe2F95wdTA7EOZ/9hGYxxlWyi4NC21NKjosCf86oeW8186+jj3fzbq4zn9JaknibvcHZ3Si/5To4L0Wop7ZYT93//xQvpa8cPPSoOUkaOS2M0srbOMm7uJDtHOWdnKRNvF4c5XrZyi/FEa7yRi4XnLySTVy2u2elBPczVarxeyhmBkQ2h9X4zX4a8zrWYws8igxQFks0hX7KUp5jSc+DpMx5pI/9TI6zmJ6DVDsP97GbznEhtXtiHXnqG/4D0uA/BQL2OP4AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Tangara Fastuosa SVG Example&quot;
+        title=&quot;Tangara Fastuosa SVG Example&quot;
+        src=&quot;/tech-blog/static/3903a0e2f0c075d30a3ab2bc3ccdef58/fcda8/tangara-fastuosa.png&quot;
+        srcset=&quot;/tech-blog/static/3903a0e2f0c075d30a3ab2bc3ccdef58/12f09/tangara-fastuosa.png 148w,
+/tech-blog/static/3903a0e2f0c075d30a3ab2bc3ccdef58/e4a3f/tangara-fastuosa.png 295w,
+/tech-blog/static/3903a0e2f0c075d30a3ab2bc3ccdef58/fcda8/tangara-fastuosa.png 590w,
+/tech-blog/static/3903a0e2f0c075d30a3ab2bc3ccdef58/efc66/tangara-fastuosa.png 885w,
+/tech-blog/static/3903a0e2f0c075d30a3ab2bc3ccdef58/c83ae/tangara-fastuosa.png 1180w,
+/tech-blog/static/3903a0e2f0c075d30a3ab2bc3ccdef58/f581c/tangara-fastuosa.png 3072w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;figcaption&gt;
+  &lt;a href=&quot;https://vimeo.com/282220342&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
+    Tangara Fastuosa by Sarah GHP
+  &lt;/a&gt;
+&lt;/figcaption&gt;
+&lt;h3&gt;SVG&lt;/h3&gt;
+&lt;p&gt;Less an API than an addition to the HTML standard, SVG (Scalable Vector Graphics) is a way of describing 2D graphics; in this case vector graphics. Vector images differ from raster images in that rather than describe images on a pixel-by-pixel basis they describe images with shapes primitives. While you might use the Canvas API to make a web equivalent of Photoshop, you’d use the SVG standard to make a web equivalent of Illustrator.&lt;/p&gt;
+&lt;p&gt;If you know HTML and CSS, you already know SVG. SVG is just a collection of DOM tags that describe shapes that can be styled with CSS. For instance there’s a &lt;code class=&quot;language-text&quot;&gt;&amp;lt;circle&amp;gt;&lt;/code&gt; for round ellipses and circles, &lt;code class=&quot;language-text&quot;&gt;&amp;lt;rect&amp;gt;&lt;/code&gt; for squares and rectangles, and &lt;code class=&quot;language-text&quot;&gt;&amp;lt;path&amp;gt;&lt;/code&gt; for arbitrary shapes. They can also contain text or images. Similar to Illustrator, you can group shapes (with the &lt;code class=&quot;language-text&quot;&gt;&amp;lt;g&amp;gt;&lt;/code&gt; tag) to manipulate them together.&lt;/p&gt;
+&lt;p&gt;Since these are just DOM nodes, they can be animated with CSS transitions or keyframes. More complex behavior can be programmed with JavaScript using &lt;code class=&quot;language-text&quot;&gt;requestAnimationFrame&lt;/code&gt; or an animation library. They can be themed with different CSS classes or resized with CSS media queries.&lt;/p&gt;
+&lt;p&gt;The strengths and weaknesses foil those of the Canvas API. All the DOM nodes are there to be pushed around or modified, but manipulating the DOM directly is process intensive. We gain flexibility at the cost of performance. This isn’t much of a problem for simple graphics, but for complex animations or graphics with hundreds of layers it’ll likely be better to use the Canvas API.&lt;/p&gt;
+&lt;h4&gt;d3&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://d3js.org/&quot;&gt;d3&lt;/a&gt; is an open source (BSD) library created by &lt;a href=&quot;https://twitter.com/mbostock&quot;&gt;Mike Bostock&lt;/a&gt; that controls SVG generation and provides useful math functionality. It’s used primarily for advanced data visualizations. While d3 should not be someone’s first introduction to SVG (SVG is easy enough to get started with directly), d3 is an amazing tool to generate complex graphics and behaviors with SVG.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 54.592833876221505%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA8UlEQVQoz42TWxKDIAxF3b3Wt1Xb+tXVWUWFLiG9QRlRdOpHJhDI5QSCpx4pqVdOqk5IVrHjjc1zGLziGPsD89ykrVdNoZP1fDEjakSkNfZsdXm06ZmtsXolNMJ7Ym+PLC2CCSWKMqYexn7UlfDaLPQtXeJDQiM6IKHLA/pkPrWpT+M9xCG8hn289s5obNJzQluQaURxI5H7sECPxzLSpDqZya8IGjqJ5GERmRayDqV2RYjYTHmpZJtyYjEWrlMSfJ84YID4/OLJ9UexxZmsRXLPlGw4QNXnrXN6hxtqiMgqcio46uG/hKb/zvp1E8OP+wH0aJ8CDSJ6FQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Bellwoods WebGL Example&quot;
+        title=&quot;Bellwoods WebGL Example&quot;
+        src=&quot;/tech-blog/static/cde58bbb239bef31f4f46393a4931016/fcda8/bellwoods.png&quot;
+        srcset=&quot;/tech-blog/static/cde58bbb239bef31f4f46393a4931016/12f09/bellwoods.png 148w,
+/tech-blog/static/cde58bbb239bef31f4f46393a4931016/e4a3f/bellwoods.png 295w,
+/tech-blog/static/cde58bbb239bef31f4f46393a4931016/fcda8/bellwoods.png 590w,
+/tech-blog/static/cde58bbb239bef31f4f46393a4931016/efc66/bellwoods.png 885w,
+/tech-blog/static/cde58bbb239bef31f4f46393a4931016/c83ae/bellwoods.png 1180w,
+/tech-blog/static/cde58bbb239bef31f4f46393a4931016/d6853/bellwoods.png 3070w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;figcaption&gt;
+  &lt;a href=&quot;https://bellwoods.xyz/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
+    Bellwoods by Matt DesLauriers
+  &lt;/a&gt;
+&lt;/figcaption&gt;
+&lt;h3&gt;WebGL&lt;/h3&gt;
+&lt;p&gt;WebGL (Web Graphics Library) is an API for generating 3D graphics in the browser. It is as wonderful as it is difficult. This is no fault of WebGL - 3D graphics are difficult to work with in general. The 3D artist has to account for perspective, lighting, materials, and geometries among many other things. However the payoff for working with WebGL can be immense. While writing this, I took a quick peek at &lt;a href=&quot;https://www.awwwards.com/&quot;&gt;awwwards&lt;/a&gt; and the first 6 sites they listed were built using WebGL. WebGL is the stuff dreams are made of.&lt;/p&gt;
+&lt;p&gt;At the most fundamental level, when working directly with WebGL, you’ll be working with shaders. Shaders are programs written in a C-like language that determine where each pixel should be in a 3D space and the color the pixel should be based on a number of factors.&lt;/p&gt;
+&lt;p&gt;While WebGL is pretty standard now, a lot of devices still struggle with it. The fans on most MacBooks will sound like they’re lifting off for an interstellar space mission and phones can hang or blow up. Be smart with WebGL and only re-render when there’s a reason to re-render. Actually this is just good advice for any type of re-rendering.&lt;/p&gt;
+&lt;p&gt;I could go on like I know what I’m talking about, but I would recommend skipping right past vanilla WebGL and starting with THREE.&lt;/p&gt;
+&lt;h4&gt;THREE&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://threejs.org/&quot;&gt;THREE&lt;/a&gt; is an open source (MIT) library created by &lt;a href=&quot;https://twitter.com/mrdoob&quot;&gt;Ricardo Cabello&lt;/a&gt; that creates a much friendlier WebGL development experience. THREE gives you constructors for cameras with differing perspectives, geometries/materials/meshes, and different types of lights. It’ll handle rendering for you so all you need to manage is animation frames and tweening - things that can be outsourced to animation libraries.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 50.22801302931597%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAACWUlEQVQoz1WSWU8TYRSGuTcIlEWWzrTTmeks7eydbiwFCqWkEKAsAsFITFSg7KtemPgnTLwx8Z8+fi0k6vX35TnnPc/b9zSe5NHM8fv+kU5cov6qn5aqUdd0SoqCLcnIExNMTsokkyayFKCkZ8ikl0kMLFApfubp4ReBc4uSvKbvi/h4ncrwVJnmnaKx/HqQDdNixXGYMU0CTUNLp1HEm6p6ZPQShr5AVmsyOlwnqx4wN3OPoZ6jyrddYIrLZJpTzeBgSqIxMMSaAB0nDGqKjqNmUAVQEkMNxWPTaKCrNbRMg7GRJdLSDjnzE7pyhpZ6AV5JCpe2w2Ey1QOuZw1amkVVxA5VnUOtjKnbGEZIZNfI6vOoL0AltYfvnv0LFJHlDHdhzJHYYlkANwyLVc9jOpsltiwqjo8tBjpOGdedJwpb5Oz1XmRN2accX2FkOs/Ar1MpLgT0w6TE3ptJGoMJtnJ5NgsxjTBiMSjgO3lMAfTMmPbYDHG4hudu9jZMTrRR5PfififoqTv6nsYlHrI2P087nIaFnuUdz2e7XKEZx5wPBVRzHlkrj5Mv4dtzxNE6hXCnZ7kYfeSi8wM/f0MmeSMiT8jcCIPfG02OdYOl/gG2XY92qcxKVKAm4uYNg7T4Y1kFXH+R6uwO5eJbRobq2OYRreY3LP3ir+WulGs36Enp3rAL3CqWaEQRs1FI4HbvF+B5VdG7VVYqu1QrB4wm6qKPexSCi/8tXwpQx7BFbeQesJ132YyLLAchs34gYkUEvtgumKbmNbgdblIp7/ekpKVd3NyJ6Ooz8A8XG0XV3o09pwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Latent Cycles Web Audio Example&quot;
+        title=&quot;Latent Cycles Web Audio Example&quot;
+        src=&quot;/tech-blog/static/c94a153d5db0157065b932716fd968f2/fcda8/latent-cycles.png&quot;
+        srcset=&quot;/tech-blog/static/c94a153d5db0157065b932716fd968f2/12f09/latent-cycles.png 148w,
+/tech-blog/static/c94a153d5db0157065b932716fd968f2/e4a3f/latent-cycles.png 295w,
+/tech-blog/static/c94a153d5db0157065b932716fd968f2/fcda8/latent-cycles.png 590w,
+/tech-blog/static/c94a153d5db0157065b932716fd968f2/efc66/latent-cycles.png 885w,
+/tech-blog/static/c94a153d5db0157065b932716fd968f2/c83ae/latent-cycles.png 1180w,
+/tech-blog/static/c94a153d5db0157065b932716fd968f2/d6853/latent-cycles.png 3070w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;figcaption&gt;
+  &lt;a href=&quot;https://codepen.io/teropa/full/rdoPbG&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
+    Latent Cycles by Tero Parviainen
+  &lt;/a&gt;
+&lt;/figcaption&gt;
+&lt;h3&gt;Web Audio API&lt;/h3&gt;
+&lt;p&gt;The Web Audio API is a tool useful for playing audio files, analyzing audio, and generating audio. Playing audio has its uses for streaming music or for game development. Analyzing audio can be useful for creating visualizers or for machine learning purposes (think of having a chat bot that you can actually talk to). What excites me the most however is that all modern browser have a fully functioning synthesizer in them!&lt;/p&gt;
+&lt;p&gt;The API provides low-level building blocks such as &lt;code class=&quot;language-text&quot;&gt;OscillatorNode&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;GainNode&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;BiquadFilterNode&lt;/code&gt;, and &lt;code class=&quot;language-text&quot;&gt;DelayNode&lt;/code&gt; that can be used to create oscillators, envelope generators, amplifiers, filters, delays, and reverbs. Imagine being able to control a big Moog-style modular synthesizer with JavaScript - that’s now a reality. &lt;/p&gt;
+&lt;p&gt;Working with the Web Audio API can be a little tough, but groups are starting to come together to build web-based digital audio workstations, plugin effect and instrument standards, and experimental projects combining machine learning and browser-specific interfaces. It’s likely we’ll see something akin to Ableton Live in the browser before too long.&lt;/p&gt;
+&lt;h4&gt;Tone&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://tonejs.github.io/&quot;&gt;Tone&lt;/a&gt; is an open source (MIT) library created by &lt;a href=&quot;https://twitter.com/yotammann&quot;&gt;Yotam Mann&lt;/a&gt; that abstracts away a lot of the low level Web Audio API into virtual modules that can be combined into instruments. In fact, the library comes with several pre-built synths such as a &lt;code class=&quot;language-text&quot;&gt;FMSynth&lt;/code&gt; and a &lt;code class=&quot;language-text&quot;&gt;PolySynth&lt;/code&gt;. It also handles a lot of the general complexity that comes with music programming such as timing and note-to-frequency conversions.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 51.921824104234524%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAACbElEQVQozz2Q3UuTYRiHX+wgrDSdqWEazknh/NYVZOJRdVBBOT9qlinYX1AHdWIdZGWU1jItSZNCJ25Ks+xDISrTOTRb03JLJdGj6MCgPMu9V/e7aQcX98N981zP734UvdGE3pgfJNG4h3hDNkmGTFJTM0lJN5Ek8/ysHJaPR0FpBGpJBFTErhEHp4TSSND6UpWU9Hw09HK5KDODSvMRisrK0R2rINWYtybMZbk4Goo3oZ5JgKYTUH8Ymk/CbTNYYsC8JSQ0iChZyMrKx30wmuGW85yztaLcfMju9Dx2SmqTJjTrRBhOoCYZ9U4JqrUUtbUStdmCeno7qgjV0q0o6+tqYkvuLmrKj3KgspKokqpgwsQ0SZiZw69gwnDU6iRJZgml7DgLbdWhtc2b11c2Bf9KWzk+bS9xKdkk6DNINaQHH/mfUBPKHwYkhSZVLbGoIlKrdqCWRcnfRkpCEU44bzEuTPQ3MDXQyPQrK1OC56WVcelNyuyts5FDjifsc3RR6OikoLeLgr5uwRY8F9o72e8IobDYC0t98N3OzLsHeAfv4h26x5c3LbCgzXr5veAk/KNPXp9HcftRXoygDAiv3aE6MYcyvsaqz8bqbA+rnnZWntXyp1/ovcBK30X++rvB38WPGTuxo5MimyGyf4jE2jpiG1uIr2sg4dI1woY9hI16CRv5jKJ+k0tzPQSmHzP//Dp+51V89svMPb3Cqt8Gs9389DuIcXlE6GPj4Ai6G01s7rCja7zPtnorG4ZcMvuKMjq1JpRLAalL7kcsutpCdaw92FsX6sZEODqN4hI+SJL3n1BGvKGz1tNkUv8B5VPwkEYWUOcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;A Single Div CSS Example&quot;
+        title=&quot;A Single Div CSS Example&quot;
+        src=&quot;/tech-blog/static/de01ebc5bd346291f07b1a2deea8ef94/fcda8/single-div.png&quot;
+        srcset=&quot;/tech-blog/static/de01ebc5bd346291f07b1a2deea8ef94/12f09/single-div.png 148w,
+/tech-blog/static/de01ebc5bd346291f07b1a2deea8ef94/e4a3f/single-div.png 295w,
+/tech-blog/static/de01ebc5bd346291f07b1a2deea8ef94/fcda8/single-div.png 590w,
+/tech-blog/static/de01ebc5bd346291f07b1a2deea8ef94/efc66/single-div.png 885w,
+/tech-blog/static/de01ebc5bd346291f07b1a2deea8ef94/c83ae/single-div.png 1180w,
+/tech-blog/static/de01ebc5bd346291f07b1a2deea8ef94/d6853/single-div.png 3070w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;figcaption&gt;
+  &lt;a href=&quot;https://a.singlediv.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
+    A Single Div by Lynn Fisher
+  &lt;/a&gt;
+&lt;/figcaption&gt;
+&lt;h3&gt;CSS&lt;/h3&gt;
+&lt;p&gt;People like to lament about working with CSS (Cascading Style Sheets), so much so that it’s almost a rite of passage in the web dev community. However CSS is amazingly powerful with baked-in support for transitions, animations, and responsive behavior. Now that we have Flexbox and CSS Grid, we have even more tools available to us to create beautiful and responsive pieces without needing to venture into the world or JavaScript.&lt;/p&gt;
+&lt;p&gt;On top of which making CSS art is a great way to sharpen your web dev skills, and the intrinsic limitations will sharpen your creative muscles.&lt;/p&gt;
+&lt;h2&gt;Other Browser APIs&lt;/h2&gt;
+&lt;p&gt;There are plenty of other APIs available or soon-to-be available to the artists of the web. Here are a few:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Gamepad API:&lt;/strong&gt; use a standard video controller to control your game or installation.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Web MIDI API:&lt;/strong&gt; (Musical Instrument Digital Interface) use a keyboard, drum pad, or other MIDI device to control your web synth or interactive piece.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Web Bluetooth API:&lt;/strong&gt; an experimental API that could be used trigger interactive elements in an installation.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;WebXR API:&lt;/strong&gt; an experimental API for developing VR (virtual reality) or AR (augmented reality) experiences.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Machine Learning and Web Art&lt;/h2&gt;
+&lt;p&gt;This is a whole other topic, but I couldn’t talk about digital art without bringing up two very cool libraries that help make machine learning available to web artists.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://ml5js.org/&quot;&gt;ml5&lt;/a&gt;&lt;/strong&gt; is an open source (MIT) library created by &lt;a href=&quot;https://twitter.com/ahandvanish&quot;&gt;Hannah Davis&lt;/a&gt; and built on Google’s TensorFlow to simplify working with models in the web. Leans more towards visual models.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://magenta.tensorflow.org/&quot;&gt;Magenta&lt;/a&gt;&lt;/strong&gt; is an open source (Apache License 2.0) library created by Google and built on Google’s TensorFlow. It has several handy composition models leaning towards the audio side of things.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Additional Resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw&quot;&gt;The Coding Train&lt;/a&gt;&lt;/strong&gt; a great YouTube channel that dives into Processing, p5, and ml5 among other things.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://thebookofshaders.com/&quot;&gt;The Book of Shader&lt;/a&gt;&lt;/strong&gt; a free, online book that walks readers through the usage of fragment shaders in WebGL.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://webaudioapi.com/book/&quot;&gt;Web Audio API&lt;/a&gt;&lt;/strong&gt; a free, online book that goes through some basic uses for the Web Audio API. Doesn’t cover much synthesis, but touches on playback and analysis.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Thanks for reading. If this talk inspired you to try out some Browser APIs in your own creative practice, I’d love to see what you made!&lt;/p&gt;</content:encoded></item></channel></rss>
