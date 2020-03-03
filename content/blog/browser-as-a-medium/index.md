@@ -1,7 +1,7 @@
 ---
 title: The Browser as a Medium
 date: 2020-02-26T20:29:13Z
-description: An overview of native browser tools for the digital artist
+description: An overview of native browser tools for the digital artist.
 ---
 
 When we think of art we tend to think of New York museums and galleries, people pouring paint onto canvas to the sounds of bebop jazz, or sculptors with rolled up sleeves and clay drying on their faces. We rarely picture computer screens being involved. Alternatively tools available to the artist might come to mind - Photoshop and Illustrator for the visual artists or Ableton and Reason for the sound artists.
