@@ -62,10 +62,16 @@ const Layout = ({ location, title, children }) => {
     >
       <header>{header}</header>
       <main>{children}</main>
-      <footer style={{ display: 'flex', alignItems: 'center' }}>
-        <CreativeCommons style={{ height: '1rem', width: '1rem', marginRight: '.25rem' }} />
-        {` `}
-        {new Date().getFullYear()}, BY-NC-SA
+      <footer style={{ display: 'flex', alignItems: 'center', fontSize: '0.8em' }}>
+        <CreativeCommons style={{ height: '1rem', width: '1rem' }} />
+        &nbsp;
+        {new Date().getFullYear()}
+        &nbsp;
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">BY-NC-SA.</a>
+        &nbsp;
+        See a typo?
+        &nbsp;
+        <a href="https://github.com/handeyeco/tech-blog">File a pull request or issue.</a>
       </footer>
     </div>
   )

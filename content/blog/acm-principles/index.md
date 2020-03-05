@@ -4,7 +4,7 @@ date: 2020-01-22T20:29:13Z
 description: A look at Austin Code Mentorship's core philosophy and how it affects our decisions.
 ---
 
-Within a couple of months after starting [Austin Code Mentorship](https://www.meetup.com/Austin-Code-Mentorship), our now co-organizer [Alex Doll](https://www.linkedin.com/in/alexander-doll/) contacted me offering to provide support. At the time I was terrified of the offer - I was afraid that without a strong focus, the group would collapse into an aimless social group of clicks and language-bashing. ACM was inspired by Portland's long-running [Mentorship Saturdays](https://www.meetup.com/Mentorship-Saturdays/) and I wanted to create a similarly encouraging and welcoming community. While I had a general idea of what I wanted the group to stand for, I hadn't ever organized these thoughts into cohesive directives. 
+Within a couple of months after starting [Austin Code Mentorship](https://www.meetup.com/Austin-Code-Mentorship), our now co-organizer [Alex Doll](https://www.linkedin.com/in/alexander-doll/) contacted me offering to provide support. At the time I was terrified of the offer. I was afraid that without a strong focus, the group would collapse into an aimless social group of clicks and language-bashing and I was worried that distributing responsibility would lead to a "design by committee"-style catastrophe. ACM was inspired by Portland's long-running [Mentorship Saturdays](https://www.meetup.com/Mentorship-Saturdays/) and I wanted to create a similarly encouraging and welcoming community. While I had a general idea of what I wanted the group to stand for, I hadn't ever organized these thoughts into cohesive directives. 
 
 I didn't respond to Alex for several days. Instead I took time to analyze what I liked about Mentorship Saturdays and what I considered "success" for Austin Code Mentorship. Eventually I responded with an outline of four ideals that really all boiled down to one core goal: to try to make Austin Code Mentorship as inclusive as possible to everyone interested in programming.
 
@@ -12,13 +12,13 @@ Recently these guiding principles came up again with another member of the group
 
 ## Four Guiding Principles
 
-* **Inclusivity:** We want to create a safe, welcoming environment for anyone interested in programming. We recognize that inclusivity means more than just opening the door - it's a lofty and worthy goal that requires proactive attention. It affects everything we do and everyone involved.
+* **Inclusive:** We want to create a safe, welcoming environment for anyone interested in programming. We recognize that inclusivity means more than just opening the door - it's a lofty and worthy goal that requires proactive attention. It affects everything we do and everyone involved.
 
 * **Language agnostic:** While we think groups that specialize are great, we also think there's great value in chatting with someone from a different tech stack. People can take over rooms and do talks about niche tech, but those are opt-in activities for people rather than the default.
 
-* **Loose structure:** Similarly, we think hackathons and lectures are invaluable resources for developing as a developer; however they can be daunting to newbies or irrelevant to people in different stacks.
+* **Loosely structured:** Similarly, we think hackathons and lectures are invaluable resources for developing as a developer; however they can be daunting to newbies or irrelevant to people in different stacks.
 
-* **Everyone's a mentee, everyone's a mentor:** We believe everyone has something to contribute to the community. Even people who haven't written a single line of code can give feedback on projects or just provide encouragement to others. At the same time, we believe everyone still has something to learn.
+* **Everyone's a mentor, everyone's a mentee:** We believe everyone has something to contribute to the community. Even people who haven't written a single line of code can give feedback on projects or just provide encouragement to others. At the same time, we believe everyone still has something to learn.
 
 As you can see, these all circle back to inclusivity - inclusive of people, their tech preference, and their level of experience.
 

@@ -16,7 +16,7 @@ Specifically we'll be looking through the lense of modern web browsers. Tools fo
 
 As a general rule, everyone should make art. It's fun, therapeutic, and a great opportunity to join larger communities with similar interests. Everyone has the capacity for arts and crafts, and I'd argue that it's a natural urge intrinsic to all people. By why digital art specifically?
 
-* **It's expressive.** We have the ability to create mixed media, immersive experiences and surprising, generative pieces
+* **It's expressive.** We have the ability to create mixed media, immersive experiences and surprising, generative pieces.
 
 * **It's open / distributed.** Open web standards means people around the world can easily access and interact with your art. The web also makes international collaboration a breeze.
 
