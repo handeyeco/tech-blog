@@ -1,4 +1,178 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 05 Mar 2020 16:12:34 GMT</lastBuildDate><item><title><![CDATA[The Browser as a Medium]]></title><description><![CDATA[When we think of art we tend to think of New York museums and galleries, people pouring paint onto canvas to the sounds of bebop jazz, or…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/browser-as-a-medium/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/browser-as-a-medium/</guid><pubDate>Wed, 26 Feb 2020 20:29:13 GMT</pubDate><content:encoded>&lt;p&gt;When we think of art we tend to think of New York museums and galleries, people pouring paint onto canvas to the sounds of bebop jazz, or sculptors with rolled up sleeves and clay drying on their faces. We rarely picture computer screens being involved. Alternatively tools available to the artist might come to mind - Photoshop and Illustrator for the visual artists or Ableton and Reason for the sound artists.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 14 Apr 2020 15:13:33 GMT</lastBuildDate><item><title><![CDATA[4 Digit, 7 Segment Emoji]]></title><description><![CDATA[Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I think I learned…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/seven-segment-emoji/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/seven-segment-emoji/</guid><pubDate>Mon, 13 Apr 2020 21:25:23 GMT</pubDate><content:encoded>&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/b886b3b169ef8c3a019d28ce6c78f6e3/e1596/skeptical.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 100%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAECAwb/xAAXAQADAQAAAAAAAAAAAAAAAAABAgMA/9oADAMBAAIQAxAAAAHn9K2DQhl0AvmDH//EABcQAAMBAAAAAAAAAAAAAAAAAAABESH/2gAIAQEAAQUCLjITBYNuH//EABgRAAIDAAAAAAAAAAAAAAAAAAABEBFB/9oACAEDAQE/AUmUZH//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AR//xAAXEAADAQAAAAAAAAAAAAAAAAAAEBEh/9oACAEBAAY/AiOrH//EABsQAQADAQADAAAAAAAAAAAAAAEAETEQIUGB/9oACAEBAAE/IZksGVvxkLT5OXQpGe4d5//aAAwDAQACAAMAAAAQtB9B/8QAFxEAAwEAAAAAAAAAAAAAAAAAARARIf/aAAgBAwEBPxCLEJmV/8QAFxEBAAMAAAAAAAAAAAAAAAAAAQAQEf/aAAgBAgEBPxByF//EABoQAQACAwEAAAAAAAAAAAAAAAEAESExQVH/2gAIAQEAAT8Ql0gsON5idynAtsbQt8I1CGzV8jvJEpB0aiqLAmlxfs3tZ//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Skeptical emoji on 4-digit, 7-segment display&quot;
+        title=&quot;Skeptical emoji on 4-digit, 7-segment display&quot;
+        src=&quot;/tech-blog/static/b886b3b169ef8c3a019d28ce6c78f6e3/1c72d/skeptical.jpg&quot;
+        srcset=&quot;/tech-blog/static/b886b3b169ef8c3a019d28ce6c78f6e3/a80bd/skeptical.jpg 148w,
+/tech-blog/static/b886b3b169ef8c3a019d28ce6c78f6e3/1c91a/skeptical.jpg 295w,
+/tech-blog/static/b886b3b169ef8c3a019d28ce6c78f6e3/1c72d/skeptical.jpg 590w,
+/tech-blog/static/b886b3b169ef8c3a019d28ce6c78f6e3/a8a14/skeptical.jpg 885w,
+/tech-blog/static/b886b3b169ef8c3a019d28ce6c78f6e3/fbd2c/skeptical.jpg 1180w,
+/tech-blog/static/b886b3b169ef8c3a019d28ce6c78f6e3/e1596/skeptical.jpg 2048w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I &lt;strong&gt;think&lt;/strong&gt; I learned, but that doesn’t make it the truth.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;While at Eyeo Festival in 2019, I had the chance to hear &lt;a href=&quot;https://twitter.com/MohitBhoite&quot;&gt;Mohit Bhoite&lt;/a&gt; &lt;a href=&quot;https://vimeo.com/354276626&quot;&gt;talk&lt;/a&gt; about the beautiful freeform, electronic sculptures he creates. With just a few commonly found components and a microcontroller, he’s able to craft whimsical and charming creations that really resonated with me. The project that spoke to me the most was his &lt;a href=&quot;https://twitter.com/MohitBhoite/status/1241752124087660546&quot;&gt;Chintoo&lt;/a&gt; project, and I started to think “hey, I could make that! How hard could 4-digit, 7-segment displays be?”&lt;/p&gt;
+&lt;p&gt;Apparently they’re pretty tricky. While this isn’t meant to explain 4-digit, 7-segment displays (that’s been covered extensively), hopefully this will augment existing resources that gloss over some things that tripped me up. I’m going to show off what I built and talk a little about what I learned afterwards.&lt;/p&gt;
+&lt;h2&gt;The Build&lt;/h2&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/90f29d69abcaf7025ccf6d16af08d584/8608d/schematic.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 66.92789968652038%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAIBBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIQAxAAAAHrTY1Sv//EABYQAQEBAAAAAAAAAAAAAAAAAAEQIP/aAAgBAQABBQJwT//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABkQAAMAAwAAAAAAAAAAAAAAAAABERAhMf/aAAgBAQABPyGxKog9nWP/2gAMAwEAAgADAAAAEOwP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHRAAAgIBBQAAAAAAAAAAAAAAAREAIUEQMXGBkf/aAAgBAQABPxAC2ayHLF83AICD9gs3iBYPA70//9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Schematic of the build&quot;
+        title=&quot;Schematic of the build&quot;
+        src=&quot;/tech-blog/static/90f29d69abcaf7025ccf6d16af08d584/1c72d/schematic.jpg&quot;
+        srcset=&quot;/tech-blog/static/90f29d69abcaf7025ccf6d16af08d584/a80bd/schematic.jpg 148w,
+/tech-blog/static/90f29d69abcaf7025ccf6d16af08d584/1c91a/schematic.jpg 295w,
+/tech-blog/static/90f29d69abcaf7025ccf6d16af08d584/1c72d/schematic.jpg 590w,
+/tech-blog/static/90f29d69abcaf7025ccf6d16af08d584/8608d/schematic.jpg 638w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;figcaption&gt;Schematic of the build&lt;/figcaption&gt;
+&lt;h3&gt;Components&lt;/h3&gt;
+&lt;p&gt;This is what I used. I’m sure you can swap out any of these parts, but this is what worked for me. The schematic I posted is written for simplicity, you’ll need to read the datasheets for the components you use to determine which pin is which.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Arduino Uno R3&lt;/li&gt;
+&lt;li&gt;3461AS common cathode 4-digit, 7-segment (4D7S) display&lt;/li&gt;
+&lt;li&gt;74HC595 shift register&lt;/li&gt;
+&lt;li&gt;x4 2N3904 NPN transistors&lt;/li&gt;
+&lt;li&gt;x8 220 ohm resistors (R1-R8)&lt;/li&gt;
+&lt;li&gt;x4 1k ohm resistors (R9-R12)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Component notes&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Display&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The 4D7S display I’m using actually has 8 segments per digit (with the addition of the dot).&lt;/li&gt;
+&lt;li&gt;Multiplexing is required for 4D7S displays or otherwise they would need a minimum of 28 pins. Multiplexing just means we’re lighting one digit at a time so fast that it seems like they’re all lit at once.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Shift register&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I have no doubt this can be done without the shift register (using Arduino outputs to drive the segment state), but it’d use more pins and the code would be a little more verbose.&lt;/li&gt;
+&lt;li&gt;The shift register takes serial data representing which pins on the chip should be on/off. So when I use Arduino’s builtin &lt;code class=&quot;language-text&quot;&gt;shiftOut&lt;/code&gt; function with &lt;code class=&quot;language-text&quot;&gt;shiftOut(dataPin, clockPin, LSBFIRST, B11000000)&lt;/code&gt;, A and B will be HIGH while C thru H will be LOW. &lt;code class=&quot;language-text&quot;&gt;LSBFIRST&lt;/code&gt; seems to specify order. &lt;code class=&quot;language-text&quot;&gt;shiftOut(dataPin, clockPin, MSBFIRST, B00000011)&lt;/code&gt; would be the same.&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;SRCLR&lt;/code&gt; clears the shift register. I couldn’t get &lt;code class=&quot;language-text&quot;&gt;SRCLR&lt;/code&gt; working and it turns out I didn’t need it anyway. If unused, it needs to be connected to &lt;code class=&quot;language-text&quot;&gt;Vcc&lt;/code&gt;; otherwise it’ll be floating and you’ll see irregular flickering.&lt;/li&gt;
+&lt;li&gt;I don’t know what &lt;code class=&quot;language-text&quot;&gt;OE&lt;/code&gt; is, but all the examples connected it to &lt;code class=&quot;language-text&quot;&gt;GND&lt;/code&gt; so that’s what I did too.&lt;/li&gt;
+&lt;li&gt;The unused &lt;code class=&quot;language-text&quot;&gt;Qh&lt;/code&gt; is for chaining shift registers, which I didn’t need to do.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Other components&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A lot of examples omit the current limiting resistors, but it seems like you’d run the risk of blowing out an LED, transistor, or an Arduino I/O pin. &lt;a href=&quot;https://www.onetransistor.eu/2018/12/wiring-of-4digit-7segment-display.html&quot;&gt;This&lt;/a&gt; article was really helpful.&lt;/li&gt;
+&lt;li&gt;The transistors amplify current so that there’s enough to evenly light up the digits. For instance if there’s not an optimal amount of current and one digit has one segment lit while another digit has every segments lit, the digit with one segment lit will be brighter.&lt;/li&gt;
+&lt;li&gt;I’m not sure if I picked the best resistor values, that’s why I didn’t write them in the schematic. I know I should be able to do the math, but I couldn’t figure out how to get all of the values I needed for the formula.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Code&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Digit selection to 4D7S&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; digit1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; digit2 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; digit3 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; digit4 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Serial to shift register&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; clockPin &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; latchPin &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; dataPin &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// Initialize pins out outputs&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit2&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit3&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit4&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;clockPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;latchPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;dataPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; digit&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; segmentData&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// Disable all digits&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;LOW&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit2&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;LOW&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit3&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;LOW&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit4&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;LOW&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  
+  &lt;span class=&quot;token comment&quot;&gt;// Set segment data with shift register&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;latchPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;LOW&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;shiftOut&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;dataPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; clockPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; LSBFIRST&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; segmentData&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;latchPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;HIGH&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// Enable specified digit&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;HIGH&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// Wait a bit for increased brightness&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// Using binary to represent each segment&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// (1 = on, 0 = off)&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// should draw: O . o&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; B11111100&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// big circle&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit2&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; B00000001&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// just the dot&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit3&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; B00000000&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// blank&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit4&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; B00111010&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// little circle&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Code notes&lt;/h4&gt;
+&lt;p&gt;We’re multiplexing, so the order of the code is important. I struggled for weeks trying to figure out why digits had a “ghosting” effect - meaning that they showed a dim residue of the shape from the previous digit. So in pseudocode the solution is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;- Initialize variables to help legibility
+- Set the pins we&amp;#39;re using as outputs
+- Loop:
+  - Turn all digits off
+  - Load the next digit segment data into the shift register
+  - Turn the next digit on
+  - Delay for a few microseconds
+  - Repeat&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The binary is just a way of keeping track of what segment is on and which is off. You can use decimal or hexadecimal, but binary made the most sense to me. With &lt;code class=&quot;language-text&quot;&gt;LSBFIRST&lt;/code&gt; the order is: A-B-C-D-E-F-G-DP. So a big circle is &lt;code class=&quot;language-text&quot;&gt;B11111100&lt;/code&gt; or A1-B1-C1-D1-E1-F1-G0-DP0.&lt;/p&gt;
+&lt;p&gt;The delay is important and is a fine balance. Too small of a delay and the light won’t be on long enough for it to register as being bright. Too large of a delay and you’ll see the multiplexing in action. In fact it’s a good experiment to tinker with it, just remember to turn it back.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;While frustrating at times, this was a very enlightening project. In the end, I realized that I would need to separate multiplexing logic from the logic that determines the facial expression if I hope to have the expression respond to things. It seems there are chips specifically designed for multiplexing and maintaining current display state - the Max7219 seems promising in this regard. Using a chip like that would allow the microcontroller to do more complex processes without interrupting the multiplexing.&lt;/p&gt;
+&lt;p&gt;Thanks for everyone who helped me! It actually took a number of people and just about every article on 4D7S with Arduino to get it through my thick skull. If I misspoke or just missed something, let me know!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[The Browser as a Medium]]></title><description><![CDATA[When we think of art we tend to think of New York museums and galleries, people pouring paint onto canvas to the sounds of bebop jazz, or…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/browser-as-a-medium/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/browser-as-a-medium/</guid><pubDate>Wed, 26 Feb 2020 20:29:13 GMT</pubDate><content:encoded>&lt;p&gt;When we think of art we tend to think of New York museums and galleries, people pouring paint onto canvas to the sounds of bebop jazz, or sculptors with rolled up sleeves and clay drying on their faces. We rarely picture computer screens being involved. Alternatively tools available to the artist might come to mind - Photoshop and Illustrator for the visual artists or Ableton and Reason for the sound artists.&lt;/p&gt;
 &lt;p&gt;We’ll be taking a look at a different kind of art. Whereas photo editors might be used to make prints and digital audio workstations might be used to make songs, we’ll be looking at art where the program itself is the product.&lt;/p&gt;
 &lt;p&gt;Specifically we’ll be looking through the lense of modern web browsers. Tools for making digital art have been available for decades (some notable examples being Processing and openFrameworks), but people, even people within the web development community, are often surprised by wealth of resources available to us natively in the browser.&lt;/p&gt;
 &lt;h2&gt;Before We Start&lt;/h2&gt;
