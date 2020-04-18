@@ -1,4 +1,128 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 14 Apr 2020 15:28:08 GMT</lastBuildDate><item><title><![CDATA[4 Digit, 7 Segment Emoji]]></title><description><![CDATA[Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I think I learned…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/seven-segment-emoji/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/seven-segment-emoji/</guid><pubDate>Mon, 13 Apr 2020 21:25:23 GMT</pubDate><content:encoded>&lt;p&gt;&lt;span
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 18 Apr 2020 17:07:36 GMT</lastBuildDate><item><title><![CDATA[Arduino Audio Alarm]]></title><description><![CDATA[Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I think I learned…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/audio-sensor/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/audio-sensor/</guid><pubDate>Sat, 18 Apr 2020 20:29:13 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I &lt;strong&gt;think&lt;/strong&gt; I learned, but that doesn’t make it the truth.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;As a former Audio Engineer, I thought it would be fun to play with reading and making sound with Arduino. I bought a couple of sound detection modules and some ultra-loud piezo buzzers, so I thought I would make a simple alarm with them. Reading the sound was simple thanks to the modules, but I wasn’t sure how to power the buzzers to their full 24V potential since Arduino outputs a max of 5V.&lt;/p&gt;
+&lt;p&gt;Seems like my options were using a MOSFET or a relay. I had a relay lying around thanks to the Arduino kit I bought, so that’s what I ended up using. Works like a charm, so I thought I would share what I learned!&lt;/p&gt;
+&lt;h2&gt;The Build&lt;/h2&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/630406e39f09350b81902cbbfe2d7c3e/3b7f2/schematic.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 54.05405405405405%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIDBP/EABYBAQEBAAAAAAAAAAAAAAAAAAACA//aAAwDAQACEAMQAAAB1vFihnM6/8QAGhAAAQUBAAAAAAAAAAAAAAAAAQACERIgIf/aAAgBAQABBQKUHdscf//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABoQAAMAAwEAAAAAAAAAAAAAAAABESFBcVH/2gAIAQEAAT8hpZuCGzORo84Nun//2gAMAwEAAgADAAAAEFQv/8QAFREBAQAAAAAAAAAAAAAAAAAAARD/2gAIAQMBAT8QGf/EABURAQEAAAAAAAAAAAAAAAAAAAEA/9oACAECAQE/EElv/8QAGxABAAMAAwEAAAAAAAAAAAAAAQARIVFhccH/2gAIAQEAAT8QtnohIiCULEXS3TF3BrHL5LzZ/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Schematic of the build&quot;
+        title=&quot;Schematic of the build&quot;
+        src=&quot;/tech-blog/static/630406e39f09350b81902cbbfe2d7c3e/1c72d/schematic.jpg&quot;
+        srcset=&quot;/tech-blog/static/630406e39f09350b81902cbbfe2d7c3e/a80bd/schematic.jpg 148w,
+/tech-blog/static/630406e39f09350b81902cbbfe2d7c3e/1c91a/schematic.jpg 295w,
+/tech-blog/static/630406e39f09350b81902cbbfe2d7c3e/1c72d/schematic.jpg 590w,
+/tech-blog/static/630406e39f09350b81902cbbfe2d7c3e/a8a14/schematic.jpg 885w,
+/tech-blog/static/630406e39f09350b81902cbbfe2d7c3e/fbd2c/schematic.jpg 1180w,
+/tech-blog/static/630406e39f09350b81902cbbfe2d7c3e/3b7f2/schematic.jpg 1987w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;figcaption&gt;Schematic of the build&lt;/figcaption&gt;
+&lt;h3&gt;Components&lt;/h3&gt;
+&lt;p&gt;Here are the parts I used for this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Arduino Uno R3&lt;/li&gt;
+&lt;li&gt;Sound detection module for Arduino&lt;/li&gt;
+&lt;li&gt;SRD-05VDC-SL-C relay&lt;/li&gt;
+&lt;li&gt;95db 3-24V piezo buzzer&lt;/li&gt;
+&lt;li&gt;2N3904 NPN transistor&lt;/li&gt;
+&lt;li&gt;1k ohm resistor&lt;/li&gt;
+&lt;li&gt;1N4007 diode&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Component notes&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Split circuit&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I don’t know if this is the best way, but I basically made two separate circuits that each have their own power and their own ground. So in the schematic, the dotted line next to the relay specifies separate circuits.&lt;/li&gt;
+&lt;li&gt;I use a 24V DC power input that I found at Goodwill with a standard barrel input. That goes through the piezo and is switched on/off by the relay.&lt;/li&gt;
+&lt;li&gt;Everything else is part of the Arduino circuit.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sound Detection&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I’m sure you could use anything for the sound detection module - it seems like they’re all clones of one another. I used this &lt;a href=&quot;https://www.amazon.com/Comidox-Sensitivity-Microphone-Detection-Arduino/dp/B07J6N734S&quot;&gt;Comidox Sound Detection Module for Arduino&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;It has both analog and digital outputs. Analog gives you a range of values; I didn’t use this. Digital gives you a HIGH or LOW based on a threshold controlled by a built-in trim potentiometer.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Relay&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The relay is used for switching higher voltage circuits (24V for the buzzer) with logic level controls (5V Arduino).&lt;/li&gt;
+&lt;li&gt;It’s strongly encouraged to used a kickback diode with relays. When the relay switches, it can send a short, but very powerful, voltage through the circuit. My understanding is the diode protects the circuit from that voltage. This &lt;a href=&quot;https://www.youtube.com/watch?v=5kjtiY9gxGM&quot;&gt;video&lt;/a&gt; was a really great look at why you should use one.&lt;/li&gt;
+&lt;li&gt;It was recommended to use a driver circuit for the relay. I tried without it and it sounded like the relay was struggling to switch. The transistor amplifies the current to help with that and the resistor is a current limiting resistor to protect the transistor.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Buzzer&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;This build could be greatly simplified if you’re fine using a 5V buzzer. I wanted it to be really loud though, so I used &lt;a href=&quot;https://www.amazon.com/DIKAVS-3-24V-Enclosed-Electronic-Buzzer/dp/B072HRZXLG&quot;&gt;this buzzer&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;To be as loud as possible I needed the voltage (I think), which means I needed the relay, which means I needed the driver circuit.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Code&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Pin variables&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; relay &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; input &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Variables we need for the logic&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; startBeep &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; beepLength &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// Set pin direction&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;relay&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;INPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// If we&apos;re not currently beeping...&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;startBeep &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// ...and we detect sound...&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; reading &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;digitalRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;input&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;reading &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;// ...start beep and remember when we started.&lt;/span&gt;
+      startBeep &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;millis&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;relay&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;HIGH&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// Otherwise, if we are currently beeping...&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// ...and we&apos;ve been beeping longer than beepLength...&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; now &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;millis&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;startBeep &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; beepLength &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; now&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;// ...reset startBeep and stop beep.&lt;/span&gt;
+      startBeep &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;relay&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;LOW&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Code notes&lt;/h4&gt;
+&lt;p&gt;The more correct way of doing things would be split &lt;code class=&quot;language-text&quot;&gt;startBeep&lt;/code&gt; into two variables: &lt;code class=&quot;language-text&quot;&gt;startBeep&lt;/code&gt; to track when we started beeping and &lt;code class=&quot;language-text&quot;&gt;isBeeping&lt;/code&gt; to track whether we’re currently beeping. I combined those concepts so that if &lt;code class=&quot;language-text&quot;&gt;startBeep == 0&lt;/code&gt; we are not beeping and if &lt;code class=&quot;language-text&quot;&gt;startBeep &amp;gt; 0&lt;/code&gt; we are beeping, while holding when we started beeping. The &lt;code class=&quot;language-text&quot;&gt;millis&lt;/code&gt; function is built in to Arduino and tracks the milliseconds since the sketch started running.&lt;/p&gt;
+&lt;p&gt;The delays are probably too high, but they’re still essential. Without them the piezo doesn’t have time to stop beeping before we start reading the sensor input - creating an infinite beep. At 95db, you do not want an infinite loop.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Despite being a fairly simple project, it took me a lot of time to understand switching on/off circuits with Arduino. This has been several months in the making as I watched just about every video on MOSFETs and relays. I learned a great deal in the process and hopefully will be well prepared for my next, hopefully less abrasive, audio project.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[4 Digit, 7 Segment Emoji]]></title><description><![CDATA[Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I think I learned…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/seven-segment-emoji/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/seven-segment-emoji/</guid><pubDate>Mon, 13 Apr 2020 21:25:23 GMT</pubDate><content:encoded>&lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
     &gt;
@@ -40,24 +164,26 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/tech-blog/static/90f29d69abcaf7025ccf6d16af08d584/8608d/schematic.jpg&quot;
+    href=&quot;/tech-blog/static/2171b96c8cbbedde1c677facae80003a/e1596/schematic.jpg&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
   &gt;
     &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 66.89189189189189%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAIBBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIQAxAAAAHrTY1Sv//EABYQAQEBAAAAAAAAAAAAAAAAAAEQIP/aAAgBAQABBQJwT//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABkQAAMAAwAAAAAAAAAAAAAAAAABERAhMf/aAAgBAQABPyGxKog9nWP/2gAMAwEAAgADAAAAEOwP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHRAAAgIBBQAAAAAAAAAAAAAAAREAIUEQMXGBkf/aAAgBAQABPxAC2ayHLF83AICD9gs3iBYPA70//9k=&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 75%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAPABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAEEAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHouNmxMH//xAAYEAEAAwEAAAAAAAAAAAAAAAAAARESAv/aAAgBAQABBQK1plHTTT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAUEAEAAAAAAAAAAAAAAAAAAAAg/9oACAEBAAY/Al//xAAZEAADAAMAAAAAAAAAAAAAAAAAASEQMUH/2gAIAQEAAT8hT8HGymFsOj//2gAMAwEAAgADAAAAEGAP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAGxABAQEAAgMAAAAAAAAAAAAAAREAIUExcZH/2gAIAQEAAT8Qu5MlPeuFUU7xDBfudLkM684jk7//2Q==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;Schematic of the build&quot;
         title=&quot;Schematic of the build&quot;
-        src=&quot;/tech-blog/static/90f29d69abcaf7025ccf6d16af08d584/1c72d/schematic.jpg&quot;
-        srcset=&quot;/tech-blog/static/90f29d69abcaf7025ccf6d16af08d584/a80bd/schematic.jpg 148w,
-/tech-blog/static/90f29d69abcaf7025ccf6d16af08d584/1c91a/schematic.jpg 295w,
-/tech-blog/static/90f29d69abcaf7025ccf6d16af08d584/1c72d/schematic.jpg 590w,
-/tech-blog/static/90f29d69abcaf7025ccf6d16af08d584/8608d/schematic.jpg 638w&quot;
+        src=&quot;/tech-blog/static/2171b96c8cbbedde1c677facae80003a/1c72d/schematic.jpg&quot;
+        srcset=&quot;/tech-blog/static/2171b96c8cbbedde1c677facae80003a/a80bd/schematic.jpg 148w,
+/tech-blog/static/2171b96c8cbbedde1c677facae80003a/1c91a/schematic.jpg 295w,
+/tech-blog/static/2171b96c8cbbedde1c677facae80003a/1c72d/schematic.jpg 590w,
+/tech-blog/static/2171b96c8cbbedde1c677facae80003a/a8a14/schematic.jpg 885w,
+/tech-blog/static/2171b96c8cbbedde1c677facae80003a/fbd2c/schematic.jpg 1180w,
+/tech-blog/static/2171b96c8cbbedde1c677facae80003a/e1596/schematic.jpg 2048w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
@@ -115,8 +241,7 @@
 &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; latchPin &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; dataPin &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token comment&quot;&gt;// Initialize pins out outputs&lt;/span&gt;
   &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
   &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit2&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
@@ -128,8 +253,7 @@
   &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;dataPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; digit&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; segmentData&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; digit&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; segmentData&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token comment&quot;&gt;// Disable all digits&lt;/span&gt;
   &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;LOW&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
   &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;digit2&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;LOW&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
@@ -148,8 +272,7 @@
   &lt;span class=&quot;token function&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token comment&quot;&gt;// Using binary to represent each segment&lt;/span&gt;
   &lt;span class=&quot;token comment&quot;&gt;// (1 = on, 0 = off)&lt;/span&gt;
   &lt;span class=&quot;token comment&quot;&gt;// should draw: O . o&lt;/span&gt;
