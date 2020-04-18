@@ -1,7 +1,7 @@
 ---
 title: 4 Digit, 7 Segment Emoji
 date: 2020-04-13T21:25:23Z
-description: Using an Arduino and a 4 digit, 7 segment display to make emojis
+description: Using an Arduino and a 4 digit, 7 segment display to make emojis.
 ---
 
 ![Skeptical emoji on 4-digit, 7-segment display](./skeptical.jpeg)
@@ -58,8 +58,7 @@ int clockPin = 10;
 int latchPin = 11;
 int dataPin = 12;
 
-void setup()
-{
+void setup() {
   // Initialize pins out outputs
   pinMode(digit1, OUTPUT);
   pinMode(digit2, OUTPUT);
@@ -71,8 +70,7 @@ void setup()
   pinMode(dataPin, OUTPUT);
 }
 
-void display(int digit, int segmentData)
-{
+void display(int digit, int segmentData) {
   // Disable all digits
   digitalWrite(digit1, LOW);
   digitalWrite(digit2, LOW);
@@ -91,8 +89,7 @@ void display(int digit, int segmentData)
   delay(5);
 }
 
-void loop()
-{
+void loop() {
   // Using binary to represent each segment
   // (1 = on, 0 = off)
   // should draw: O . o
