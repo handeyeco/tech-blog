@@ -1,4 +1,723 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 04 May 2020 18:28:57 GMT</lastBuildDate><item><title><![CDATA[Max7219 Emoji]]></title><description><![CDATA[Blinking expression on display Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/max7219-emoji/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/max7219-emoji/</guid><pubDate>Mon, 04 May 2020 21:25:23 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/tech-blog/d8b6a3d50c3450c853be0c122beb3950/blinking.gif&quot; alt=&quot;Blinking expression on display&quot;&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 15 May 2020 23:15:55 GMT</lastBuildDate><item><title><![CDATA[Grandbot Update - Light]]></title><description><![CDATA[Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I think I learned…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/grandbot-update-light/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/grandbot-update-light/</guid><pubDate>Fri, 15 May 2020 03:25:23 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I &lt;strong&gt;think&lt;/strong&gt; I learned, but that doesn’t make it the truth.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Project originally inspired by the work of &lt;a href=&quot;https://twitter.com/MohitBhoite&quot;&gt;Mohit Bhoite&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Code references the state as of &lt;a href=&quot;https://github.com/handeyeco/Grandbot/tree/2020-05-15&quot;&gt;this tag&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The past week has been a big one for the newly named Grandbot project. I finally got to a place where I felt it was time to take a deep dive into C++ and implemented a bunch of new features while learning more about electronics and Arduino programming. Even though the hardware side of things is fairly straightforward, I’m breaking this post into several parts since the code is exponentially more complex now.&lt;/p&gt;
+&lt;p&gt;I added an RGB LED to let Grandbot emote via light. Red means he’s unhappy, otherwise he generates random colors.&lt;/p&gt;
+&lt;h2&gt;Adding an RGB LED&lt;/h2&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/b095b8d4a63caf2817d402c6e26d02d2/44af6/schematic.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 60.13513513513513%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAMABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAwABBf/EABYBAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEAMQAAAB64seR2y//8QAGBABAAMBAAAAAAAAAAAAAAAAAAEREiH/2gAIAQEAAQUCd0lmLf/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABYQAAMAAAAAAAAAAAAAAAAAAAAgQf/aAAgBAQAGPwIq/wD/xAAbEAACAgMBAAAAAAAAAAAAAAAAAREhEDFxkf/aAAgBAQABPyFvo4UfkTmxJ2OzGP/aAAwDAQACAAMAAAAQzy//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAbEAEBAQEAAwEAAAAAAAAAAAABEQAhMUFRsf/aAAgBAQABPxBkIFH0DcFeQKjZ+80fCX6TAAFzBTl5WZ4oHDf/2Q==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Schematic of the build&quot;
+        title=&quot;Schematic of the build&quot;
+        src=&quot;/tech-blog/static/b095b8d4a63caf2817d402c6e26d02d2/1c72d/schematic.jpg&quot;
+        srcset=&quot;/tech-blog/static/b095b8d4a63caf2817d402c6e26d02d2/a80bd/schematic.jpg 148w,
+/tech-blog/static/b095b8d4a63caf2817d402c6e26d02d2/1c91a/schematic.jpg 295w,
+/tech-blog/static/b095b8d4a63caf2817d402c6e26d02d2/1c72d/schematic.jpg 590w,
+/tech-blog/static/b095b8d4a63caf2817d402c6e26d02d2/a8a14/schematic.jpg 885w,
+/tech-blog/static/b095b8d4a63caf2817d402c6e26d02d2/fbd2c/schematic.jpg 1180w,
+/tech-blog/static/b095b8d4a63caf2817d402c6e26d02d2/44af6/schematic.jpg 2110w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;figcaption&gt;Schematic of the build&lt;/figcaption&gt;
+&lt;h3&gt;Components&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Common cathode RGB LED&lt;/li&gt;
+&lt;li&gt;3x 220 Ohm resistors&lt;/li&gt;
+&lt;li&gt;Arduino Uno&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Component notes&lt;/h4&gt;
+&lt;p&gt;An RGB LED is really just three LEDs in one container with a shared cathode. So just like with a regular LEDs, we need current-limiting resistors that will depend on your specific LED. In my case I used 220 Ohm resistors, but you should look into what your LED needs.&lt;/p&gt;
+&lt;h3&gt;Code&lt;/h3&gt;
+&lt;p&gt;This is just the general idea, not the complete code. There’s a link above to the full codebase.&lt;/p&gt;
+&lt;p&gt;We pass the pins for the different colors to the Grandbot constructor and the constructor initializes an instance of the Light class. Whenever Grandbot updates the expression, he updates the light.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// main.cpp&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Needs PWM pins&lt;/span&gt;
+&lt;span class=&quot;token macro property&quot;&gt;#&lt;span class=&quot;token directive keyword&quot;&gt;define&lt;/span&gt; redPin 5&lt;/span&gt;
+&lt;span class=&quot;token macro property&quot;&gt;#&lt;span class=&quot;token directive keyword&quot;&gt;define&lt;/span&gt; greenPin 6&lt;/span&gt;
+&lt;span class=&quot;token macro property&quot;&gt;#&lt;span class=&quot;token directive keyword&quot;&gt;define&lt;/span&gt; bluePin 9&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// ...set other pins...&lt;/span&gt;
+
+Grandbot gb &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Grandbot&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;dataPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; clockPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; loadPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; voicePin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; redPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; greenPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; bluePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Grandbot.cpp&lt;/span&gt;
+
+Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Grandbot&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; dataPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; clockPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; loadPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; voicePin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; redPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; greenPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; bluePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;lc&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;LedControl&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;dataPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; clockPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; loadPin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;voice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Voice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;voicePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;light&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Light&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;redPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; greenPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; bluePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// ...initializing stuff...&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setExpression&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  expression &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Expressions&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getExpression&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;writeExpression&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  light&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The Light class is pretty basic right now:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Light.h&lt;/span&gt;
+
+class &lt;span class=&quot;token class-name&quot;&gt;Light&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  private&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Keeps track of the LED pins&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; red&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; green&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; blue&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; rValue&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; gValue&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; bValue&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  public&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;Light&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; redPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; greenPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; bluePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Light.cpp&lt;/span&gt;
+
+Light&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Light&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; redPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; greenPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; bluePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  red &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; redPin&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  green &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; greenPin&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  blue &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; bluePin&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// Constructor sets the pins as outputs&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;red&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;green&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;blue&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Light&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; rValue&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; gValue&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; bValue&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// Use analog write (PWM)&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// so we don&apos;t just have HIGH and LOW values&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;analogWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;red&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; rValue&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;analogWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;green&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; gValue&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;analogWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;blue&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; bValue&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Light&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; r &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; g &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; b &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;switch&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Off when sleeping&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// (another reason to boot into sleep mode)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Random blue-ish when happy&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;r&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Random color when neutral&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;r&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; b&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Pure red when unhappy&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Code notes&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;It’s probably the most basic of the new features.&lt;/li&gt;
+&lt;li&gt;Just like Voice, we use a switch based of the current &lt;code class=&quot;language-text&quot;&gt;mood&lt;/code&gt; (stored as an int) to make color selections.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;I would like to do more with this feature. The main improvement I’d like in this department is to add a transition - which would require keeping track of current state and future state, transitioning between the two with some sort of &lt;code class=&quot;language-text&quot;&gt;void transition()&lt;/code&gt; function that can be called continuously in Grandbot’s &lt;code class=&quot;language-text&quot;&gt;update&lt;/code&gt; method.&lt;/p&gt;
+&lt;p&gt;I would also like to have a more specific color palette. For instance I’d like to be able to pick a magenta-ish color. Right now the randomness usually results in green-ish and blue-ish colors.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Grandbot Update - Play]]></title><description><![CDATA[Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I think I learned…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/grandbot-update-play/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/grandbot-update-play/</guid><pubDate>Fri, 15 May 2020 02:25:23 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I &lt;strong&gt;think&lt;/strong&gt; I learned, but that doesn’t make it the truth.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Project originally inspired by the work of &lt;a href=&quot;https://twitter.com/MohitBhoite&quot;&gt;Mohit Bhoite&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Code references the state as of &lt;a href=&quot;https://github.com/handeyeco/Grandbot/tree/2020-05-15&quot;&gt;this tag&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The past week has been a big one for the newly named Grandbot project. I finally got to a place where I felt it was time to take a deep dive into C++ and implemented a bunch of new features while learning more about electronics and Arduino programming. Even though the hardware side of things is fairly straightforward, I’m breaking this post into several parts since the code is exponentially more complex now.&lt;/p&gt;
+&lt;p&gt;As I mentioned in the last two posts, Grandbot now has “moods” that affect his sounds, expressions, and lights. So how is a mood set? By playing with him of course! Right now the only way to interact with him is with a push button, but hopefully in the future he’ll be more interactive.&lt;/p&gt;
+&lt;h2&gt;Adding a button&lt;/h2&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/3dd729ae92ad38af6b9fbd4ae2b2a157/6951b/schematic.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 52.02702702702703%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAKABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBAwX/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/2gAMAwEAAhADEAAAAdet1zYED//EABgQAAIDAAAAAAAAAAAAAAAAAAABEDFB/9oACAEBAAEFAh3Gn//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABcQAAMBAAAAAAAAAAAAAAAAAAARIDH/2gAIAQEABj8C0U//xAAbEAEAAgIDAAAAAAAAAAAAAAABABEQITFBYf/aAAgBAQABPyGm+cSVLs8hdbZ3l//aAAwDAQACAAMAAAAQCO//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAcEAEAAgIDAQAAAAAAAAAAAAABABExQSFRcZH/2gAIAQEAAT8QovYOqOIWSsTbJ3Hkb6Q4+RwjlNvs/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Schematic of the build&quot;
+        title=&quot;Schematic of the build&quot;
+        src=&quot;/tech-blog/static/3dd729ae92ad38af6b9fbd4ae2b2a157/1c72d/schematic.jpg&quot;
+        srcset=&quot;/tech-blog/static/3dd729ae92ad38af6b9fbd4ae2b2a157/a80bd/schematic.jpg 148w,
+/tech-blog/static/3dd729ae92ad38af6b9fbd4ae2b2a157/1c91a/schematic.jpg 295w,
+/tech-blog/static/3dd729ae92ad38af6b9fbd4ae2b2a157/1c72d/schematic.jpg 590w,
+/tech-blog/static/3dd729ae92ad38af6b9fbd4ae2b2a157/a8a14/schematic.jpg 885w,
+/tech-blog/static/3dd729ae92ad38af6b9fbd4ae2b2a157/fbd2c/schematic.jpg 1180w,
+/tech-blog/static/3dd729ae92ad38af6b9fbd4ae2b2a157/6951b/schematic.jpg 1950w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;figcaption&gt;Schematic of the build&lt;/figcaption&gt;
+&lt;h3&gt;Components&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Push button&lt;/li&gt;
+&lt;li&gt;10k Ohm resistor&lt;/li&gt;
+&lt;li&gt;Arduino Uno&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Component notes&lt;/h4&gt;
+&lt;p&gt;There’s not much to this one. As far as I understand it, the resistor is a pull-down resistor to prevent the pin from floating when the button is not pressed.&lt;/p&gt;
+&lt;h3&gt;Code&lt;/h3&gt;
+&lt;p&gt;The code is pretty rough right now, but hopefully the idea is there. I’m not going to show everything, just the button-related stuff.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// main.cpp&lt;/span&gt;
+
+&lt;span class=&quot;token macro property&quot;&gt;#&lt;span class=&quot;token directive keyword&quot;&gt;define&lt;/span&gt; playPin 2&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// ...set other pins...&lt;/span&gt;
+
+Grandbot gb &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Grandbot&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;dataPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; clockPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; loadPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; voicePin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; redPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; greenPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; bluePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Used to track the transition&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// between on and off&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; lastPlayState &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;playPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;INPUT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// Get current state of button&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; playing &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;digitalRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;playPin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// Do different things if button state changed&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;playing &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; lastPlayState &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    gb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    lastPlayState &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;lastPlayState&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;playing &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; lastPlayState &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    lastPlayState &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;lastPlayState&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;As I mentioned a previous post, Grandbot’s &lt;code class=&quot;language-text&quot;&gt;esteem&lt;/code&gt; is based on how often he’s played with, his &lt;code class=&quot;language-text&quot;&gt;mood&lt;/code&gt; is based off his &lt;code class=&quot;language-text&quot;&gt;esteem&lt;/code&gt;, and everything else is based on his &lt;code class=&quot;language-text&quot;&gt;mood&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Grandbot.cpp&lt;/span&gt;
+
+class &lt;span class=&quot;token class-name&quot;&gt;Grandbot&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    private&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;// -1 = uninitialized&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;//  0 = sleeping&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;//  1 = happy&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;//  2 = neutral&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;//  3 = unhappy&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; mood &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;// between 0 (unhappiest) and 9 (happiest)&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; esteem &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;updateEsteem&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;updateMood&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        unsigned &lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; lastPlayTime &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    public&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; light&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We want to encourage regular interactions throughout the day, rather than just playing a bunch all at once. So we only bump &lt;code class=&quot;language-text&quot;&gt;esteem&lt;/code&gt; once for every hour of play (3,600,00ms).&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Grandbot.cpp&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  unsigned &lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; now &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;millis&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  unsigned &lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; thresh &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; lastPlayTime &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3600000LL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// If last play was at least an hour ago,&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// bump esteem&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;now &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; thresh&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    lastPlayTime &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; now&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Max esteem is 9&lt;/span&gt;
+    esteem &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; esteem &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;token function&quot;&gt;updateMood&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  voice&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;emote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;updateMood&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; last &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; mood&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; next&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;esteem &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    next &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;esteem &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    next &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    next &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  mood &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; next&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token function&quot;&gt;setExpression&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;last &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; next&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Known bug, double emote&lt;/span&gt;
+    voice&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;emote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That’s the code to make him happier. The code to make him sadder (from being ignored):&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Grandbot.cpp&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Gets called every loop in main.cpp&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; light&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  unsigned &lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; now &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;millis&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// ...sleep related stuff...&lt;/span&gt;
+  
+  &lt;span class=&quot;token comment&quot;&gt;// If he&apos;s not sleeping or initializing&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mood &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;now &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; nextExpressionChange&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;updateEsteem&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;setExpression&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      nextExpressionChange &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;getNextExpressionChange&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;// ...blinking related stuff...&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// ...more sleep related stuff...&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;updateEsteem&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  unsigned &lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; now &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;millis&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  unsigned &lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; thresh &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; lastPlayTime &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;21600000LL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// If he hasn&apos;t been played with in the last 6 hours&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;now &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; thresh&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Need to update this&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// or he&apos;ll quickly go from 9 to 0&lt;/span&gt;
+    lastPlayTime &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; now&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;// Minimum esteem is 0&lt;/span&gt;
+    esteem &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; esteem &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;updateMood&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So if you play with him once an hour, his esteem will go up by 1 to a max of 9. If you ignore him for six hours, his esteem will go down by 1 to a min of 0. These values need to be stored somewhere else so they’re easy to change.&lt;/p&gt;
+&lt;p&gt;The bug I ran into was that he kept waking up unhappy. I intentionally skipped updating esteem while he was sleeping, but as soon as he woke up &lt;code class=&quot;language-text&quot;&gt;lastPlayTime&lt;/code&gt; was greater than 6 hours ago. So when he wakes up:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;wakeup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// So he doesn&apos;t wake up angry&lt;/span&gt;
+  lastPlayTime &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;millis&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// ...wakeup stuff...&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It’s not a perfect solution, but it works well enough for me.&lt;/p&gt;
+&lt;h4&gt;Code notes&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The code really needs refactoring. Even though it works as I would hope, it’s a little hard to follow and uses some “magic numbers.”&lt;/li&gt;
+&lt;li&gt;There’s a known bug where if you play with Grandbot and he changes moods, he’ll emote twice. Not the worst thing in the world.&lt;/li&gt;
+&lt;li&gt;Trying to find the right balance for threshold times is an art not yet mastered. I think six hours is too long, so I’ll probably lower that and tweak the esteem-to-mood numbers.&lt;/li&gt;
+&lt;li&gt;I only update esteem when updating expressions (&lt;code class=&quot;language-text&quot;&gt;nextExpressionChange&lt;/code&gt;) because the timing isn’t that important and I don’t want to run it every loop. It’s placing is a little confusing, so I may make a new variable like &lt;code class=&quot;language-text&quot;&gt;nextEsteemUpdate&lt;/code&gt; or rename &lt;code class=&quot;language-text&quot;&gt;nextExpressionChange&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;I’d like to add more interaction that contributes to his mood. Sensing movement, reacting to date/time, and maybe even making mini-games to play with people. This is a good start though in seeking his own identity. More and more he’s controlling his own feelings and I’m just trying to keep up!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Grandbot Update - Voice]]></title><description><![CDATA[Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I think I learned…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/grandbot-update-voice/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/grandbot-update-voice/</guid><pubDate>Fri, 15 May 2020 01:25:23 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I &lt;strong&gt;think&lt;/strong&gt; I learned, but that doesn’t make it the truth.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Project originally inspired by the work of &lt;a href=&quot;https://twitter.com/MohitBhoite&quot;&gt;Mohit Bhoite&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Code references the state as of &lt;a href=&quot;https://github.com/handeyeco/Grandbot/tree/2020-05-15&quot;&gt;this tag&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The past week has been a big one for the newly named Grandbot project. I finally got to a place where I felt it was time to take a deep dive into C++ and implemented a bunch of new features while learning more about electronics and Arduino programming. Even though the hardware side of things is fairly straightforward, I’m breaking this post into several parts since the code is exponentially more complex now.&lt;/p&gt;
+&lt;p&gt;This post is about using a passive buzzer to let Grandbot sing randomly generated melodies.&lt;/p&gt;
+&lt;h2&gt;Adding a buzzer&lt;/h2&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/ed9ed32c3a0583776b3f7c48032eae34/c8451/schematic.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 47.2972972972973%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAJABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAECAwX/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/2gAMAwEAAhADEAAAAdSDM1lYf//EABgQAQADAQAAAAAAAAAAAAAAAAEAEBEh/9oACAEBAAEFAuzVdtn/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAWEAADAAAAAAAAAAAAAAAAAAAAIFH/2gAIAQEABj8CIv8A/8QAGxAAAgMAAwAAAAAAAAAAAAAAABEBMUFRYXH/2gAIAQEAAT8hfKF4JbTobScJssf/2gAMAwEAAgADAAAAEPsv/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAGxABAAMBAAMAAAAAAAAAAAAAAQAhMRFRYXH/2gAIAQEAAT8Qeg7sVDobD6P25ypi+SiYjGaz/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Schematic of the build&quot;
+        title=&quot;Schematic of the build&quot;
+        src=&quot;/tech-blog/static/ed9ed32c3a0583776b3f7c48032eae34/1c72d/schematic.jpg&quot;
+        srcset=&quot;/tech-blog/static/ed9ed32c3a0583776b3f7c48032eae34/a80bd/schematic.jpg 148w,
+/tech-blog/static/ed9ed32c3a0583776b3f7c48032eae34/1c91a/schematic.jpg 295w,
+/tech-blog/static/ed9ed32c3a0583776b3f7c48032eae34/1c72d/schematic.jpg 590w,
+/tech-blog/static/ed9ed32c3a0583776b3f7c48032eae34/a8a14/schematic.jpg 885w,
+/tech-blog/static/ed9ed32c3a0583776b3f7c48032eae34/fbd2c/schematic.jpg 1180w,
+/tech-blog/static/ed9ed32c3a0583776b3f7c48032eae34/c8451/schematic.jpg 1974w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;figcaption&gt;Schematic of the build&lt;/figcaption&gt;
+&lt;h3&gt;Components&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Passive buzzer&lt;/li&gt;
+&lt;li&gt;220 Ohm resistor&lt;/li&gt;
+&lt;li&gt;Arduino Uno&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Component notes&lt;/h4&gt;
+&lt;p&gt;I’m using a passive buzzer that came with a kit, but I can’t determine any type of part number. The datasheet says it’s capable of handling 3-12V and its resistance is “16R” (16 Ohms?)&lt;/p&gt;
+&lt;p&gt;According to &lt;a href=&quot;https://forum.arduino.cc/index.php?topic=16262.0&quot;&gt;this thread&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;According to the buzzer documentation, the ‘coil resistance’ is 42R +- (plus or minus) 6.3&lt;/p&gt;
+&lt;p&gt;ohms law: voltage = current * resistance&lt;/p&gt;
+&lt;p&gt;Other turn-arounds of this formula:&lt;/p&gt;
+&lt;p&gt;resistance = voltage / current&lt;/p&gt;
+&lt;p&gt;current = voltage / resistance (we’re using this one)&lt;/p&gt;
+&lt;p&gt;Arduino voltage is 5 volts from USB (correct? does this change with plug up to 12v?)&lt;/p&gt;
+&lt;p&gt;5 volts / 42R = .119A, or 119mA: That’s 79mA too much current.&lt;/p&gt;
+&lt;p&gt;To fix:&lt;/p&gt;
+&lt;p&gt;100R resistor + 42R buzzer = 142R&lt;/p&gt;
+&lt;p&gt;5v / 142R = .0352Am, or 35.2mA: That’s less than the 40mA of the Arduino AVR: Success!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So for me &lt;code class=&quot;language-text&quot;&gt;5V / 16R = .312A&lt;/code&gt;. 312mA &gt; 40mA, so I need to limit the current. I added 220 Ohms: &lt;code class=&quot;language-text&quot;&gt;5V / (16R + 220) = .021A&lt;/code&gt;. 21mA &amp;#x3C; 40mA, so we’re good to go! I could have used less resistance, but I’m fine with the buzzer being a little quieter.&lt;/p&gt;
+&lt;h3&gt;Code&lt;/h3&gt;
+&lt;p&gt;This is just the general idea, not the complete code. There’s a link above to the full codebase.&lt;/p&gt;
+&lt;p&gt;The code uses an array of pitches and the Tone library to create little melodies based on Grandbot’s mood. I want to improve the different mood sounds, but right now he plays the same two low frequencies when unhappy, a random note when in a neutral mood, a series of random notes when happy, and a random Major 7th chord when going to sleep.&lt;/p&gt;
+&lt;p&gt;It’s all pretty straightforward, the only tricky part was getting true randomness. Arduino’s &lt;code class=&quot;language-text&quot;&gt;random&lt;/code&gt; function is a pseudorandom number generator, so Grandbot kept playing the same tunes. The solution was to use a floating analog pin as a seed.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// main.cpp&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Pin connected to buzzer&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// (needs to be a PWM pin)&lt;/span&gt;
+&lt;span class=&quot;token macro property&quot;&gt;#&lt;span class=&quot;token directive keyword&quot;&gt;define&lt;/span&gt; voicePin 3&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Leave unconnected&lt;/span&gt;
+&lt;span class=&quot;token macro property&quot;&gt;#&lt;span class=&quot;token directive keyword&quot;&gt;define&lt;/span&gt; randomPin A5&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// ...set other pins...&lt;/span&gt;
+
+Grandbot gb &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Grandbot&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;dataPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; clockPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; loadPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; voicePin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; redPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; greenPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; bluePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;randomSeed&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;analogRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;randomPin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Then we have a &lt;code class=&quot;language-text&quot;&gt;Voice&lt;/code&gt; class:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Voice.h&lt;/span&gt;
+
+class &lt;span class=&quot;token class-name&quot;&gt;Voice&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  private&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; m_voicePin&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    static const &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; pitches&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;playMajor7th&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;playRandomSequence&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;playRandomNote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; note&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; note&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; duration&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  public&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;Voice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; voicePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;feedback&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;emote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This has some helper functions for using Tone:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Voice.cpp&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Voice&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; note&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;note&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;75&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Voice&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; note&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; duration&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;tone&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;m_voicePin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; note&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;duration&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;noTone&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;m_voicePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;An array of pitches:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Voice.cpp&lt;/span&gt;
+
+const &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; Voice&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;pitches&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; 
+  &lt;span class=&quot;token number&quot;&gt;1047&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; 
+  &lt;span class=&quot;token number&quot;&gt;1109&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; 
+  &lt;span class=&quot;token number&quot;&gt;1175&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// ...etc...&lt;/span&gt;
+  &lt;span class=&quot;token number&quot;&gt;4435&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; 
+  &lt;span class=&quot;token number&quot;&gt;4699&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; 
+  &lt;span class=&quot;token number&quot;&gt;4978&lt;/span&gt; 
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Some internal sound making fun:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Voice.cpp&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Voice&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;playMajor7th&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; duration &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;250&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// Pick the chord&apos;s starting note&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; start &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// Step through the Major 7th intervals&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;pitches&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;start&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; duration&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;pitches&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;start&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; duration&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;pitches&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;start&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; duration&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;pitches&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;start&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; duration&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Voice&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;playRandomSequence&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; len &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;random&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; len&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;playRandomNote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Voice&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;playRandomNote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; rand &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; note &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Voice&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;pitches&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;rand&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;note&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;I’ve since found a better way to get a random entry from an array in C++ (by first determining array length), but this has been working for now.&lt;/p&gt;
+&lt;p&gt;Last in this file are two public methods:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Voice.cpp&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Chirp when we want feedback&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// (not currently in use)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Voice&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;feedback&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;playRandomNote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Play a melody based on mood (stored as an int)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Voice&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;emote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;switch&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Sleeping&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;playMajor7th&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Happy&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;playRandomSequence&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Neutral&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;playRandomNote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Unhappy&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Grandbot stores an instance of Voice and calls it from time-to-time.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Grandbot&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; dataPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; clockPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; loadPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; voicePin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; redPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; greenPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; bluePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;lc&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;LedControl&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;dataPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; clockPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; loadPin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;voice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Voice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;voicePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;light&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Light&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;redPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; greenPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; bluePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// Initializing stuff&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;updateMood&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; last &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; mood&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; next&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// ...determine next mood...&lt;/span&gt;
+
+  mood &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; next&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;last &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; next&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    voice&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;emote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// ...sleep stuff...&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// So we don&apos;t play a sound&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// if we reset at night&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lastMood &lt;span class=&quot;token operator&quot;&gt;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    voice&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;emote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// ...playful stuff...&lt;/span&gt;
+
+  &lt;span class=&quot;token function&quot;&gt;updateMood&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  voice&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;emote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mood&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Code notes&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;I should probably have a separate Pitch file.&lt;/li&gt;
+&lt;li&gt;Randomly selecting things should be done by determining the array length, rather than using a hard-coded value.&lt;/li&gt;
+&lt;li&gt;I’d like to add more functions for specific chords and then auto-generate small chord progressions. I also think this is a good foundation for a game to play with Grandbot (like Simon).&lt;/li&gt;
+&lt;li&gt;The instance of Voice created in the Grandbot constructor is made with an initializer list. The compiler threw an error because I didn’t have a default constructor for Voice, so I just initialized it in the initializer list. I’m not sure if there was something else I should have done.&lt;/li&gt;
+&lt;li&gt;I’m considering creating the class instances outside of Grandbot and handing them to Grandbot’s constructor rather than creating them in the constructor. The downside is I wouldn’t be able to run to Grandbots on one Arduino that way. 🤷‍♀️&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Really love his random sequences. The Major 7th chord is pretty, but the random sequence makes it seem like he’s trying to communicate. I do want to make the neutral response better though, it’s a little boring right now.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Grandbot Update - Sleep]]></title><description><![CDATA[Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I think I learned…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/grandbot-update-sleep/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/grandbot-update-sleep/</guid><pubDate>Fri, 15 May 2020 00:25:23 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I &lt;strong&gt;think&lt;/strong&gt; I learned, but that doesn’t make it the truth.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Project originally inspired by the work of &lt;a href=&quot;https://twitter.com/MohitBhoite&quot;&gt;Mohit Bhoite&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Code references the state as of &lt;a href=&quot;https://github.com/handeyeco/Grandbot/tree/2020-05-15&quot;&gt;this tag&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The past week has been a big one for the newly named Grandbot project. I finally got to a place where I felt it was time to take a deep dive into C++ and implemented a bunch of new features while learning more about electronics and Arduino programming. Even though the hardware side of things is fairly straightforward, I’m breaking this post into several parts since the code is exponentially more complex now.&lt;/p&gt;
+&lt;p&gt;This post is about putting Grandbot to sleep when it gets dark.&lt;/p&gt;
+&lt;h2&gt;Adding a photoresistor&lt;/h2&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/1332512bf33072f49df30ccd80ee79e7/e018a/schematic.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 59.45945945945946%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAMABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAgADBf/EABYBAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEAMQAAAB6uKOa4R//8QAGBABAQEBAQAAAAAAAAAAAAAAAREAECH/2gAIAQEAAQUCrqmG6+PP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFxAAAwEAAAAAAAAAAAAAAAAAACBBIv/aAAgBAQAGPwKGiJ//xAAcEAACAgIDAAAAAAAAAAAAAAAAAREhMVFhcZH/2gAIAQEAAT8h4fQ78LxdD0ltuiQtD0Ns/9oADAMBAAIAAwAAABA4L//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EAB4QAQACAQQDAAAAAAAAAAAAAAEAESExQVGBYaHR/9oACAEBAAE/EBBsDbL5FlCnBxV15jXJKEte5yIm0t2ruKdZ/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Schematic of the build&quot;
+        title=&quot;Schematic of the build&quot;
+        src=&quot;/tech-blog/static/1332512bf33072f49df30ccd80ee79e7/1c72d/schematic.jpg&quot;
+        srcset=&quot;/tech-blog/static/1332512bf33072f49df30ccd80ee79e7/a80bd/schematic.jpg 148w,
+/tech-blog/static/1332512bf33072f49df30ccd80ee79e7/1c91a/schematic.jpg 295w,
+/tech-blog/static/1332512bf33072f49df30ccd80ee79e7/1c72d/schematic.jpg 590w,
+/tech-blog/static/1332512bf33072f49df30ccd80ee79e7/a8a14/schematic.jpg 885w,
+/tech-blog/static/1332512bf33072f49df30ccd80ee79e7/fbd2c/schematic.jpg 1180w,
+/tech-blog/static/1332512bf33072f49df30ccd80ee79e7/e018a/schematic.jpg 1876w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;figcaption&gt;Schematic of the build&lt;/figcaption&gt;
+&lt;h3&gt;Components&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Photoresistor (I used an LXD5537; dark 20M Ohm, light 18-50k Ohm)&lt;/li&gt;
+&lt;li&gt;10k Ohm resistor&lt;/li&gt;
+&lt;li&gt;Arduino Uno&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Component notes&lt;/h4&gt;
+&lt;p&gt;For reading different values (rather than just &lt;code class=&quot;language-text&quot;&gt;HIGH&lt;/code&gt;/&lt;code class=&quot;language-text&quot;&gt;LOW&lt;/code&gt;), we have to use an analog input on the Arduino.&lt;/p&gt;
+&lt;p&gt;The resistor is a pull down resistor. I chose 10k Ohm according to &lt;a href=&quot;https://learn.adafruit.com/photocells/using-a-photocell&quot;&gt;this guide&lt;/a&gt; because I’m more concerned with darker values. Frmo that page:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If you’re planning to have the sensor in a bright area and use a 10KΩ pulldown, it will quickly saturate. That means that it will hit the ‘ceiling’ of 5V and not be able to differentiate between kinda bright and really bright. In that case, you should replace the 10KΩ pulldown with a 1KΩ pulldown. In that case, it will not be able to detect dark level differences as well but it will be able to detect bright light differences better. This is a tradeoff that you will have to decide upon&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://forum.arduino.cc/index.php?topic=18241.0&quot;&gt;This page&lt;/a&gt; was also a helpful resource. From it:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The analogue input is high impedance that means when you connect it to the +5 and the input virtually no current flows. If there is no current flowing through a resistor then there is no voltage drop across it, and so it always reads high.&lt;/p&gt;
+&lt;p&gt;The pull down resistor makes current flow through the photo resistor and so different light levels result in different currents and hence different voltages (ohms law) which the analogue input can measure.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;Code&lt;/h3&gt;
+&lt;p&gt;The code is still being refined, but the basic idea is that when we’re below a “sleep threshold” we should go to sleep and when we’re above a “wake threshold” we should wake. It’s important that these two thresholds are different. Initially I used a single threshold and when it reached that reading, slight fluctuations in light caused it to continuously switch between on and off. Keeping the two thresholds far away enough from each other allowed the switch to happen without immediately flapping back and forth.&lt;/p&gt;
+&lt;p&gt;The code grew quite a bit, which is why I linked to the full code above. I’m just going to show the general concept.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// main.cpp&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Use the Analog 0 pin&lt;/span&gt;
+&lt;span class=&quot;token macro property&quot;&gt;#&lt;span class=&quot;token directive keyword&quot;&gt;define&lt;/span&gt; lightPin A0&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// ...set other pins...&lt;/span&gt;
+
+Grandbot gb &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Grandbot&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;dataPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; clockPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; loadPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; voicePin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; redPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; greenPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; bluePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; light &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;analogRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lightPin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// Pass the light reading to Grandbot&apos;s update method&lt;/span&gt;
+  gb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;light&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Grandbot.h&lt;/span&gt;
+
+class &lt;span class=&quot;token class-name&quot;&gt;Grandbot&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    private&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;wakeup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;// -1 = uninitialized&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;//  0 = sleeping&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;//  1 = happy&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;//  2 = neutral&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;//  3 = unhappy&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; mood &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;token comment&quot;&gt;// These thresholds need to be different&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;// to prevent flapping between on/off&lt;/span&gt;
+        static const &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; wakeThreshold &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        static const &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; sleepThreshold &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    public&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token function&quot;&gt;Grandbot&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; dataPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; clockPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; loadPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; voicePin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; redPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; greenPin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; bluePin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; light&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;arduino&quot;&gt;&lt;pre class=&quot;language-arduino&quot;&gt;&lt;code class=&quot;language-arduino&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Grandbot.cpp&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; light&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;boolean&lt;/span&gt; awake &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; light &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;wakeThreshold&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;boolean&lt;/span&gt; asleep &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; light &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;sleepThreshold&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// If mood == sleep and light &gt; wakeThresh: wakeup.&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mood &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;awake&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;wakeup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;token comment&quot;&gt;// If mood != sleep or uninitialized...&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mood &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// ...and light &amp;lt; sleepThresh: go to sleep.&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;asleep&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;// ...do other stuff here...&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;token comment&quot;&gt;// Otherwise we&apos;re uninitialized,&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// so we start in sleep mode.&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// Dim the 4D7S display&lt;/span&gt;
+  lc&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setIntensity&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// Set mood to sleep&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// and update expression&lt;/span&gt;
+  mood &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;setExpression&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; Grandbot&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;wakeup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// Kickstart blinking&lt;/span&gt;
+  nextBlink &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;getNextBlink&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  blinkLength &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;getBlinkLength&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// Brighten 4D7S display&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// and update expression&lt;/span&gt;
+  lc&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setIntensity&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;updateMood&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Code notes&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;We keep track of state in the &lt;code class=&quot;language-text&quot;&gt;mood&lt;/code&gt; variable. The facial expressions, RGB LED colors, and sounds are all derived from &lt;code class=&quot;language-text&quot;&gt;mood&lt;/code&gt; and mood is mostly derived from &lt;code class=&quot;language-text&quot;&gt;esteem&lt;/code&gt; (not shown here; it’s based on how often Grandbot is played with). The exceptions are two states: &lt;code class=&quot;language-text&quot;&gt;uninitialized&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;sleeping&lt;/code&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;uninitialized&lt;/code&gt; (-1) is set when booting so I can have special behavior on initial loading.&lt;/li&gt;
+&lt;li&gt;As you see here, &lt;code class=&quot;language-text&quot;&gt;sleep&lt;/code&gt; (0) is based on light input.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Grandbot wakes up if it’s been asleep and if light input is above the &lt;code class=&quot;language-text&quot;&gt;wakeThreshold&lt;/code&gt;. Waking up starts blinking behavior, turns up the brightness of the display, and updates &lt;code class=&quot;language-text&quot;&gt;mood&lt;/code&gt; (based on esteem). I didn’t show this, but it also updates &lt;code class=&quot;language-text&quot;&gt;lastPlayTime&lt;/code&gt; so it doesn’t wake up unhappy.&lt;/li&gt;
+&lt;li&gt;Grandbot goes to sleep if it’s uninitialized or if it’s in a normal mood and the light reading is below the &lt;code class=&quot;language-text&quot;&gt;sleepThreshold&lt;/code&gt;. Sleep dims the 4D7S display and sets a sleep expression. I didn’t show this, but it also plays sleepy music if it’s going to sleep from a normal mood (not when it’s being initialized).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Hopefully this gets the idea across, but the link to the current state of the code is above. It might clear things up, but it’ll probably just make any sane developer sad.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;It’s really cute to see Grandbot go to sleep! As I’ll write about in other posts, it plays a little tune when going to bed: a random arpeggiated Major 7th chord.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Max7219 Emoji]]></title><description><![CDATA[Blinking expression on display Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/max7219-emoji/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/max7219-emoji/</guid><pubDate>Mon, 04 May 2020 21:25:23 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/tech-blog/d8b6a3d50c3450c853be0c122beb3950/blinking.gif&quot; alt=&quot;Blinking expression on display&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I &lt;strong&gt;think&lt;/strong&gt; I learned, but that doesn’t make it the truth.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Project originally inspired by the work of &lt;a href=&quot;https://twitter.com/MohitBhoite&quot;&gt;Mohit Bhoite&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;In my last &lt;a href=&quot;https://handeyeco.github.io/tech-blog/seven-segment-emoji/&quot;&gt;post&lt;/a&gt; on 4-digit, 7-segment displays, I realized I would need help multiplexing if I wanted to free up the Arduino to do more complex things (like using sensors and changing expressions). In the end I decided to use the Max7219 display driver and the LedControl Arduino library.&lt;/p&gt;
