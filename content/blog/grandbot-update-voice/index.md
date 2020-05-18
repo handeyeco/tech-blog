@@ -27,9 +27,9 @@ This post is about using a passive buzzer to let Grandbot sing randomly generate
 
 #### Component notes
 
-I'm using a passive buzzer that came with a kit, but I can't determine any type of part number. The datasheet says it's capable of handling 3-12V and its resistance is "16R" (16 Ohms?)
+I'm using a passive buzzer that came with a kit, but I can't find any part number for it. The datasheet says it's capable of handling 3-12V and its resistance is "16R" (16 Ohms?)
 
-According to [this thread](https://forum.arduino.cc/index.php?topic=16262.0):
+From this thread [this thread](https://forum.arduino.cc/index.php?topic=16262.0):
 
 > According to the buzzer documentation, the 'coil resistance' is 42R +- (plus or minus) 6.3
 >
@@ -252,3 +252,5 @@ void Grandbot::play() {
 ## Conclusion
 
 Really love his random sequences. The Major 7th chord is pretty, but the random sequence makes it seem like he's trying to communicate. I do want to make the neutral response better though, it's a little boring right now.
+
+Another problem is that using `delay` for note length blocks the thread. For instance the sleep melody is 4 notes at 250ms; that means nothing else can happen for the 1 second it's playing that tune. Not sure if there's a pay to pass this functionality to an external IC like I did with multiplexing the 4D7S display.

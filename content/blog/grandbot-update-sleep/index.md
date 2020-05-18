@@ -29,7 +29,7 @@ This post is about putting Grandbot to sleep when it gets dark.
 
 For reading different values (rather than just `HIGH`/`LOW`), we have to use an analog input on the Arduino.
 
-The resistor is a pull down resistor. I chose 10k Ohm according to [this guide](https://learn.adafruit.com/photocells/using-a-photocell) because I'm more concerned with darker values. Frmo that page:
+The resistor is a pull down resistor. I chose 10k Ohm according to [this guide](https://learn.adafruit.com/photocells/using-a-photocell) because I'm more concerned with darker values. From that page:
 
 > If you're planning to have the sensor in a bright area and use a 10KΩ pulldown, it will quickly saturate. That means that it will hit the 'ceiling' of 5V and not be able to differentiate between kinda bright and really bright. In that case, you should replace the 10KΩ pulldown with a 1KΩ pulldown. In that case, it will not be able to detect dark level differences as well but it will be able to detect bright light differences better. This is a tradeoff that you will have to decide upon
 
@@ -153,4 +153,4 @@ Hopefully this gets the idea across, but the link to the current state of the co
 
 ## Conclusion
 
-It's really cute to see Grandbot go to sleep! As I'll write about in other posts, it plays a little tune when going to bed: a random arpeggiated Major 7th chord.
+It's really cute to see Grandbot go to sleep! As I'll write about in other posts, it plays a little tune when going to bed: a random, arpeggiated, Major 7th chord.

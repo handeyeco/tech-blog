@@ -199,4 +199,4 @@ It's not a perfect solution, but it works well enough for me.
 
 ## Conclusion
 
-I'd like to add more interaction that contributes to his mood. Sensing movement, reacting to date/time, and maybe even making mini-games to play with people. This is a good start though in seeking his own identity. More and more he's controlling his own feelings and I'm just trying to keep up!
+I'd like to add more interaction that contributes to his mood. Sensing movement, reacting to date/time, and maybe even making mini-games to play with people. For now though, this is a good start on giving Grandbot his own identity. More and more he's controlling his own feelings and I'm just trying to keep up!
