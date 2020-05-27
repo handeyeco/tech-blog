@@ -4,6 +4,8 @@ date: 2020-05-27T21:25:23Z
 description: Long-running, non-blocking behavior in Arduino's single thread.
 ---
 
+_For a more fleshed out example, you can see how Grandbot uses this behavior as of this [tag](https://github.com/handeyeco/Grandbot/tree/2020-05-27) for his [light](https://github.com/handeyeco/Grandbot/blob/2020-05-27/src/Light.cpp) and [voice](https://github.com/handeyeco/Grandbot/blob/2020-05-27/src/Voice.cpp)._
+
 In an effort to create smooth RGB LED transitions in Arduino in a way that didn't completely block the main thread, I explored tweening using a repeatedly called update method in the class controlling my LED. Unfortunately part of my project, a buzzer playing a little melody, also blocked the main thread and broke my LED tweening. This was an existing bug that also blocked interaction with the project, so it was an opportunity to learn more about keeping the main thread free while improving the project.
 
 In this post I'll talk about creating long-running yet non-blocking transitions for RGB LEDs and also cover a strategy for playing melodies with the Arduino `tone` function without blocking the main thread.
