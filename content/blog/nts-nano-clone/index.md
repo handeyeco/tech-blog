@@ -1,6 +1,6 @@
 ---
 title: Note to Self - Nano Clone on High Sierra
-date: 2020-05-27T21:25:23Z
+date: 2020-05-27T01:25:23Z
 description: Setting up an Arduino Nano clone on OSX High Sierra with PlatformIO.
 ---
 
