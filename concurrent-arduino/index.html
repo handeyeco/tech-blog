@@ -179,7 +179,7 @@ unsigned <span class="token keyword">long</span> noteStart <span class="token op
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre></div>
 <p>So the secret here is that <code class="language-text">tone</code> doesn’t need the thread to run, people just tend to block the thread to keep track of how long we’ve been playing the tone. If we don’t care too much about precision we can start the tone, do other things, and check in regularly to see if we need to stop or change the tone.</p>
-<p>Obviously the code is chaotic and the way I’m managing the arrangement or notes/beats isn’t ideal, but this could all probably be cleaned up. For my own project I made the note/beat arrays pretty big and just rewrote the values when the melody needed to change.</p>
+<p>Obviously the code is chaotic and the way I’m managing the arrangement of notes/beats isn’t ideal, but this could all probably be cleaned up. For my own project I made the note/beat arrays pretty big and just rewrote the values when the melody needed to change.</p>
 <p>Unfortunately this created its own issue: since the button-press played a melody and the melody was blocking, the melody acted as a sort of debounce for the button. Now that the melody is non-blocking, the button-press is a little more jittery.</p>
 <h2>Conclusion</h2>
 <p>So the basic idea is pretty straight-forward, we have a master loop and several “services” (as feature-specific classes) that each have their own loops that run and release the thread as quickly as possible. With this paradigm we can start “multitasking” on a single thread!</p>
