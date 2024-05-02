@@ -1,5 +1,5 @@
 ---
-title: Grandbot Update - Play 
+title: "Grandbot: Play"
 date: 2020-05-15T02:25:23Z
 description: Interacting with Grandbot to make him happy.
 ---
@@ -9,6 +9,8 @@ _**Disclaimer:** I don't know what I'm talking about. I'm a JavaScript dev who's
 _Project originally inspired by the work of [Mohit Bhoite](https://twitter.com/MohitBhoite)._
 
 _Code references the state as of [this tag](https://github.com/handeyeco/Grandbot/tree/2020-05-15)._
+
+---
 
 The past week has been a big one for the newly named Grandbot project. I finally got to a place where I felt it was time to take a deep dive into C++ and implemented a bunch of new features while learning more about electronics and Arduino programming. Even though the hardware side of things is fairly straightforward, I'm breaking this post into several parts since the code is exponentially more complex now.
 

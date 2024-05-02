@@ -1,0 +1,12 @@
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 0.8em;
+}
+
+footer > span {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+}

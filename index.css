@@ -3,3 +3,7 @@ figcaption {
   font-size: 0.9em;
   margin: 0;
 }
+
+ul {
+  margin-left: 1rem;
+}

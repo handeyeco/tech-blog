@@ -5,6 +5,8 @@ import { rhythm, scale } from "../utils/typography"
 
 import CreativeCommons from "../../content/assets/creative-commons.svg";
 
+import "./layout.css"
+
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   let header
@@ -62,16 +64,20 @@ const Layout = ({ location, title, children }) => {
     >
       <header>{header}</header>
       <main>{children}</main>
-      <footer style={{ display: 'flex', alignItems: 'center', fontSize: '0.8em' }}>
-        <CreativeCommons style={{ height: '1rem', width: '1rem' }} />
-        &nbsp;
-        {new Date().getFullYear()}
-        &nbsp;
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">BY-NC-SA.</a>
-        &nbsp;
-        See a typo?
-        &nbsp;
-        <a href="https://github.com/handeyeco/tech-blog">File a pull request or issue.</a>
+      <footer>
+        <span>
+          <CreativeCommons style={{ height: '1rem', width: '1rem' }} />
+          &nbsp;
+          {new Date().getFullYear()}
+          &nbsp;
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">BY-NC-SA.</a>
+          &nbsp;
+        </span>
+        <span>
+          See a typo?
+          &nbsp;
+          <a href="https://github.com/handeyeco/tech-blog">File a pull request or issue.</a>
+        </span>
       </footer>
     </div>
   )

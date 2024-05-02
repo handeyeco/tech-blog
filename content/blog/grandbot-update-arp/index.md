@@ -1,6 +1,6 @@
 ---
-title: Grandbot Update - Arp
-date: 2024-05-01T03:25:23Z
+title: "Grandbot: Arp"
+date: 2024-05-02T03:25:23Z
 description: Grandbot can play synths now.
 ---
 
@@ -9,6 +9,8 @@ _**Disclaimer:** I don't know what I'm talking about. I'm a JavaScript dev who's
 _Project originally inspired by the work of [Mohit Bhoite](https://twitter.com/MohitBhoite)._
 
 _Code references the state as of [this tag](https://github.com/handeyeco/Grandbot/releases/tag/2024-05-01)._
+
+---
 
 ## Introduction
 
