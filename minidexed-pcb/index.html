@@ -1,0 +1,597 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.75 'Merriweather','Georgia',serif;box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.9);font-family:'Merriweather','Georgia',serif;font-weight:400;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}h1{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:Montserrat,sans-serif;font-weight:900;text-rendering:optimizeLegibility;font-size:2.5rem;line-height:1.1;}h2{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.73286rem;line-height:1.1;}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.4427rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;letter-spacing:0.140625em;text-transform:uppercase;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.83255rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.75966rem;line-height:1.1;font-style:italic;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}ul{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;list-style:disc;}ol{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:0.85rem;line-height:1.75rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1rem;line-height:1.75rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}blockquote{margin-left:-1.75rem;margin-right:1.75rem;margin-top:0;padding-bottom:0;padding-left:1.42188rem;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1.20112rem;line-height:1.75rem;color:hsla(0,0%,0%,0.59);font-style:italic;border-left:0.32813rem solid hsla(0,0%,0%,0.9);}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(1.75rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}b{font-weight:700;}strong{font-weight:700;}dt{font-weight:700;}th{font-weight:700;}li{margin-bottom:calc(1.75rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}li > ul{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(1.75rem / 2);}code{font-size:0.85rem;line-height:1.75rem;}kbd{font-size:0.85rem;line-height:1.75rem;}samp{font-size:0.85rem;line-height:1.75rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:1.16667rem;padding-right:1.16667rem;padding-top:0.875rem;padding-bottom:calc(0.875rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}blockquote > :last-child{margin-bottom:0;}blockquote cite{font-size:1rem;line-height:1.75rem;color:hsla(0,0%,0%,0.9);font-weight:400;}blockquote cite:before{content:"— ";}ul,ol{margin-left:0;}@media only screen and (max-width:480px){ul,ol{margin-left:1.75rem;}blockquote{margin-left:-1.3125rem;margin-right:0;padding-left:0.98438rem;}}h1,h2,h3,h4,h5,h6{margin-top:3.5rem;}a{box-shadow:0 1px 0 0 currentColor;color:#007acc;text-decoration:none;}a:hover,a:active{box-shadow:none;}mark,ins{background:#007acc;color:white;padding:0.10938rem 0.21875rem;text-decoration:none;}a.gatsby-resp-image-link{box-shadow:none;}</style><style data-href="/tech-blog/styles.d01268442667a6e70e23.css" id="gatsby-global-css">@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:100;src:local("Montserrat Thin "),local("Montserrat-Thin"),url(/tech-blog/static/montserrat-latin-100-191cc9f50f3b76b9617cb383f19acb7d.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-100-370318464551d5f25b0f0a78f374faac.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:100;src:local("Montserrat Thin italic"),local("Montserrat-Thinitalic"),url(/tech-blog/static/montserrat-latin-100italic-bdeaeb79db315697bd173a55b097dc18.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-100italic-ecf7d49386e8f265878e735db34a7c4b.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:200;src:local("Montserrat Extra Light "),local("Montserrat-Extra Light"),url(/tech-blog/static/montserrat-latin-200-85d5ef9db7f2dc6979172a4a3b2c57cb.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-200-1fc98e126a3d152549240e6244d7e669.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:200;src:local("Montserrat Extra Light italic"),local("Montserrat-Extra Lightitalic"),url(/tech-blog/static/montserrat-latin-200italic-49095760a498d024fe1a85a078850df9.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-200italic-fe46cf8b9462c820457d3bf537e4057f.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:300;src:local("Montserrat Light "),local("Montserrat-Light"),url(/tech-blog/static/montserrat-latin-300-7c3daf12b706645b5d3710f863a4da04.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-300-8dc95fab9cf98d02ca8d76e97d3dff60.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:300;src:local("Montserrat Light italic"),local("Montserrat-Lightitalic"),url(/tech-blog/static/montserrat-latin-300italic-f20b178ca2024a5eac8e42e6649db86c.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-300italic-3fe16939288856e8e828fa2661bf2354.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:400;src:local("Montserrat Regular "),local("Montserrat-Regular"),url(/tech-blog/static/montserrat-latin-400-bc3aa95dca08f5fee5291e34959c27bc.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-400-8102c4838f9e3d08dad644290a9cb701.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:400;src:local("Montserrat Regular italic"),local("Montserrat-Regularitalic"),url(/tech-blog/static/montserrat-latin-400italic-5cad650422a7184467af5a4d17b264c4.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-400italic-d191f22af3bb50902b99ac577f81a322.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:500;src:local("Montserrat Medium "),local("Montserrat-Medium"),url(/tech-blog/static/montserrat-latin-500-92d16e458625f4d2c8940f6bdca0ff09.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-500-8b763220218ffc11c57c84ddb80e7b26.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:500;src:local("Montserrat Medium italic"),local("Montserrat-Mediumitalic"),url(/tech-blog/static/montserrat-latin-500italic-47bfcca6b69d6a9acca7a8bff17193e2.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-500italic-72c01f753c3940c0b9cb6bf2389caddf.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:600;src:local("Montserrat SemiBold "),local("Montserrat-SemiBold"),url(/tech-blog/static/montserrat-latin-600-6fb1b5623e528e27c18658fecf5ee0ee.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-600-7c839d15a6f54e7025ba8c0c4b333e8f.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:600;src:local("Montserrat SemiBold italic"),local("Montserrat-SemiBolditalic"),url(/tech-blog/static/montserrat-latin-600italic-60789af1c9338ed1a9546722ec54b4f7.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-600italic-f3d4de8d0afb19e777c79032ce828e3d.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:700;src:local("Montserrat Bold "),local("Montserrat-Bold"),url(/tech-blog/static/montserrat-latin-700-39d93cf678c740f9f6b2b1cfde34bee3.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-700-80f10bd382f0df1cd650fec59f3c9394.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:700;src:local("Montserrat Bold italic"),local("Montserrat-Bolditalic"),url(/tech-blog/static/montserrat-latin-700italic-ba136d97b14e82284dd595e257f11c47.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-700italic-8c98142b425630821139c24bd1698700.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold "),local("Montserrat-ExtraBold"),url(/tech-blog/static/montserrat-latin-800-b7018be9ed6cd94da8b6675b3a468c3b.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-800-9a9befcf50d64f9d2d19d8b1d1984add.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold italic"),local("Montserrat-ExtraBolditalic"),url(/tech-blog/static/montserrat-latin-800italic-540ffdd223d1a9ad3d4e678e1a23372e.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-800italic-897086f99f4e1f45e6b1e9368527d0bc.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:900;src:local("Montserrat Black "),local("Montserrat-Black"),url(/tech-blog/static/montserrat-latin-900-58cd789700850375b834e8b6776002eb.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-900-26d42c9428780e545a540bbb50c84bce.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:900;src:local("Montserrat Black italic"),local("Montserrat-Blackitalic"),url(/tech-blog/static/montserrat-latin-900italic-451157bc8861fe54f523b3669a3def71.woff2) format("woff2"),url(/tech-blog/static/montserrat-latin-900italic-a8ec4957e1c24f5793305763ad9845b3.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:300;src:local("Merriweather Light "),local("Merriweather-Light"),url(/tech-blog/static/merriweather-latin-300-b1158cfcd4aacb9d8fb61625e37af46a.woff2) format("woff2"),url(/tech-blog/static/merriweather-latin-300-cc7de05e166e90320d7d896e0f72a19d.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:300;src:local("Merriweather Light italic"),local("Merriweather-Lightitalic"),url(/tech-blog/static/merriweather-latin-300italic-8fe52a48089d6ebe46db0b8e7cc66263.woff2) format("woff2"),url(/tech-blog/static/merriweather-latin-300italic-e1331f5397c2a673f9d3765138debdb5.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:400;src:local("Merriweather Regular "),local("Merriweather-Regular"),url(/tech-blog/static/merriweather-latin-400-8276fdb72ae8f4714d4e6eba704cc39f.woff2) format("woff2"),url(/tech-blog/static/merriweather-latin-400-69f09800f4f6479d06e44eba837df872.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:400;src:local("Merriweather Regular italic"),local("Merriweather-Regularitalic"),url(/tech-blog/static/merriweather-latin-400italic-3a9be9ea9f7aa4af6de7307df21d9fc0.woff2) format("woff2"),url(/tech-blog/static/merriweather-latin-400italic-d76079ed7541a433a54f79316de086e9.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:700;src:local("Merriweather Bold "),local("Merriweather-Bold"),url(/tech-blog/static/merriweather-latin-700-fa534be7ffa380e39a7f6e03bf9a5e03.woff2) format("woff2"),url(/tech-blog/static/merriweather-latin-700-ba56ea84b8084b7ff9677f50d3cd81bd.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:700;src:local("Merriweather Bold italic"),local("Merriweather-Bolditalic"),url(/tech-blog/static/merriweather-latin-700italic-1ef5edaaa20ae53ea50399884c5e48c6.woff2) format("woff2"),url(/tech-blog/static/merriweather-latin-700italic-534bc9e7ce93c73d73426e46acd78092.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:900;src:local("Merriweather Black "),local("Merriweather-Black"),url(/tech-blog/static/merriweather-latin-900-7528fb70e8a4a82c7305e72ff43ac25f.woff2) format("woff2"),url(/tech-blog/static/merriweather-latin-900-3799b6e2f5ed3fcccf9d7a708d7419fa.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:900;src:local("Merriweather Black italic"),local("Merriweather-Blackitalic"),url(/tech-blog/static/merriweather-latin-900italic-e1b4d2aaa78e12ad84aaf8a56321e4c2.woff2) format("woff2"),url(/tech-blog/static/merriweather-latin-900italic-2ae22f731b3424e8dbb4b37f7ca6e708.woff) format("woff")}code[class*=language-],pre[class*=language-]{color:#000;background:none;text-shadow:0 1px #fff;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;tab-size:4;-webkit-hyphens:none;hyphens:none}code[class*=language-]::selection,code[class*=language-] ::selection,pre[class*=language-]::selection,pre[class*=language-] ::selection{text-shadow:none;background:#b3d4fc}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#f5f2f0}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#999}.token.namespace{opacity:.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#905}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#690}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url{color:#9a6e3a;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.class-name,.token.function{color:#dd4a68}.token.important,.token.regex,.token.variable{color:#e90}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}figcaption{text-align:center;font-size:.9em;margin:0}ul{margin-left:1rem}footer{flex-wrap:wrap;font-size:.8em}footer,footer>span{display:flex;align-items:center}footer>span{margin-top:1rem}</style><meta name="generator" content="Gatsby 2.32.13"/><link rel="alternate" type="application/rss+xml" href="/tech-blog/rss.xml"/><title data-react-helmet="true">MiniDexed PCB | Tech Blog</title><meta data-react-helmet="true" name="description" content="Designing a PCB for MiniDexed as an opportunity to learn about SMT PCB manufacturing."/><meta data-react-helmet="true" property="og:title" content="MiniDexed PCB"/><meta data-react-helmet="true" property="og:description" content="Designing a PCB for MiniDexed as an opportunity to learn about SMT PCB manufacturing."/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" name="twitter:creator" content="Matthew Curtis"/><meta data-react-helmet="true" name="twitter:title" content="MiniDexed PCB"/><meta data-react-helmet="true" name="twitter:description" content="Designing a PCB for MiniDexed as an opportunity to learn about SMT PCB manufacturing."/><link as="script" rel="preload" href="/tech-blog/webpack-runtime-200cf945a48398a9a41e.js"/><link as="script" rel="preload" href="/tech-blog/framework-9d2233ab751940aaa81d.js"/><link as="script" rel="preload" href="/tech-blog/app-e3eee7d533645186be7b.js"/><link as="script" rel="preload" href="/tech-blog/styles-0ec71dd62c66cb95665c.js"/><link as="script" rel="preload" href="/tech-blog/cd7d5f864fc9e15ed8adef086269b0aeff617554-972ee211bc840e5ac994.js"/><link as="script" rel="preload" href="/tech-blog/component---src-templates-blog-post-js-682f08cb5b5383fbfa1b.js"/><link as="fetch" rel="preload" href="/tech-blog/page-data/minidexed-pcb/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/tech-blog/page-data/sq/d/2893060334.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/tech-blog/page-data/sq/d/63159454.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/tech-blog/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div style="margin-left:auto;margin-right:auto;max-width:42rem;padding:2.625rem 1.3125rem"><header><h3 style="font-family:Montserrat, sans-serif;margin-top:0"><a style="box-shadow:none;text-decoration:none;color:inherit" href="/tech-blog/">Tech Blog</a></h3></header><main><article><header><h1 style="margin-top:1.75rem;margin-bottom:0">MiniDexed PCB</h1><p style="font-size:0.83255rem;line-height:1.75rem;display:block;margin-bottom:1.75rem">September 29, 2024</p></header><section><p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/d1772ca83631c2e1e89c19a721659e51/c58a3/header.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 66.89189189189189%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQCAwX/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEAMQAAABsXmiLxkkv//EABkQAAIDAQAAAAAAAAAAAAAAAAACAQMRQf/aAAgBAQABBQJ7ZFsw0sXZ7L6f/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEx/9oACAEDAQE/AcV//8QAFhEBAQEAAAAAAAAAAAAAAAAAABES/9oACAECAQE/AbWX/8QAGhAAAgIDAAAAAAAAAAAAAAAAABEhMQFxkf/aAAgBAQAGPwJRtiyUWQS+n//EABsQAQADAAMBAAAAAAAAAAAAAAEAESExYXGB/9oACAEBAAE/IQ5BXCgVtr8j2SibHkGlWky3ZcHSo//aAAwDAQACAAMAAAAQA+//xAAXEQEAAwAAAAAAAAAAAAAAAAABEBEh/9oACAEDAQE/EAVa5H//xAAXEQEAAwAAAAAAAAAAAAAAAAABEBFB/9oACAECAQE/EECth//EABsQAQEBAQADAQAAAAAAAAAAAAERIQAxUYGh/9oACAEBAAE/EH5FjCvw17yeIjGLpLu9doh0Tz77Txv3hOdo2fvNREKiO//Z'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Complete MiniDexed build with custom PCB"
+        title="Complete MiniDexed build with custom PCB"
+        src="/tech-blog/static/d1772ca83631c2e1e89c19a721659e51/1c72d/header.jpg"
+        srcset="/tech-blog/static/d1772ca83631c2e1e89c19a721659e51/a80bd/header.jpg 148w,
+/tech-blog/static/d1772ca83631c2e1e89c19a721659e51/1c91a/header.jpg 295w,
+/tech-blog/static/d1772ca83631c2e1e89c19a721659e51/1c72d/header.jpg 590w,
+/tech-blog/static/d1772ca83631c2e1e89c19a721659e51/a8a14/header.jpg 885w,
+/tech-blog/static/d1772ca83631c2e1e89c19a721659e51/fbd2c/header.jpg 1180w,
+/tech-blog/static/d1772ca83631c2e1e89c19a721659e51/c58a3/header.jpg 1500w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p><em><strong>Disclaimer:</strong> I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I <strong>think</strong> I learned, but that doesn’t make it the truth.</em></p>
+<h2>Introduction</h2>
+<p><em><a href="https://github.com/handeyeco/minidexed-pcb">Link to the source files for the MiniDexed PCB.</a></em></p>
+<p><a href="https://github.com/probonopd/MiniDexed">MiniDexed</a> is a port of the open-source <a href="https://asb2m10.github.io/dexed/">Dexed synth VST</a> (which itself is modeled after the <a href="https://en.wikipedia.org/wiki/Yamaha_DX7">Yamaha DX7</a> 6-operator FM synth) to bare-metal Raspberry Pi. I have no involvement with the development of MiniDexed, but the project piqued my interest and I decided to try building one myself.</p>
+<p>Unfortunately, the hardware requirements aren’t very straight-forward: some people use 3 buttons, some use 5, and some use 0; you can use a USB audio interface or an external DAC or the built-in audio out (but only on RPi 4); hardware MIDI is optional, but there’s some debate what schematic works the best; etc. It’s designed to be customizable, but for beginners this might lead to analysis paralysis.</p>
+<p>Additionally there often seemed to be a mashup of custom PCBs (<a href="https://diyelectromusic.com/">diyelectromusic</a> is the mecca for resources on those) and off-the-shelf modules. This felt a little too haphazard for my OCD, so I set out to build my own PCB.</p>
+<h2>Project Goals</h2>
+<ul>
+<li>I wanted as much as possible baked into the PCB. An LCD and Raspberry Pi hanging off were fine, but I wanted the main I/O firmly latched onto the PCB.</li>
+<li>I wanted good, built-in sound. This meant using a DAC for the audio.</li>
+<li>I wanted built-in MIDI in/out/thru just because it’s nice to have.</li>
+<li>I wanted an LCD for the screen (vs a tiny OLED) and buttons/encoder for input.</li>
+<li>I didn’t want to commit to doing a lot of work in MiniDexed code.</li>
+<li>Size wasn’t a huge factor, but I wanted it to be around the size of a <a href="https://github.com/okyeron/shieldXL">ShieldXL</a>.</li>
+</ul>
+<p>One of the big deciding factors to how I approached this was the DAC. Increasingly DACs are hard to come by as THT components and the MiniDexed project seemed to be biased towards the SMT PCM5102A. Having never soldered SMT components, I decided this would be a good opportunity to try out a PCB assembly (PCBA) service. Overall it was a great success and having this skill really opens up the types of ICs I have access to in projects.</p>
+<hr>
+<p>From here I’ll go over the schematics and then talk about the manufacturing process. Where possible, I tried to conform to the recommendations on the <a href="https://github.com/probonopd/MiniDexed/wiki/Hardware">MiniDexed Hardware</a> page.</p>
+<h2>Audio out (DAC)</h2>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/587884d52494f147df22dc86763e0740/ee3fb/schematic_audio-out.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 69.5945945945946%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAAsTAAALEwEAmpwYAAACFklEQVQ4y41TTW/UMBTM//81XECiCBYBBw4cKiS23S1tdpONP+LYcWwnKReGcbYLKv2Aw1Ok9zGeN29SjKPHcxFSj3mOmKeAYbDovIEPDumJ/uI5sGkaYK2AsQcMsYPxYgELsV9q8xz+E5DNeSCNA0S1RbX+gtYq9Mkw75l38IOBcxopHcGfBFyA2JRjvOWayXJtt+T72EKQbb05R1VewHL96V8M82DWSqqa7C4hZEmgjsAduqQQxx6B7KwT95idtnp05ayN7TXa/QadOhCEg9HCmD20lb91vOWxJtbywfJcCvYxhn/WHqKDNgJid0W279GoMxzqd5D1FvJwDWUrmFHC6B3M+gXc/huK5Vp3dDNY5MshUL/p+ICjTk31HZ15i5/4wPoKptqgNRJ6v0XrJbWUEOVnSqVRRDJxpBrIJqUMEhnHFfI64zzgevcVUpwR8BP1W0HzIIG9A2Upby5h1A7xx7j0F55gbcdXoqY+NbS+Rtvu6D8JyWj7FkqVHFqhsS/R1K+h5RV1dcv1216QbUXm9niUefGbhziU2G8+woRXBHhDXSr0waCj/7y3iF5BNRvmD5Drc9T0Z3NzQT+yRrYnPy5HyYADtYp8rTdrJF9iSsc/IUduzFfNkc2eDR3oT01Pnqx2slBxSmQWnsfwA8HDcN9jd7GY/Y7Asf6wp1h+peihhKM+DrKxXJ+6qv7hv/3X97H4BcByJNl2WaTyAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Schematic of the audio output circuit"
+        title="Schematic of the audio output circuit"
+        src="/tech-blog/static/587884d52494f147df22dc86763e0740/fcda8/schematic_audio-out.png"
+        srcset="/tech-blog/static/587884d52494f147df22dc86763e0740/12f09/schematic_audio-out.png 148w,
+/tech-blog/static/587884d52494f147df22dc86763e0740/e4a3f/schematic_audio-out.png 295w,
+/tech-blog/static/587884d52494f147df22dc86763e0740/fcda8/schematic_audio-out.png 590w,
+/tech-blog/static/587884d52494f147df22dc86763e0740/efc66/schematic_audio-out.png 885w,
+/tech-blog/static/587884d52494f147df22dc86763e0740/ee3fb/schematic_audio-out.png 1144w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p>The audio circuit is based around the PCM5102A DAC. The MiniDexed project recommends some cheap modules you can find on Amazon/eBay/Alibaba/wherever, so that’s where I looked first. There’s a great writeup about this module on <a href="https://todbot.com/blog/2023/05/16/cheap-stereo-line-out-i2s-dac-for-circuitpython-arduino-synths/">todbot</a> which itself references <a href="https://macsbug.wordpress.com/2021/02/19/web-radio-of-m5stack-pcm5102a-i2s-dac/">macsbug</a>. The important part is this schematic:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/f4e2b9d7d1c0b731840596a40a6910db/59680/pcm5102a_circuit_diagram-1.webp"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 93.24324324324323%; position: relative; bottom: 0; left: 0; background-image: url('data:image/webp;base64,UklGRsQAAABXRUJQVlA4ILgAAADQBACdASoUABMAPtFgqE+oJSOiKAgBABoJQBnLFTgrVJ1dmda0xNWJP6FjKAmeIAD+9hPeA9JInmgpLN/8dwg+V+KeLdzFt0NTet8RAZc5sN1f9+7HJqF5fn7m819NC2y7ttlgfG2SyASGHXqsjzjSZbzuBJi6P5332SkPXypJv6Joxt/DK1vL0rF3+XtcNLkT7IWt88iGO5kzJ3bPDCRaHOFsX+trNsaaucwH0GVy9aHPiz+o6WAA'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Schematic of the PCM5102A module"
+        title="Schematic of the PCM5102A module"
+        src="/tech-blog/static/f4e2b9d7d1c0b731840596a40a6910db/5ca24/pcm5102a_circuit_diagram-1.webp"
+        srcset="/tech-blog/static/f4e2b9d7d1c0b731840596a40a6910db/cbe2e/pcm5102a_circuit_diagram-1.webp 148w,
+/tech-blog/static/f4e2b9d7d1c0b731840596a40a6910db/3084c/pcm5102a_circuit_diagram-1.webp 295w,
+/tech-blog/static/f4e2b9d7d1c0b731840596a40a6910db/5ca24/pcm5102a_circuit_diagram-1.webp 590w,
+/tech-blog/static/f4e2b9d7d1c0b731840596a40a6910db/59680/pcm5102a_circuit_diagram-1.webp 632w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p>This module included a bunch of stuff I didn’t need:</p>
+<ul>
+<li>It supports both 5V and 3.3V and separates analog from digital circuits, so it uses two voltage regulators (the ME6211C33MSG)</li>
+<li>It has a bunch of jumpers to configure things that I didn’t care about</li>
+<li>It exposes a bunch of pins that I didn’t need exposed</li>
+<li>It has an LED which I didn’t want</li>
+</ul>
+<p>Also looking at the “Typical Applications” schematic in the <a href="/tech-blog/750862398f8ea6ed08eb63ecf8fe224b/pcm5102a.pdf">PCM5102A datasheet</a> shows a similar (and luckily pared down) schematic:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/3cc5251ca4d19241f5c5d9d34630c0df/a3767/pcm5102a_datasheet_schematic.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 45.27027027027027%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAAsTAAALEwEAmpwYAAABNUlEQVQoz42S25KCQAxE+f/PowQtEFBLLiJeAbkJcU+q4svuw05VM4RJOp0eHPlZy7JI13UyjqM0TSPX61Vut5vul8tF+r6XYRjkP8vh8Xq9vjgcDlIUhR62bSur1Uoej4fUda0xOdM0qQgwz7O8328F70poSlB5PB7ldDppMURhGKpazrMs02ZlWeq3+/3+jauq0l0J6Q7ocj6ftZj4+XxKmqbaECsATWiGDeT9Gtk8owPvjLzf7/UQ31zXVVKKIWLhtYmgFhHUo9hhbohQgz/IzvP8SxgEgSYCSNlRCchFqV0ajRwCPCMBYsiSJFFyfIqiSL21GNiNU/vnyCYZg1FqftlYpgJiyAAxikyd3brDg4V83/dVYRzH4nmeqmPk7Xarqtfrtex2O403m43+AXzDd/ufPywvsNVEdKm6AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="PCM5102A schematic from the datasheet"
+        title="PCM5102A schematic from the datasheet"
+        src="/tech-blog/static/3cc5251ca4d19241f5c5d9d34630c0df/fcda8/pcm5102a_datasheet_schematic.png"
+        srcset="/tech-blog/static/3cc5251ca4d19241f5c5d9d34630c0df/12f09/pcm5102a_datasheet_schematic.png 148w,
+/tech-blog/static/3cc5251ca4d19241f5c5d9d34630c0df/e4a3f/pcm5102a_datasheet_schematic.png 295w,
+/tech-blog/static/3cc5251ca4d19241f5c5d9d34630c0df/fcda8/pcm5102a_datasheet_schematic.png 590w,
+/tech-blog/static/3cc5251ca4d19241f5c5d9d34630c0df/efc66/pcm5102a_datasheet_schematic.png 885w,
+/tech-blog/static/3cc5251ca4d19241f5c5d9d34630c0df/c83ae/pcm5102a_datasheet_schematic.png 1180w,
+/tech-blog/static/3cc5251ca4d19241f5c5d9d34630c0df/a3767/pcm5102a_datasheet_schematic.png 1210w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p>So I essentially just merged the two schematics I found. Overall, my understanding of what my final circuit is doing:</p>
+<ul>
+<li>Hard codes the DAC configuration: FLT, DEMP, XSMT, FMT</li>
+<li>Runs 5V through a ME6211C33 for the analog 3.3V  to keep noise down (the digital 3.3V is just from the RPi)</li>
+<li>Kickback resistors for the I2S lines (shown in the RPi schematic since they need to be near the source)</li>
+<li>I believe those are RC filters on the audio output</li>
+<li>I believe the remaining capacitors are bypass caps</li>
+</ul>
+<h2>MIDI IO</h2>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/9d0c1459e1b9017daf28a94b5baa7e40/5bf79/schematic_midi-io.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 75.67567567567568%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAAAsTAAALEwEAmpwYAAACgElEQVQ4y3VUy3LUMBDc//+XcKOKx4EqCg5AICGkAhuyi9feteWX3pIDl6Ylx5ukIIdZzcqjcXdPy6sQNP4XcVmjybl1I4axh5IaSum8Osea+Pjc6uEfv+TRwk6eq4HxCtPk4JlXokFZ9Sh+1airFt6b+YWMRw1jMGymoEyP6TZAijWKTyfoDzu0TQnLfVWdwhw+Ik5EN1TY1zewUcLYgYi7+4apmZsUBtVgECVu/0yQu0t0V68xjhXEWOP7j3OM6+dQu1foRgEbJLQfIF0LZfvcUCsF7xJCwh0GAdNfMN7CEE0kxfg7wkVFyiNMGGFVC9kfYP3MaKIshk0Tqmmy9wg1qVabLUL/kZq9RN3t7w4pFpjjYevY3Enm5qi1dj3CZPhMwlHrpOUq/RhSGIefGOvzPNG8x7cb3zH6fNCmlTHvM6ifJfquLrAr12jbKg9ztQxEO2qiOzazGVU6JPQwo+We0CPr5qmPtkUtbtDJCmqk9pQiDyYhXLwWWKg09YtzA60F6ut30Dxghj2a6/ewfC6aAmW9QXV2gubyBWsjhzRkP8bFNkmX3qTJzXnSztPIvruB55CsbqnxBo4WCYY24cucrmCbDQK1TVIklolZ1tBT1H7zgRpu5yFMJqMcvOOkbTZ2zzxwmp7Re4FWkuqdA5J9Fj/nhpb6NYc1JOkFokzUEyqx/Zw1MrJGsz3lXoeO4m/raxRfnkGs37CRP17T2dhJL4rcFGeQbZkb6kTTcML7C1JrYdnQ7r/Bcd/J2Y+6uYIqLrKZH97nVTKlJHxVfoWj+OFImcFrGPk8Tz7lif6toxsGaubyNf3n45A9Rw195O1g8VNfn5CNvnw8zJN1fwFDVnFPpQzVZAAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Schematic of the MIDI IO circuits"
+        title="Schematic of the MIDI IO circuits"
+        src="/tech-blog/static/9d0c1459e1b9017daf28a94b5baa7e40/fcda8/schematic_midi-io.png"
+        srcset="/tech-blog/static/9d0c1459e1b9017daf28a94b5baa7e40/12f09/schematic_midi-io.png 148w,
+/tech-blog/static/9d0c1459e1b9017daf28a94b5baa7e40/e4a3f/schematic_midi-io.png 295w,
+/tech-blog/static/9d0c1459e1b9017daf28a94b5baa7e40/fcda8/schematic_midi-io.png 590w,
+/tech-blog/static/9d0c1459e1b9017daf28a94b5baa7e40/efc66/schematic_midi-io.png 885w,
+/tech-blog/static/9d0c1459e1b9017daf28a94b5baa7e40/5bf79/schematic_midi-io.png 966w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p>The MIDI spec requires an optocoupler on MIDI inputs (H11L1) and MIDI thru needs to be buffered (74HCT14). Since the 74HCT14 has 6 inverters and I only needed 2 for MIDI thru, I buffered the output too. Like the DAC circuit, this circuit is also a merger of a couple of schematics.</p>
+<p>MIDI in is derived from the <a href="https://github.com/probonopd/MiniDexed/wiki/Hardware#classic-midi-input">MiniDexed hardware page</a>:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/19d7c427a74ed80305040abfbd8fc2fa/4d383/minidexed-suggested-midi.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 41.891891891891895%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAA7CAAAOwgEVKEqAAAABU0lEQVQoz2VSy07DMBDM//8FfABC4sqJM+LCpa1UoK80TsjDTvy2M6wbUjWwkqVdr3d2dsfZOI64PX8t3PjSGGhrF/m5Zq7PblITQAxwwcJHD20UTmUJ7fQlN0iFXitqEmGdQQx+AZosS4GwHp2duJhALLyBIUBDgDw/o+M1eJOj+XrG9+GFwBQkb3Da7+HmSZzDGCMBUlCVK+zen1AdcwIXFxBxyCGJzbZmBLJHs1uh/biDOD6ibSooAmUtQ2sGIqCp5gSvFDKvA4rXB7Tre/AyR1mcwamzKhnK7SeEE1BUYDQ12r1hYGuwoYclNpGm64RY7DSL3kNWZ8RUSF2TKc4h6vqy1jT+bGLQtFd/jV0/gG02xNJMe1yKQioS4DhGcHpQKfl7J6+PPbEKlJ9FCKR4VxQYiNR8l01yx0kQYpMA0k4MneTbYP8pOfs2BLRSLr7ND18ybZY1h279AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Recommended MiniDexed MIDI input circuit"
+        title="Recommended MiniDexed MIDI input circuit"
+        src="/tech-blog/static/19d7c427a74ed80305040abfbd8fc2fa/fcda8/minidexed-suggested-midi.png"
+        srcset="/tech-blog/static/19d7c427a74ed80305040abfbd8fc2fa/12f09/minidexed-suggested-midi.png 148w,
+/tech-blog/static/19d7c427a74ed80305040abfbd8fc2fa/e4a3f/minidexed-suggested-midi.png 295w,
+/tech-blog/static/19d7c427a74ed80305040abfbd8fc2fa/fcda8/minidexed-suggested-midi.png 590w,
+/tech-blog/static/19d7c427a74ed80305040abfbd8fc2fa/efc66/minidexed-suggested-midi.png 885w,
+/tech-blog/static/19d7c427a74ed80305040abfbd8fc2fa/c83ae/minidexed-suggested-midi.png 1180w,
+/tech-blog/static/19d7c427a74ed80305040abfbd8fc2fa/4d383/minidexed-suggested-midi.png 1195w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p>I think I also referenced <a href="https://www.smbaker.com/raspberry-pi-midi-hat-building-a-raspberry-pi-midi-jukebox">Dr. Scott M. Baker</a>, though most MIDI thru/out schematics you find online are roughly the same:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/46e828912369d232ac192c5ee36acf57/fb1d2/midi-thru-out-reference.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 82.43243243243244%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAQABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAECBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe9NQoP/xAAUEAEAAAAAAAAAAAAAAAAAAAAg/9oACAEBAAEFAl//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAUEAEAAAAAAAAAAAAAAAAAAAAg/9oACAEBAAY/Al//xAAWEAADAAAAAAAAAAAAAAAAAAABECD/2gAIAQEAAT8hgL//2gAMAwEAAgADAAAAEMPP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAHBABAAIBBQAAAAAAAAAAAAAAEQAxIQEQQXGB/9oACAEBAAE/EFaxF1HPWxcsc+xn/9k='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Reference schematic for MIDI thru/out"
+        title="Reference schematic for MIDI thru/out"
+        src="/tech-blog/static/46e828912369d232ac192c5ee36acf57/1c72d/midi-thru-out-reference.jpg"
+        srcset="/tech-blog/static/46e828912369d232ac192c5ee36acf57/a80bd/midi-thru-out-reference.jpg 148w,
+/tech-blog/static/46e828912369d232ac192c5ee36acf57/1c91a/midi-thru-out-reference.jpg 295w,
+/tech-blog/static/46e828912369d232ac192c5ee36acf57/1c72d/midi-thru-out-reference.jpg 590w,
+/tech-blog/static/46e828912369d232ac192c5ee36acf57/a8a14/midi-thru-out-reference.jpg 885w,
+/tech-blog/static/46e828912369d232ac192c5ee36acf57/fbd2c/midi-thru-out-reference.jpg 1180w,
+/tech-blog/static/46e828912369d232ac192c5ee36acf57/fb1d2/midi-thru-out-reference.jpg 1213w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p>I know it’s a controversial take, but I prefer TRS MIDI over DIN MIDI. I think DIN is better when performing or if you keep your stuff plugged in long-term, but I don’t perform and I don’t keep my stuff plugged in. Also these days it’s super easy to find cheap, used 3.5mm aux cables. The jacks are also smaller and cheaper.</p>
+<p>My limited understanding of the schematic:</p>
+<ul>
+<li>Resistors are limiting current</li>
+<li>Diode protects against reverse polarity</li>
+<li>Optocoupler protects against ground loops</li>
+<li>Buffer makes sure the digital signals have sharp edges</li>
+</ul>
+<h2>Interface</h2>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/bf18cc45d7d2047bda5c4e8afd802d7d/32ac3/schematic_interface.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 50.67567567567568%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABNUlEQVQoz4WSS3ICMQxE5/6HyEVygKyyzCpUqoCkGI9/kj9Dseq0PUCFGggLLSxZT622h1oFLTQHzLMiJ0Hwgrlqj0v9UbSeFiULShEMl0SII6GW4RHVQYtDrsuQ/2Apxy5GokCEwFYQ9Rh/vpAIqbP0yDXygmGjPoSWdicaxGCgyVJhxJCSRwgTnI5w/huRBadUSpXusEUQy9XvqOOgtkWUiWGRqfK68vGYqMbC7D4xmi3M+wvc5hWe4EgFOa9Xb0ApS13iRIVuUdgN5QU/7umdpScWsn+Dmg82Jg67v/IKqGdgm+69gbE7hMxC8ZhPRxothPuH/rW8ZkLYXwnKJfT80Kg9+KJ2v4E7e9YMf/Zdmk2ZvZef0oHXAwviDt3YZSW5+xi3r7zODX8P/XM/gdz6uB76C2W1/H7zdiZ0AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Schematic for the buttons and encoder"
+        title="Schematic for the buttons and encoder"
+        src="/tech-blog/static/bf18cc45d7d2047bda5c4e8afd802d7d/fcda8/schematic_interface.png"
+        srcset="/tech-blog/static/bf18cc45d7d2047bda5c4e8afd802d7d/12f09/schematic_interface.png 148w,
+/tech-blog/static/bf18cc45d7d2047bda5c4e8afd802d7d/e4a3f/schematic_interface.png 295w,
+/tech-blog/static/bf18cc45d7d2047bda5c4e8afd802d7d/fcda8/schematic_interface.png 590w,
+/tech-blog/static/bf18cc45d7d2047bda5c4e8afd802d7d/efc66/schematic_interface.png 885w,
+/tech-blog/static/bf18cc45d7d2047bda5c4e8afd802d7d/c83ae/schematic_interface.png 1180w,
+/tech-blog/static/bf18cc45d7d2047bda5c4e8afd802d7d/32ac3/schematic_interface.png 1249w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p>MiniDexed just recommends a modified KY-040 encoder. From the MiniDexed hardware page: “To improve precision, solder in 2 10nf capacitors: CLK to ground and DT to ground.”</p>
+<p>So pretty much it’s just:</p>
+<ul>
+<li>3 pullup resistors on the encoder (I maybe could have just used the internal pullups, but I was trying to conform with the module MiniDexed expects to avoid having to change the MiniDexed software)</li>
+<li>2 caps which I think are acting as bypass caps? Or maybe debouncing caps?</li>
+<li>The buttons are just using internal pullups</li>
+</ul>
+<p>No major innovations here.</p>
+<h2>Screen</h2>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/a75993e757f3e5f216cef3e0f1f77a7d/8efc2/schematic_screen.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 87.16216216216216%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAAAsTAAALEwEAmpwYAAACYElEQVQ4y62UWVPUUBCF+f+/RHzxQcsCSmWbEQQ0QEXHgcks2de7JjcBlGMnAzIwg2WVPpxKcpfvdvfp3LWqElhU3UgkMcfwaw5WcDT03dTq8RojITVDxJJuLhMZmMy78bWnQGMEtBLgjKMq240FYtpYNxpVLe/WSAiRIg4muKZxJw3gFwmuCL4EvN9gatGd7iQBDi6/I/anSJIJUuEj1xES6WFUDFCIEMGnPlzrEGXFVwAJYiiSLA/hhgSYXiBzNuHP3iDyNxAON5EHY2RVDJc54CaHf3mKaGpTRuwx0BiqR+Ag5i5G3gCWY8E53YdlvYC83cUt9qCy9+AUtWhBfAKhM6grAT+YIcuiB2CbZvt0vDGkYpBU6IJqJ1IfqtjGT4LN9DvMBq+QfLOQ1zSvYjRGkySVgoxRxXLKsuRUi7mTVz8MoosRQvctblqg2sJs9JrGTqEagZLWLjrfudxGVlPdakrX3A120ZZkyo2B0z+BfbZOEfYB9GDYDiYDu3PdrDB0rT2FUWqc2kBXDIoKq0mK2qW61hj1jmCfv6QIewSkGhY7cAP3dwstATnlfnx0gJOzAwRqCpeP4ZFaB73Kw/hwGzaZMo9wH4bvoWIZTKNWAwUBrS/HsOxjRNol56YIBIkcDCof7ucehvY6DEV3jR00YhcyT54H3qfMZIJUBQ+SpDJC6pMpow8IJhtI3C3o8CM0z6lXnwEumjJvgUXReE3PugSj9uEsJiMIZMRKWAd8buJBvDuMlSk4qX3/0/q/AIoOUujkPwKp51jigmf+/Nb5V2B763j0//ppuHQ3PtUv0VsDGYB/RFAAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Schematic for the LCD screen"
+        title="Schematic for the LCD screen"
+        src="/tech-blog/static/a75993e757f3e5f216cef3e0f1f77a7d/fcda8/schematic_screen.png"
+        srcset="/tech-blog/static/a75993e757f3e5f216cef3e0f1f77a7d/12f09/schematic_screen.png 148w,
+/tech-blog/static/a75993e757f3e5f216cef3e0f1f77a7d/e4a3f/schematic_screen.png 295w,
+/tech-blog/static/a75993e757f3e5f216cef3e0f1f77a7d/fcda8/schematic_screen.png 590w,
+/tech-blog/static/a75993e757f3e5f216cef3e0f1f77a7d/8efc2/schematic_screen.png 828w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p><a href="https://github.com/probonopd/MiniDexed/wiki/Hardware#pinout">Here’s MiniDexed’s information on the LCD.</a> Nothing really innovative here either. I could have used an LCD with an I2C backback or I could have reverse-engineered the components on one of the <a href="https://www.adafruit.com/product/181">common 16x2 modules</a>, but I went with the middle ground: use a module, but a fairly generic one.</p>
+<p>The trim pot controls the screen’s contrast. I think it might be backwards but it works.</p>
+<h2>Raspberry Pi</h2>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/b9f1f2e1d3ca742e653c6c10812171c5/90712/schematic_rpi.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 90.54054054054053%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAAsTAAALEwEAmpwYAAAClUlEQVQ4y51U21LbMBTM/39OpxRCICHAdPrAtKWh0DC5OHES3SzLkmw54ZLtsQnpMENL6MN5kOd4tXt2jxpFkWGXCsEicxrGamib1OfX+hq7AZoawGUSjsBcplDSOWwueh9g9UPwCGWOpJAwQYM7Dl94Kgufm42CNwCrm0PpUPgUeRrBJyPw6DvU9Afi6BKc30KqCYxL6/7c/wOwArMkLaNmK6ZYhQ5Wdx1434J1VP4I6zWd5QUKZ5HTPyY1NcvGls2mqnNJzBibYsankOMrcLUPlh8h3HcBnIP7Y4hwiEW/DadTUmJfSs5pDlVV8wg0lwrQpAJMzqFGPyHUAfzdCbE6wxpnsGUHSdmCjM7hMyKwdH9Myb0B4zFYPEI8uCFQDVdokiuRUIlRj5juQYVjBAJ9XJ+SMW3IoglBgKlSUMliO6qGo2wJYrKIBhhdX8J4Ae05UnLSLFOwm2+Ys4+Y2BaS/Bh3D13MshYWeRPxdYsABZzXL2OjSZ6cR1gMfyHzFI1ckXsChpgKkszkPjjNMCvbtWRdtInxIfjgFLmxZFi+nX/j2YTwHFSa4XLpocQc0WwMMbisJVczBIE9kOQobWKc7WPSO4BkM3ARwxj5JPm12FSAbDHBbdQnyRcYxx9Ifqd2uFidgJF8RpLlsIPZbIQBKdOa/x2wYqwTXsdGDHuYLvZgV52a4ZKioyg2lctq2IVLn2Nj3169alOsinF/f4oHAnskhkuSnJDLZkUmxZ/hTVYD7rTLFaDXc6zK7lO42SdwRhFSTYCAS9tD7tw21Ds8DnQzhd0lM8roVwyuzjDodTHuf4Fgfdh0UY/n3a9NKD1th4EOCmmZQFiGVMaQtBDGm/95D5/iVG4qzZL6W/3gOv2i7zcMUkvyJyEGHgAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Schematic for how the Raspberry Pi connects to things"
+        title="Schematic for how the Raspberry Pi connects to things"
+        src="/tech-blog/static/b9f1f2e1d3ca742e653c6c10812171c5/fcda8/schematic_rpi.png"
+        srcset="/tech-blog/static/b9f1f2e1d3ca742e653c6c10812171c5/12f09/schematic_rpi.png 148w,
+/tech-blog/static/b9f1f2e1d3ca742e653c6c10812171c5/e4a3f/schematic_rpi.png 295w,
+/tech-blog/static/b9f1f2e1d3ca742e653c6c10812171c5/fcda8/schematic_rpi.png 590w,
+/tech-blog/static/b9f1f2e1d3ca742e653c6c10812171c5/90712/schematic_rpi.png 882w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p>The only things interesting here are the kickback resistors for the I2S signal to the DAC. I read that they’re supposed to be close to the sending side of the signal, so that’s why they’re part of the RPi side of things.</p>
+<hr>
+<h2>Manufacturing Notes</h2>
+<ul>
+<li>When laying out the PCB, I took a lot of care to try and separate the audio out functionality from the rest of the board to avoid noise from digital signals</li>
+<li>I used JLCPCB’s PCBA service. The boards cost $9 for 5 and the assembly (which included the SMT components) cost $57 for 5; so about $13/ea before shipping.</li>
+<li>Overall going through the process of making pick-and-place files was straight-forward. I <em>almost</em> made a mistake by using an incorrect footprint, but caught it while triple-checking everything. <a href="https://www.youtube.com/watch?v=VejO8rDdhzo">Notes and Volts have an instruction video</a> on designing a PCB for pick-and-place assembly.</li>
+<li>Originally I tried panel mount Cherry switches because that’s what I had. PCB mount switches look and feel <strong>much</strong> nicer.</li>
+<li>Originally I used an RPi 4 but it was concerningly hot so I downgraded to a 3.</li>
+<li>To keep the height down I soldered the LCD directly into the PCB rather than use headers. I hope I don’t come to regret this.</li>
+<li>I ended up laser-cutting some acrylic panels for the top/bottom. It’s the <code class="language-text">acrylic-faceplates.svg</code> file in the repo, but they might need tweaking depending on the laser cutter.</li>
+</ul>
+<p>Things I would change:</p>
+<ul>
+<li>I need to redo my 3.5mm jack footprint. The jacks have two plastic legs that I think are meant to brace the jack when plugging/unplugging, but I originally thought they were little standoffs so I didn’t make holes for them.</li>
+<li>Figure out how to keep the height low without soldering the LCD into the PCB.</li>
+</ul>
+<h2>Conclusion</h2>
+<p>That’s all I can think of. I had to make some modifications to the MiniDexed config, but that’s outlined on <a href="https://github.com/handeyeco/minidexed-pcb">the Github page for the PCB</a>. Overall pleased with the sound of this thing and happy that I didn’t make any major mistakes on my first PCBA project.</p>
+<p>Anyway, thanks to all the folks who have contributed to the Dexed/MiniDexed lineage; it’s wonderful to see so many people come together to make cool, open-source music projects.</p>
+<h2>Random Pictures</h2>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/198de7da189c096829c64e35c6e56f88/4ef49/front-layout.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 65.54054054054055%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAAsTAAALEwEAmpwYAAADC0lEQVQ4y12TyU9bZxTFnUbqoC5I6aYRarCN3/i9ET8PeMI2BkSatklxREBJl1VTxS5gg/EANo4dog6LrtplpPb//PUC3aSLo/O9+753dO6598WWvgywH4T4cRt1XxHqHuoLRZBycZaUwGFVztpymvtLaT5eMPlowfgfTD4UvrfoEdv0KkxLWeZVg2nBYr5hC9s3PMnajLOKq7pJr1whbZaJLWjcWUgJtPcQk9on92xi23GPqe8wjFwmeZc39YjJmsNF5DAIHDmHXG1mOPdcwgdZ7nxmc3fR4INFk7ufmzd8C4NPF11itZTPpGgy2VphUFth3Egyqgs2EwxyJmcrAQM9YGR4/BCssxdW+T5h8TzlcLCseL7i8CJps2+leZJ5SOyh7vO6pNNSFoeaTddUtA3FK93iRFec6i4n8tyVD2dlk1nFpC/nC8vjqugL+wx16VDu9FSW2JY4uCronCiXI9OTon/Dr0yXM8dn5IYM3YCeFjCta5xvpGgvu8xKinkjzS87ir5829UUx1YkQ4kHzLyA1+U8l8Uc/bUsk1KOXjaiZbn0HI+h54tbyboqgjWNdtyVjBXDvMObDY++7XIqgh0rIw4lw5GjZCAZRuk0PdfnZ9uTly4vU4pDQce0OQ5kC0TsQly2JLuhIyZKESNvla7cOTXs/wRNn0vf4yzlSfjiSMLviZuu5tISbguOpN6SbbioyfBqOseS+6/bJSa5DG8bRVmtSDK26Ngi2Ei4nBuOtJqjUy9zKmH3vJDORoXDMBJ3Hoe1Au18gYnsY389xTCT491P3/Lni50b/v3rKscJg871UBpxxblu87LaYH/nOwYytU6Uo/moyY9RWfLx2N/+ioPSI2bbBr1qQlpb5V3rMX8f7fJP9ynTSv5W0EyLoLbKWPKYi6u3fshEMrwUkbnURrZPT6Y9VoF0Ifta8RnXfPrym/5WW+OvZoM/dsqMZL2G0tlJuE4ssIrs+QX2DJdndsC+oJl02BVc89OkumVZ5l09T9OucJDweJYIOEjK/WskfPb0DN/4W/wLtz3ImoO9VbcAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Front CAD view of PCB"
+        title="Front CAD view of PCB"
+        src="/tech-blog/static/198de7da189c096829c64e35c6e56f88/fcda8/front-layout.png"
+        srcset="/tech-blog/static/198de7da189c096829c64e35c6e56f88/12f09/front-layout.png 148w,
+/tech-blog/static/198de7da189c096829c64e35c6e56f88/e4a3f/front-layout.png 295w,
+/tech-blog/static/198de7da189c096829c64e35c6e56f88/fcda8/front-layout.png 590w,
+/tech-blog/static/198de7da189c096829c64e35c6e56f88/efc66/front-layout.png 885w,
+/tech-blog/static/198de7da189c096829c64e35c6e56f88/4ef49/front-layout.png 890w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/ab4c5deaa53da6218f70135e80c1fd7d/eac55/back-layout.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 66.21621621621621%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAAsTAAALEwEAmpwYAAADJ0lEQVQ4y2WSWU9bVxSFDWrUPqRpySC1qiIloWC4eGQIxYEwGDxSTxjbeMADwZZsgk0dJ4ES4jJdG9s4pkJVW1XqP/26fVWpD31YWvvce87aa5+zdHceGhn8Ws/g0Nj/Id/vPJpgSHHx3YRTw9Coh8eGVe7rvRo/0Hv4VlnjoeLh/rgD3WcPJtDdGxaMCL7/D1/J+u4zvvjGgjGq4s/V8GYOscXOCOYqOFKH+LJV1oTXM1Xs2TpK4LgvqDDw5VMG7j3TMPgvD/Sb3H3C548MzEYuce/8giN7hi16InyKJyecU4XrONJ11jIXKM536B4vZhh1VRldKaO3Vxheltp+oNUjqxXGQ0csJLrMJW+Zz/3N6nadYGabQDZHMJvFnxZOp3AkS1hdu+j09jJTsR6Tm9eYw12Wt0+ZjrQxhnrS+T3J/X1mU39iS3ZZ2vmdlVe/MbNRZy5+xXyyiS3R4mVSlb015oL76EaWikxtdpiVe3ImCqwk3guqGAMq7u0y2VKS6fgfLOf/Yil7KwI9zMEGs/EbnkflXKzLczHk2Tlixv+mL1hiOnotP5ssRYvMR2rYwlUM/gbu9AHxfELcdvkh3hEhFVPgQvgS60YDo++MmWiLaRE1h9qMu476gnuYQi3ZqDLhazAT/og1dMn4egNnskhsd5vl5Efmt47FdVMTsoZUzCLcZ4P3Ayb/mVab3GV0in2PF1sdXsSuWEl/YiHe1UYxBtoi+Jr0XhbTxo0cusQSagpUbWRzsF83RPBEzEij4DmTbnmUcREMF3qEdtqEdzukite83Goy5muznq2QKKRknHO545q4U8XJuTR8J/d+iuHHCyYDVWYix5q44jpEN7xYkrC2CeRa+HJtovkOsUJburYlyGXS+QijEUlA4RxLoI4hcI4h38Qc+SDuZJ2+wvJK3PsvmHC9FYfOCtboJ8nXNfHiDaF8j8zrX9nI3+LdPSFS+gmjvyUjqdq4/bvq19bQlcSrw7QkZCoskIc1+X6WYC+kGXVW0a9UsPnesOCvsRis4d58i8Vb46l0tTgPUNYqEn4Ju6BfGx0HUpc1jAkUd40n9jz/AA8z9+lZIYUIAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Back CAD view of PCB"
+        title="Back CAD view of PCB"
+        src="/tech-blog/static/ab4c5deaa53da6218f70135e80c1fd7d/fcda8/back-layout.png"
+        srcset="/tech-blog/static/ab4c5deaa53da6218f70135e80c1fd7d/12f09/back-layout.png 148w,
+/tech-blog/static/ab4c5deaa53da6218f70135e80c1fd7d/e4a3f/back-layout.png 295w,
+/tech-blog/static/ab4c5deaa53da6218f70135e80c1fd7d/fcda8/back-layout.png 590w,
+/tech-blog/static/ab4c5deaa53da6218f70135e80c1fd7d/efc66/back-layout.png 885w,
+/tech-blog/static/ab4c5deaa53da6218f70135e80c1fd7d/eac55/back-layout.png 887w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/96c816daf2093ac90da8a594164bfef8/dba9a/front-preview.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 62.83783783783784%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAAsTAAALEwEAmpwYAAAC80lEQVQ4yz1T204TURSd38FemHY67fQ+03agpRcoWBRTQFp7v3NHguiTDz4YYmJiMCbqk0CA0jRtI1pQ7IsPfNJyn6P4sLP3OXNm7bXWPkfIvchjdnMaqa0kkpszWH62gMR6ApnnacQpz+/MYXHvIeafPsCno48Yfh9iMBigP+ij1+uh2+2i0+mg3W7j9OwUQrAWhL9ow0TVCZ0iVGGhYLKqwJmzIkh1rOGFlBVx+OU9bn/fYvRrhNHNCDc/bnB9dY3htyEuv16i3+tDmGiE4CnI8BUVhKpeRFpBXgcqbih5GZ6yG3orBNOyEQefDzD8eYWLwQU6A2LVb+Ose4aTzgmOzo9wfH4MIbU9gxixma4piFMkGy5aO3C/6Ya3KMO8ImJ8ZZyHWvVDbwRhzVoh52RYshKkJzZe2yiH6iEIsWYQrowJxiUzzI/ZjyIMS0YelqwFlszfMK9YECyzpi7exEKgk3UPfCUF4/SdNREpC+FGAM68RB1k8kmCUnDAmrHycFCtkHxnyQkLMdDJ3xny8x41Z15PNlTEWyrtM1ArYUgQPGUf1LqK8HqYvNKh1TRee8oeDqoUFLhLLn5YI4ZRYmhcNpO/NkQafkw1VbjyMmcsUQixtQj3IEBM7Xk7Z8n8YDJNSyZug0wHXTmJs5pt+YmhCTKdnaBhaXWNS2VgTLYwt5UgT8zkoYkbzzYZiHHRyAFZGKgeSxvgzRErAmV+JneT0IgEUzO1EeEEJCbZV/Fz9KlmCHpN5UPRqj7EV3XYMhKXzb4FaMKhshMJkuwqe7Hzbhv1gzpW36zyzAbI1An+qgoLgaT3FhBdi0KkD+GmTutHcBac/FCaXkqMXo1atCNcssNKA9x8u4Hdw13sf9hH5mXmvzqB3R0xI8JGPvL7RLLuZIvUyEwDYGEg6V4yP1pzY4yu1PROApXXFRReFeCteDkgm4GQ2krxiWokN1inZ0gW2HN2OHIOnu9qW9ZGVmh0sXVqTHt5ulJ5hWf7v7Ve1/EH8FsNyxgBm3wAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Front preview view of PCB"
+        title="Front preview view of PCB"
+        src="/tech-blog/static/96c816daf2093ac90da8a594164bfef8/fcda8/front-preview.png"
+        srcset="/tech-blog/static/96c816daf2093ac90da8a594164bfef8/12f09/front-preview.png 148w,
+/tech-blog/static/96c816daf2093ac90da8a594164bfef8/e4a3f/front-preview.png 295w,
+/tech-blog/static/96c816daf2093ac90da8a594164bfef8/fcda8/front-preview.png 590w,
+/tech-blog/static/96c816daf2093ac90da8a594164bfef8/dba9a/front-preview.png 652w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/314ead0bfe459966efcb613109139631/a6d36/back-preview.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 62.83783783783784%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAAsTAAALEwEAmpwYAAADAUlEQVQ4y01S204aURSdv2mNch0YBhhmuA1XLyOCKCqCVu6DoNZb1Go1TdMP6DcYE4sxhIBp1IagT31of2h1z6FN+rCzz8nZZ621195c566D+/t7dLtd9Ho99Pt9DAYDDB4GeH56xuXXSywcplC6Wsfc/hzmKYrnOczsTY/z7gyWj1JYOEghd5wD9zB4wOP3R/Z5+GOI0XCE19ErXkYv+P3zF/QvTbi3bIg23FCqApSKE+GaiEjDg5juQZQiWHMhVPfAvsmDu/52jevONW7ub3DbvUWn18Fd/47F0/AJ9c91+Cs+JNtxhPUg5Kob2k4cc+0oyzPtMCK6gsR2CK6SAM5ddsO6YQX/jqdsg23Tzs52ytN7CaiNECK1MKkIkKoQtJYCbduDhZaE6YaI5d0gNN2LGJ2jzSA4S9HCkM1FK8n3wlcRGLCDQFcPVGJWIZW8VBxCshWFr+aFhd6VqgxPyQNfVYG/rpANAt2d4Aw1UkVCpOpkPoTqIlzvDJUO5I9idFcIUEKsqUKpyXCQTzypDzUCcFJNohVn4DL5KxotG4DeihfODQviTR8CZLiVVDu2HMi+D0Ok7C67IGwJzBrDChsptBQsLKQy/d10wlwws864qfUpxmgtkqqijVidsNPZSsX5wyixi1B1CXYi5v8LA9QI8/oYyMCQq15wsi4jtB1EcjeBOE3NW/ZQyy5WmCHDI3qA+cs+/R3WP6VGGHUWuhvtq7ofXOokheWLZSxdLKHwqQDtWBsXUKur+yoNSUSwLpHxEtsAH62N2lQg0AAMMD/dA/RmkFiJmHPSw+LZItKnaSydLyF/lYfaVondhkxbgZvec6c5zNIKmQomBGgYxfM8+cYz3zJHaaT2Z8lPM+wb9vHa+Jt+ZD9kkTnLYOVyBbmPK1DIiuyeCp6Y36y8xeTaJFM0lZ/CxOoETOsm1rLx32QMhNQZg+NkGjlPbNqRhvRJGtmzLNYu1zB/PI/kThJKQ0GAfBRLIvkksE9KXYZUlWiFHBBoiK6SC/6Gn3Y1ij9NTA1YLbTsygAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Back preview view of PCB"
+        title="Back preview view of PCB"
+        src="/tech-blog/static/314ead0bfe459966efcb613109139631/fcda8/back-preview.png"
+        srcset="/tech-blog/static/314ead0bfe459966efcb613109139631/12f09/back-preview.png 148w,
+/tech-blog/static/314ead0bfe459966efcb613109139631/e4a3f/back-preview.png 295w,
+/tech-blog/static/314ead0bfe459966efcb613109139631/fcda8/back-preview.png 590w,
+/tech-blog/static/314ead0bfe459966efcb613109139631/a6d36/back-preview.png 650w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/e30909d6b94a1f30ab4b2b0b1d707ac7/d2602/front-manufactured.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 75%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAPABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAQBAgMF/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/aAAwDAQACEAMQAAABnBhArqFQL//EABkQAAMAAwAAAAAAAAAAAAAAAAECAwAEE//aAAgBAQABBQKtWVxtZN+iXiWYa5yKc5//xAAWEQEBAQAAAAAAAAAAAAAAAAACARD/2gAIAQMBAT8BhWf/xAAVEQEBAAAAAAAAAAAAAAAAAAAQIf/aAAgBAgEBPwGH/8QAGRABAQEAAwAAAAAAAAAAAAAAAQAREiJB/9oACAEBAAY/AkLsbcpS8sb/xAAaEAEAAwEBAQAAAAAAAAAAAAABABEhMWFB/9oACAEBAAE/IV8w8lZ0X8yEAK8ZVFsB20cGFu8n/9oADAMBAAIAAwAAABBfz//EABcRAAMBAAAAAAAAAAAAAAAAAAABITH/2gAIAQMBAT8QYqFlP//EABcRAAMBAAAAAAAAAAAAAAAAAAABITH/2gAIAQIBAT8QwN2H/8QAGRABAQADAQAAAAAAAAAAAAAAAREAITFR/9oACAEBAAE/EBbjkJZocdRngUaTHRlUpeYtbGdeambqrx45SIFcbc//2Q=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Front manufactured view of PCB"
+        title="Front manufactured view of PCB"
+        src="/tech-blog/static/e30909d6b94a1f30ab4b2b0b1d707ac7/1c72d/front-manufactured.jpg"
+        srcset="/tech-blog/static/e30909d6b94a1f30ab4b2b0b1d707ac7/a80bd/front-manufactured.jpg 148w,
+/tech-blog/static/e30909d6b94a1f30ab4b2b0b1d707ac7/1c91a/front-manufactured.jpg 295w,
+/tech-blog/static/e30909d6b94a1f30ab4b2b0b1d707ac7/1c72d/front-manufactured.jpg 590w,
+/tech-blog/static/e30909d6b94a1f30ab4b2b0b1d707ac7/a8a14/front-manufactured.jpg 885w,
+/tech-blog/static/e30909d6b94a1f30ab4b2b0b1d707ac7/fbd2c/front-manufactured.jpg 1180w,
+/tech-blog/static/e30909d6b94a1f30ab4b2b0b1d707ac7/d2602/front-manufactured.jpg 4032w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/tech-blog/static/f7371c3b32d7ec34b277679a89566802/d2602/back-manufactured.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 75%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAPABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQBAgP/xAAVAQEBAAAAAAAAAAAAAAAAAAACAf/aAAwDAQACEAMQAAABuluqW8SC/wD/xAAbEAEAAgIDAAAAAAAAAAAAAAACAQMEEgARE//aAAgBAQABBQJZElLInuhyhdStvDlVWh//xAAXEQADAQAAAAAAAAAAAAAAAAABAhAS/9oACAEDAQE/AcsZ/8QAFhEBAQEAAAAAAAAAAAAAAAAAAAEh/9oACAECAQE/AcV//8QAGxAAAgEFAAAAAAAAAAAAAAAAAAEREBIyQVH/2gAIAQEABj8CatMmOXsfHSD/xAAZEAEBAQEBAQAAAAAAAAAAAAABEQAhYTH/2gAIAQEAAT8hmJxn3WeHg5AR9ZT0pdbbK5lSNbzf/9oADAMBAAIAAwAAABCoD//EABcRAQEBAQAAAAAAAAAAAAAAAAEAESH/2gAIAQMBAT8QDaEDnb//xAAXEQEBAQEAAAAAAAAAAAAAAAABABEh/9oACAECAQE/EBiN5f/EABsQAQADAQADAAAAAAAAAAAAAAEAESExQWHR/9oACAEBAAE/EAQo9l7TEqXlbFEfLiBV5RLEjBWJ6ilvwEeRsYuHMPk//9k='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Back manufactured view of PCB"
+        title="Back manufactured view of PCB"
+        src="/tech-blog/static/f7371c3b32d7ec34b277679a89566802/1c72d/back-manufactured.jpg"
+        srcset="/tech-blog/static/f7371c3b32d7ec34b277679a89566802/a80bd/back-manufactured.jpg 148w,
+/tech-blog/static/f7371c3b32d7ec34b277679a89566802/1c91a/back-manufactured.jpg 295w,
+/tech-blog/static/f7371c3b32d7ec34b277679a89566802/1c72d/back-manufactured.jpg 590w,
+/tech-blog/static/f7371c3b32d7ec34b277679a89566802/a8a14/back-manufactured.jpg 885w,
+/tech-blog/static/f7371c3b32d7ec34b277679a89566802/fbd2c/back-manufactured.jpg 1180w,
+/tech-blog/static/f7371c3b32d7ec34b277679a89566802/d2602/back-manufactured.jpg 4032w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p></section><hr style="margin-bottom:1.75rem"/><footer><div style="display:flex;margin-bottom:4.375rem"><p>Written by <!-- -->Matthew Curtis<!-- --> - community organizer, artist, and developer in Fayetteville, AR.<!-- --> <!-- -->Here&#x27;s my <a href="https://github.com/handeyeco">Github</a>.</p></div></footer></article><nav><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"><li><a rel="prev" href="/tech-blog/grandbot-update-arp/">← <!-- -->Grandbot: Arp</a></li><li></li></ul></nav></main><footer><span><svg style="height:1rem;width:1rem" version="1.0" id="Layer_1" x="0px" y="0px" width="64px" height="64px" viewBox="5.5 -3.5 64 64" enable-background="new 5.5 -3.5 64 64" xml:space="preserve"><g><circle fill="#FFFFFF" cx="37.785" cy="28.501" r="28.836"></circle><path d="M37.441-3.5c8.951,0,16.572,3.125,22.857,9.372c3.008,3.009,5.295,6.448,6.857,10.314
+		c1.561,3.867,2.344,7.971,2.344,12.314c0,4.381-0.773,8.486-2.314,12.313c-1.543,3.828-3.82,7.21-6.828,10.143
+		c-3.123,3.085-6.666,5.448-10.629,7.086c-3.961,1.638-8.057,2.457-12.285,2.457s-8.276-0.808-12.143-2.429
+		c-3.866-1.618-7.333-3.961-10.4-7.027c-3.067-3.066-5.4-6.524-7-10.372S5.5,32.767,5.5,28.5c0-4.229,0.809-8.295,2.428-12.2
+		c1.619-3.905,3.972-7.4,7.057-10.486C21.08-0.394,28.565-3.5,37.441-3.5z M37.557,2.272c-7.314,0-13.467,2.553-18.458,7.657
+		c-2.515,2.553-4.448,5.419-5.8,8.6c-1.354,3.181-2.029,6.505-2.029,9.972c0,3.429,0.675,6.734,2.029,9.913
+		c1.353,3.183,3.285,6.021,5.8,8.516c2.514,2.496,5.351,4.399,8.515,5.715c3.161,1.314,6.476,1.971,9.943,1.971
+		c3.428,0,6.75-0.665,9.973-1.999c3.219-1.335,6.121-3.257,8.713-5.771c4.99-4.876,7.484-10.99,7.484-18.344
+		c0-3.543-0.648-6.895-1.943-10.057c-1.293-3.162-3.18-5.98-5.654-8.458C50.984,4.844,44.795,2.272,37.557,2.272z M37.156,23.187
+		l-4.287,2.229c-0.458-0.951-1.019-1.619-1.685-2c-0.667-0.38-1.286-0.571-1.858-0.571c-2.856,0-4.286,1.885-4.286,5.657
+		c0,1.714,0.362,3.084,1.085,4.113c0.724,1.029,1.791,1.544,3.201,1.544c1.867,0,3.181-0.915,3.944-2.743l3.942,2
+		c-0.838,1.563-2,2.791-3.486,3.686c-1.484,0.896-3.123,1.343-4.914,1.343c-2.857,0-5.163-0.875-6.915-2.629
+		c-1.752-1.752-2.628-4.19-2.628-7.313c0-3.048,0.886-5.466,2.657-7.257c1.771-1.79,4.009-2.686,6.715-2.686
+		C32.604,18.558,35.441,20.101,37.156,23.187z M55.613,23.187l-4.229,2.229c-0.457-0.951-1.02-1.619-1.686-2
+		c-0.668-0.38-1.307-0.571-1.914-0.571c-2.857,0-4.287,1.885-4.287,5.657c0,1.714,0.363,3.084,1.086,4.113
+		c0.723,1.029,1.789,1.544,3.201,1.544c1.865,0,3.18-0.915,3.941-2.743l4,2c-0.875,1.563-2.057,2.791-3.541,3.686
+		c-1.486,0.896-3.105,1.343-4.857,1.343c-2.896,0-5.209-0.875-6.941-2.629c-1.736-1.752-2.602-4.19-2.602-7.313
+		c0-3.048,0.885-5.466,2.658-7.257c1.77-1.79,4.008-2.686,6.713-2.686C51.117,18.558,53.938,20.101,55.613,23.187z"></path></g></svg> <!-- -->2024<!-- --> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">BY-NC-SA.</a> </span><span>See a typo?  <a href="https://github.com/handeyeco/tech-blog">File a pull request or issue.</a></span></footer></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/minidexed-pcb/";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-637fbcf36b8141e442fd.js"],"app":["/app-e3eee7d533645186be7b.js"],"component---src-pages-404-js":["/component---src-pages-404-js-76a9e5bd24650270f882.js"],"component---src-pages-index-js":["/component---src-pages-index-js-2874797e417dec4f9ffd.js"],"component---src-templates-blog-post-js":["/component---src-templates-blog-post-js-682f08cb5b5383fbfa1b.js"]};/*]]>*/</script><script src="/tech-blog/polyfill-637fbcf36b8141e442fd.js" nomodule=""></script><script src="/tech-blog/component---src-templates-blog-post-js-682f08cb5b5383fbfa1b.js" async=""></script><script src="/tech-blog/cd7d5f864fc9e15ed8adef086269b0aeff617554-972ee211bc840e5ac994.js" async=""></script><script src="/tech-blog/styles-0ec71dd62c66cb95665c.js" async=""></script><script src="/tech-blog/app-e3eee7d533645186be7b.js" async=""></script><script src="/tech-blog/framework-9d2233ab751940aaa81d.js" async=""></script><script src="/tech-blog/webpack-runtime-200cf945a48398a9a41e.js" async=""></script></body></html>
