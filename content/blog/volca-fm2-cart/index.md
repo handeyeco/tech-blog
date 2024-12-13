@@ -6,7 +6,15 @@ description: How to send a full DX7 cart to the Korg Volca FM2.
 
 **!! SENDING A CART WILL OVERWRITE THE PRESETS SAVED ON YOUR FM2 !!**
 
-Korg flexes the FM2's compatibility with the DX7 quite a bit: _"completely compatible with SYS-EX patches for the DX7"_ and _"full classic Sys-Ex compatibility"_ are right on the landing page for the FM2. However the manual is a bit more obtuse: _"sound files (SYS-EX/SYX) created on the Yamaha DX7 can be converted and loaded into the volca fm"_ and _"the MIDI IN jack can be used...to receive SYX (Yamaha DX7) sound data files"_ aren't particularly useful.
+Korg flexes the FM2's compatibility with the DX7 quite a bit; right on the landing page for the FM2:
+
+- _"completely compatible with SYS-EX patches for the DX7"_
+- _"full classic Sys-Ex compatibility"_
+
+However the manual is a bit more obtuse:
+
+- _"sound files (SYS-EX/SYX) created on the Yamaha DX7 can be converted and loaded into the volca fm"_
+- _"the MIDI IN jack can be used...to receive SYX (Yamaha DX7) sound data files"_
 
 As I was writing an email to Korg I finally figured it out, and while it seems obvious now, I thought I'd share the process.
 
