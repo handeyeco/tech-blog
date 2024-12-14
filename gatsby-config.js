@@ -5,10 +5,6 @@ module.exports = {
     author: `Matthew Curtis`,
     description: `Notes on tech by Matthew Curtis.`,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
-    social: {
-      twitter: `handeyeco`,
-      github: `handeyeco`,
-    },
   },
   plugins: [
     {

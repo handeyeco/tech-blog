@@ -6,26 +6,10 @@
  */
 
 import React from "react";
-import { useStaticQuery, graphql } from "gatsby";
 
 import { rhythm } from "../utils/typography";
 
 const Bio = () => {
-  const data = useStaticQuery(graphql`
-    query BioQuery {
-      site {
-        siteMetadata {
-          author
-          social {
-            twitter
-            github
-          }
-        }
-      }
-    }
-  `);
-
-  const { author, social } = data.site.siteMetadata;
   return (
     <div
       style={{
@@ -34,10 +18,10 @@ const Bio = () => {
       }}
     >
       <p>
-        Written by {author} - community organizer, artist, and developer in
+        Written by Matthew Curtis - community organizer, artist, and developer in
         Fayetteville, AR.
         {` `}
-        Here's my <a href={`https://github.com/${social.twitter}`}>Github</a>.
+        Here are my <a href="https://h-e.io/">links</a>.
       </p>
     </div>
   );
