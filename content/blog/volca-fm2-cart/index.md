@@ -6,6 +6,8 @@ description: How to send a full DX7 cart to the Korg Volca FM2.
 
 **Update 2024-12-14:** I thought it was weird that I couldn't find a web-based tool for sending SysEx, so I ended up making one: [SysEx Send](https://handeyeco.github.io/sysex-send/) ([Source](https://github.com/handeyeco/sysex-send)). The steps are basically the same as below except now you can use SysEx Send instead of SysEx Librarian.
 
+**Update 2024-12-15:** I noticed that the FM2 can store 64 presets, but a DX7 cart holds 32 presets. That means when sending a cart presets 1-32 are changed but presets 33-64 stay as factory presets. If anyone knows how to overwrite 33-64 via a SysEx dump, please let me know!
+
 ---
 
 **!! SENDING A CART WILL OVERWRITE THE PRESETS SAVED ON YOUR FM2 !!**
@@ -118,5 +120,3 @@ I went through the [SynprezFM](https://www.synprez.com/SynprezFM) carts and copi
 - [All SynprezFM presets zipped](./carts/SynprezFM.zip)
 
 There's no order to these favorites. I intentionally shuffled them so that I would have a good mixture of presets per cart.
-
-While doing this I noticed that the FM2 can store 64 presets, but a DX7 cart holds 32 presets. That means when sending a cart presets 1-32 are changed but presets 33-64 stay as factory presets. If anyone knows how to overwrite 33-64, please let me know!
