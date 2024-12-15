@@ -107,3 +107,16 @@ I like to mirror things in case sites go down.
         - [Soundbank Disk #2](./carts/greymatter2.syx)
         - [Soundbank Disk #5](./carts/greymatter5.syx)
         - [Soundbank Disk #7](./carts/greymatter7.syx)
+
+## Bonus 2: SynprezFM carts
+
+I went through the [SynprezFM](https://www.synprez.com/SynprezFM) carts and copied my favorites into three carts:
+
+- [SynprezFM Faves 1](./carts/SynprezFM_Faves1.syx)
+- [SynprezFM Faves 2](./carts/SynprezFM_Faves2.syx)
+- [SynprezFM Faves 3](./carts/SynprezFM_Faves3.syx)
+- [All SynprezFM presets zipped](./carts/SynprezFM.zip)
+
+There's no order to these favorites. I intentionally shuffled them so that I would have a good mixture of presets per cart.
+
+While doing this I noticed that the FM2 can store 64 presets, but a DX7 cart holds 32 presets. That means when sending a cart presets 1-32 are changed but presets 33-64 stay as factory presets. If anyone knows how to overwrite 33-64, please let me know!
