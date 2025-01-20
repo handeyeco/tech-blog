@@ -1,4 +1,428 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 09 Jan 2025 18:29:04 GMT</lastBuildDate><item><title><![CDATA[From MIDI to Ripchord]]></title><description><![CDATA[tl;dr: if you typed “free ripchord presets” and landed here, here’s a bunch of free Ripchord presets thanks to SHLD. Ripchord is a free…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/shld-ripchord/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/shld-ripchord/</guid><pubDate>Thu, 09 Jan 2025 20:29:13 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;tl;dr&lt;/strong&gt;: if you typed “free ripchord presets” and landed here, here’s a &lt;a href=&quot;/tech-blog/2978c33d261d9941a02ee756507b1e21/shld-ripchord-progressions.zip&quot;&gt;bunch of free Ripchord presets&lt;/a&gt; thanks to &lt;a href=&quot;https://github.com/ldrolez/free-midi-chords&quot;&gt;SHLD&lt;/a&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 20 Jan 2025 19:32:06 GMT</lastBuildDate><item><title><![CDATA[MI Grids Bitwise Shift]]></title><description><![CDATA[I’ve been having a lot fun building a generative melody sequencer for Grandbot and have started looking at other ways to algorithmically…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/grids-bit-shift/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/grids-bit-shift/</guid><pubDate>Mon, 20 Jan 2025 03:25:23 GMT</pubDate><content:encoded>&lt;p&gt;I’ve been having a lot fun building a generative melody sequencer for &lt;a href=&quot;https://github.com/handeyeco/Grandbot&quot;&gt;Grandbot&lt;/a&gt; and have started looking at other ways to algorithmically generate parts of music. Passing Grandbot’s output through my &lt;a href=&quot;https://github.com/handeyeco/norns-ripchord/&quot;&gt;norns-ripchord&lt;/a&gt; has been useful for generating chord progressions and, by using a sampler, I can repurpose Grandbot’s output to trigger chopped breakbeats for some glitchy D’n’B style drums.&lt;/p&gt;
+&lt;p&gt;At one point though I had an idea: what if I took a collections of drum patterns and used them to generate a dataset of probabilities - not a collection of &lt;em&gt;sequences&lt;/em&gt;, but a collection of probabilities that could be used to generate novel sequences based on the likelihood that a specific drum would play at a specific step. I knew I would need patterns, that I would need to normalize the data, that this sounded a little like how machine learning works, and…well it all just seemed like a lot of work and maybe a little beyond my skill set.&lt;/p&gt;
+&lt;p&gt;So how surprised was I when I discovered &lt;a href=&quot;https://pichenettes.github.io/mutable-instruments-documentation/modules/grids/&quot;&gt;Mutable Instruments Grids&lt;/a&gt; (&lt;a href=&quot;https://github.com/pichenettes/eurorack/tree/08460a69a7e1f7a81c5a2abcc7189c9a6b7208d4/grids&quot;&gt;source&lt;/a&gt;). This is almost exactly how Grids works. Grids is a 5x5 set of pattern probabilities (so 25 patterns) with each pattern containing 32 steps for 3 instruments (bass drum, snare drum, and hi hat); this 5x5 coordinate system is traversed using an X/Y location with the 4 patterns surrounding the X/Y point being combined through a 2D crossfade.&lt;/p&gt;
+&lt;p&gt;Before I go any further, I just want to shout out two people: Émilie Gillet (aka pichenettes) who founded Mutable Instruments and who gave one of the greatest gifts ever be given to the Synth DIY scene by open-sourcing her work. Also a big thank you to Adam Thomas (aka devdsp) who who did a &lt;a href=&quot;https://devdsp.com/grids.html&quot;&gt;visualization of Grids&lt;/a&gt; - one that I borrowed and added to. You can &lt;a href=&quot;https://handeyeco.github.io/mi-grids-viz/&quot;&gt;find my version here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Understanding Grids&lt;/h2&gt;
+&lt;p&gt;Before we get too technical, let’s talk about what Grids is doing. Grids is called a “topographic drum sequencer” because it’s working on a 2D map using the concept coordinates (X/Y point) to traverse this map. Kind of like this:&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/74c50a66331cdaf6b96a48c6ab4931de/add4c/4x4-map.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 100%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAABYlAAAWJQFJUiTwAAABlElEQVQ4y6WU3XKCMBBG8/7P04foVe+L4IgoiOAPiCKgs+3JTJwk0im23DAcNvvt5ttEBUEgRVHIZrORPM9lvV4LbLvdasZ7tVqJHWfYbDZz1i6XS1EA+7nf73I4HBx2u93keDw6bBgGqarKYV3XiSK7SWRgWZYOu16vo2y32znscrmIonxf2QSap+972e/3T9X4nbRtKypNU61AAMlQoWoYiWj3fD7rPbJZ0zR6L+21dV2LCsNQ7w9VocjCKIochsAYm8/nDqO4J1NQ99tD3W8P5hulTaGi30zp++5/ptgVvr0H8vGZSNvUT0b5VSOiGGTa5IMgDMiyTCcehl7irJQ0L6X4FoYRx/t0Oun9ttcyl44pVEaQYbTZ1JVOFobRg1EZosYUGGtHTRk7KS+Z8teTwhBPMmXq2LBnfoXalDiOtRqTjyEEJUnyYKiSjNvFZogahkGspWK1WCz0B8eGHwQiYhgJCORq8hnC9lr8+PNJGWv5R1OMyKumUO3kC3by2HCNE2yGk4oZbJsxxGOMG8hmnLovaEgKTYdse6oAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;4x4 grid with a single point at 2x2&quot;
+        title=&quot;4x4 grid with a single point at 2x2&quot;
+        src=&quot;/tech-blog/static/74c50a66331cdaf6b96a48c6ab4931de/fcda8/4x4-map.png&quot;
+        srcset=&quot;/tech-blog/static/74c50a66331cdaf6b96a48c6ab4931de/12f09/4x4-map.png 148w,
+/tech-blog/static/74c50a66331cdaf6b96a48c6ab4931de/e4a3f/4x4-map.png 295w,
+/tech-blog/static/74c50a66331cdaf6b96a48c6ab4931de/fcda8/4x4-map.png 590w,
+/tech-blog/static/74c50a66331cdaf6b96a48c6ab4931de/efc66/4x4-map.png 885w,
+/tech-blog/static/74c50a66331cdaf6b96a48c6ab4931de/c83ae/4x4-map.png 1180w,
+/tech-blog/static/74c50a66331cdaf6b96a48c6ab4931de/add4c/4x4-map.png 1452w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Okay, so I don’t know whether to call this a 5x5 or 4x4 grid; the lines represent the 25 drum patterns (5x5) but the coordinates exist within the 4x4 space between lines. If I make a mistake, chalk it up to a classic off-by-one error. Anyway let’s zoom in:&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/3a01fb8e933088213c2d524e06a8a6d3/b79a5/one-cell.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 100.67567567567568%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAABYlAAAWJQFJUiTwAAACLklEQVQ4y5VU227TQBD1B4EEv4L4DN5BCPEB8AAPpCSVKBLlsWoREuLaOHEce23HieOkzQXHpRUKCiGVobmUxslh14lTN7XdMNLRjmbmHO3Mjpbb268htfEchX0CYohQyvlLUE2ZnlJojhh5j7u+kUS1WgOX2d5GKpmEWTGhFTToemGBAjuLOogq0ZxKY/osFgDjMG5qPQXh01twfdOEpGmIM9upYYJxbI1MNIw6TXAdVcGuIHjB8XiMyWSygOu6wBT44XzH4LSPKfVZLFjDOMzSfBa/DsrguvR2fC7nBVnBsk2ZSojvm8/hszkcH1aiBRnZF1j2VxdkLQZIcYL+GS8YIK5qlwR/qioyhGBqWThznMhZRc3W/TsEeg3wmSwVrJ7fsPf4EUa2PSsOeZyoEZyddOE23i0JiiLQ72M8HEbeMCjmspVia8PWaPQHGHbAC+L/zzAs586bWemVl8X8+M6HDO4/2UTja2uRv3IPw9pkpulF3LjzCtcfyrh1Nwn3dLD6Ygd9d95bQS/hJhW89iCP2/dSVwv6rQWx2Lm5/+YjbfnpJppWSMtsD9MRn8Nkfqv2kYMj+3j2CO7FsSw+h4yA3jcT3O9SCaJCYpe4fXiCutGNrclLBIN2HdyXrS0kniVQpLORJBmEKHPQH1wmUBT6vX0WwO/mPJ/FzmsUyJSj04daS6wh/X4HnHXQwssXr1Et2zD0Osp64wIMiorR9GAs5Wb5OqqG7WlYLQv/ACT4ytT8uamGAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;One cell of the 4x4 grid with each edge as a drum pattern&quot;
+        title=&quot;One cell of the 4x4 grid with each edge as a drum pattern&quot;
+        src=&quot;/tech-blog/static/3a01fb8e933088213c2d524e06a8a6d3/fcda8/one-cell.png&quot;
+        srcset=&quot;/tech-blog/static/3a01fb8e933088213c2d524e06a8a6d3/12f09/one-cell.png 148w,
+/tech-blog/static/3a01fb8e933088213c2d524e06a8a6d3/e4a3f/one-cell.png 295w,
+/tech-blog/static/3a01fb8e933088213c2d524e06a8a6d3/fcda8/one-cell.png 590w,
+/tech-blog/static/3a01fb8e933088213c2d524e06a8a6d3/efc66/one-cell.png 885w,
+/tech-blog/static/3a01fb8e933088213c2d524e06a8a6d3/c83ae/one-cell.png 1180w,
+/tech-blog/static/3a01fb8e933088213c2d524e06a8a6d3/b79a5/one-cell.png 1372w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;This point exists in a space between 4 drum patterns - or rather drum &lt;em&gt;probability&lt;/em&gt; patterns. These probability patterns are blended together based on the position of the X/Y point. In this case it will be affected by all 1-4 patterns, but it will be affected by 2 and 3 more than 1 and 4.&lt;/p&gt;
+&lt;p&gt;To illustrate this, let’s look at just 4 steps of one of the three instruments while pretending that each pattern has its own step. Note that each pattern’s step is a dark color (indicating a high probability) but that the outputs for 2 and 3 are darker than 1 and 4 (indicating a bias towards 2 and 3 probabilities). However the steps for 1 and 4 still have &lt;em&gt;some&lt;/em&gt; probability.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/fa4e3fd9672750e84d958faf429e7dac/86a1e/simple-blend.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 114.1891891891892%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAXCAYAAAALHW+jAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEbUlEQVQ4y2VUa0ybZRT+MDE4MyNBSMBo3KKRRU3MJgZMZpSZsc1LXEx0S0kYUC6NjsSlRoiCJRJd9Adm0Xn7A9apf8yU1ZAw+cPglzGAQG+09E5bCi290nsfz3lLP4qe5OR73/Od93nPOe9zjtT1wQW0djfjpc5GqK+q4HQ4sbGxAZ/PB4/HA7vdLu+9Xi/W19eFnddsczqdSCVTYCkUCpCePF+Poy8fxsNnKtGsaIDRZES5rKysHNivra0hFovJ+3gsDv+2F5l8WuylE28exbHXa/DYq/fjxY6nYTDq+S7kshlkM2kZkG9nsVgsiEajMmAsGoNvy4NUbrcI2PjWozhy9jAeOn0PpX0CTvfGgYjMaxak02lkMhnk83kBGA6HkcvlkM/lEQqF5IhFylMzOvz8mxY3fh3H3F9zmJ++ie8/VmHisyuY+FwNs2EFJpMZRqMRer1e1JBBDQaDsLGm0ul9wN1EUo4mT6pRPAPVMQlXnpXQ0yBh8sfr4l+WIhQRm80iwpJwhJFIeB8wEolQxQqUThbpHPBp50kMnKyA5lw11M9J0P30tXDOZNJyDcsfJRpPImRfRCG+WaxheYHTFKLm4nG884QEdbOEPop0UvvVgZparRZwECWJRKIIbxNYIQd+NslkMoHVQPVxuNyYuTmBa+9dwDdDHfj2IyX0S3/j9vQd/DH5J279Po3lf1Zhs62LGvK5Yg0z+ykHg0Ekk0mhwe1temVv8edeBL/c0KGmsgVHHngF1Xe34NLFQUo/iUQ8gVQqha2tLcTjZa98oB6U/prZJOCyezW7fu0H1FaexuMPvoG6e8/g/NnLZM3tE5vAbBYvYpE9YicSibKfcdEJ5fLlFxO4T3oBj1S/hqq7TuFcS29Z/EAiEYfL4Udyt3iJ5HA4RK9yf7rdbiq6VaxZNzd9mLk9h+cbL+FUsxJNTylwdfQ7BENUGjrnIX8H9XKJASJlbm5udAZlQKYFr9nmcrloONjg9/toEHjF1+Gw45PWVqhqa/F2XR0+bGpCJFx89QJ10v9SZsByWV5ePrBfXVpCf00NlBIRn/XQIdjm5kCvWqTNfx+lHJBTWF1dlW9n0dMF79bXo5vAeklVVVWwTk0BOztFwG2iCjc/K1OAW6tEIyYw840j300UaWKk/fsNDegisO6KClymtAN+f7F1aWCITuF+ZOWDDMxR85o1m83Ka/bN0qEA13pxEVZSHw3gUgYysQOBAL3opoiIvwsLC1gkZ06XbTwTl6h2bGffGIEHKcUQDYkdngV7s1IA8ojnVP0UNoMNDw9DoVCgq6sLHR0dGBsbQ2dnp9i3tbVhZGRE+PL4D5A/jzPOriQS842j2OEb6cfg4KAAUKlU6O3txejoKPr6+sSe7UNDQ+Cs2J/PMb2YCbOzs5ifn4fEnOP6lEDVajXa29sFGEel0WigVCrR09Mj7AMDA8KP68nnSpzlwJjTYtowVfjLRB4fH0d/f78A5sM6nU58ec92rVYrDjIb+BxPG2ZESf4FOYAJfeLgQgkAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Simple blending example showing blending bias towards 2 and 3&quot;
+        title=&quot;Simple blending example showing blending bias towards 2 and 3&quot;
+        src=&quot;/tech-blog/static/fa4e3fd9672750e84d958faf429e7dac/fcda8/simple-blend.png&quot;
+        srcset=&quot;/tech-blog/static/fa4e3fd9672750e84d958faf429e7dac/12f09/simple-blend.png 148w,
+/tech-blog/static/fa4e3fd9672750e84d958faf429e7dac/e4a3f/simple-blend.png 295w,
+/tech-blog/static/fa4e3fd9672750e84d958faf429e7dac/fcda8/simple-blend.png 590w,
+/tech-blog/static/fa4e3fd9672750e84d958faf429e7dac/efc66/simple-blend.png 885w,
+/tech-blog/static/fa4e3fd9672750e84d958faf429e7dac/c83ae/simple-blend.png 1180w,
+/tech-blog/static/fa4e3fd9672750e84d958faf429e7dac/86a1e/simple-blend.png 1296w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Now let’s look at a more likely example. In the next diagram:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;All patterns have a high probability for step 1 which means the output for step 1 has a high probability.&lt;/li&gt;
+&lt;li&gt;Similarly, all patterns have a 0% chance probability for step 2, so the output for step 2 has a 0% probability.&lt;/li&gt;
+&lt;li&gt;Pattern 3 has a medium probability for step 3, pattern 4 has a low probability, and patterns 1 and 2 have a 0% chance; I didn’t do that math, but that should result in a low-to-medium probability since pattern 3 pulls it up and pattern 2 pulls it down.&lt;/li&gt;
+&lt;li&gt;Finally step 4 output is a very low probability because patterns 1 and 4 have some probability, but that’s brought down by patterns 2 and 3 having a 0% probability.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/301b25e5de1131f3ef4acb10c338f13c/5f652/complex-blend.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 112.83783783783782%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAXCAYAAAALHW+jAAAACXBIWXMAABYlAAAWJQFJUiTwAAAE/klEQVQ4y2VVa0ybVRj+FhMR55RoApRFmBm7Gfyhm9nQbLqJGQLD6ByDbeIyHXMsIRjDELdsEDXLEszcYjYzjWaSGLLEH2aKXFfCrTfoBaS0XNpSWkrbr+Xecu3j+36FMvS0b8739pzvOed53kuF06UfYG/ODuzL3Ym8z7JgNpswOjoKh9OBkZERDAwMSLPT6SRzwGYZxu9tVaj880vcqq3AjQdX4RKd4LG8vAzh1dxkbMnYiK1Zz2BnViw0WhUeHUajUdq4OhwjTtx9eB03O8pwW1mOa3XF0FtUCNGHv0Jq3nZsfecpbCPAlGwZOnXqyGlsfX19WFhYiACO2B34SV6JW+2XcFtRget1n0M3pMRiKLxHSCtIxc6jm/Hiseex78OXoO/RSQvz8/OYm5uDyWRCIBCQQPkAh92Jn+U3UCkvwc2Wy/jmr2IMOc1rlL/7uhCFJ3aj8OQefFtRAJvVht7eXgmI6VqtVumZb9pr7MXg4BAMRh0aFX+jWdMAubIBk1NTEmAoFIJQnrUZpfsElL0m4OLBTejWhikvLS1icXFRAuXbrupotVnhcXsiEsxOBzA+7me4MOCVdxNRsv8xlL7xOEreikGP9r8amlYAQ9Lvw7ZhuN1jK3AhTM3Mwj86hGW/hWMC4WpWHMpeF3DpgICSN59Ad9f6KDP9R8eIw06A7rUbBoLwe+mApUAY8E55MUqPH0Rp7iF8f/kCbESJdbJYhmgeJN+GLvU/ULYboGjVo6fbhOHhYWmN9TWbzZienlnT8MDec4h/OhMJMUewJyUfBn0PJicn4fWKmJjwo1WuwUfpd3Hi0A/I2X8HF8/eo8R3wO/3k3bjcDgctG9iDXD3jjwkxmTgheeOYLvsCDRq3cpimFJ9TQfOZf+GC+/fx6fZ91F08hf4fGKEcjAYgGvUC587EM7DlC1HERv1NmRPpiPx2cNQq7rWaVb7oA1n0qtQkFmNjw9X4/yxHyGK3vWATg/GxWAYMD/vCva+fBqpr5xBzntfkCYD8Hg8Uj17PGPQdvYSzWoUnapC4fFfKVf/gMvtwhiljtvrhZ3qfHp6eo3ytcwMnJfJUJiwGV+lpWGAmoPdbpfMSgEZJL//YRPM9Q0w19XBrGhHv1IJU20tBpqa0FNTgwmfLwzIlXIhJgZnBAGfkJ3esAE6hWId5R6NBlMqFeZ0Wizp9TDV1cPe1oZFnQ4L5HtaWuClSNM1w2lTLEvAWQI7J2xAwcaN6FaF83B5aUnaYNRqMa5UYaazE0F6Njc2wt7RgWBXFwLku9vb4e7UYKG/P6xhUUICThFgPt9y0yYY6EWpOVBjmKOG0E2+p7UV43TzKaJqbGjAEPmT5E/S4XbyfS7XGmU71aqRNrDZqSq4s4gkto90EUVR8v1jYxCpwXopAFOUe2we0thLOShS8LjmOc+koIxSGfXRdY1kLnrmRQbixGVbYJ9mN0We12dmZxEIBiHSgT5Obkrq1cYhta9tyckQiC6bLD4eOhKbF/hmQXqR/TYKgoJ0UxDNRtLQYrFIDPxkXJq+lShLGsbGxkYAo6KioFoJSmilVLpIfCVpx7OWglBfXy/VMh82S7f1kjz8v9Pc3AyDwQAhLi4uAhgdHf0/QAZRq9XSrKc0aaAgcI5yN2cWXAT8B8bNghuFsGvXrghgUlKS9BI3By58psKUmyiB+QZyuVwC5Be5KXA1cTdnrVfHvzyh1C31P3rxAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Complex blending example showing how patterns interact with one another&quot;
+        title=&quot;Complex blending example showing how patterns interact with one another&quot;
+        src=&quot;/tech-blog/static/301b25e5de1131f3ef4acb10c338f13c/fcda8/complex-blend.png&quot;
+        srcset=&quot;/tech-blog/static/301b25e5de1131f3ef4acb10c338f13c/12f09/complex-blend.png 148w,
+/tech-blog/static/301b25e5de1131f3ef4acb10c338f13c/e4a3f/complex-blend.png 295w,
+/tech-blog/static/301b25e5de1131f3ef4acb10c338f13c/fcda8/complex-blend.png 590w,
+/tech-blog/static/301b25e5de1131f3ef4acb10c338f13c/efc66/complex-blend.png 885w,
+/tech-blog/static/301b25e5de1131f3ef4acb10c338f13c/c83ae/complex-blend.png 1180w,
+/tech-blog/static/301b25e5de1131f3ef4acb10c338f13c/5f652/complex-blend.png 1302w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;So which notes play? That’s where the “fill” control comes in. Fill is basically a threshold for triggering a gate. If the output probability is higher than the fill threshold, the gate is triggered. In the next diagram, I’ll indicate notes that don’t play with blue and notes that do play with orange. The probabilities stay the same each time, but as the threshold drops more notes play.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/3ef5e4599989b7deaf24e57f5da2660b/f43e4/threshold.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 118.24324324324324%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAYCAYAAAD6S912AAAACXBIWXMAABYlAAAWJQFJUiTwAAAFPElEQVQ4y22Va1BUdRjGT05TH+xLly/ZB5ucqRkjLcVL6KSGjZpjNaapo6nZOGbmvUwB8R5qykUEFdgFFTQZFQZCBUHdC6zKrhLBsgi7srvsFVZEQECEX/9zFIT0zLx79tye87zP83+fI/X09NB/6+7uVvYPHrRQVVWF0WjEYrHQe1//+1/0X5J//D4fToed9vaHyskGvw+btZZ79wI8fPgQm81KbW2N/Jhyva2tjcbGxj6g3lIAOzo7KbqmI/dCPlZbnXLS+I+Zi4UaXF6/cmwqK+fS5SKaW1qVY4/Hg9lsfiFLKSw2g1fHLOGNSSsJWRhG5AkdU/boCI3SsyShhPN6C2qtE5XGzimdDafLQ0d7u8KyqamJrq6ugS0vizyKNHwBg4J/4L0Zq1kaW8iYHSV8uquYr6Ovk1pUjbrYh7rEx3GdU7Bu7GP0+PFjRefc3FwqKiqeAC4OT0B6dzZS0EKGfL6CRQcLCIrQ83Gknmn7ilEVVpOs85EkSqVx4PI9A+wUcrndbqxWa5+mUvZVE7PXRzNnYwwRh89QYLrLlpM3Ccso5Vi+mXKrm79v3iXPWIe2wikeDAiz7inVCzJAQ+3ZROKWjSZ+xQQyd8zjZMFtVqhMrFQZ2XOunOJKJ9lGF1ml9RSU1dMYuCecb6OltZXm5ubnTUkOm8+qIIl1YyV2TX+NJXvPERRpYNQ2uWU9SfmVJOt9ovykXKvD4fYNaNlms6HRaJS90nKKAPzlKeDu6YNZujeTkZHFBEdqmLFPR7IMqGjoFYD2AYCPHj1SgEpKSnA4HE8Ai84k8OeS0UQvn0D61u8EgJkFSWYWJVey5ewdis1usoxusk1e8svcSssyM7laWloUp/tvkvFqDvG/ziVh0zwyE3ZQb8ylOmMtllMbcBZEU2mtJ69UmHLThl7o2WuG3+9/zpRWoavS8s/DJTYES2z64i00+7/Bve996vd/iD02hPS8Yo7qG0nSep5rWWYpv0Ce9fv371NeXo6k3rqQdaMkNk+UCJv5DvoDs2mIGYk3LhjX4clkFlxHZQiQVuwlTWvH7Q8M0FAew5ycHGpqaqiurkbKStzK71NfJ2Lm2+xfPglTRhh3YqdQHTcVq3ohFwxmwc6LSufhtMGFW8x3R0e7CJJ2ZfT6aygzlSqNWo5HrebE3jVcPJVAvdlA+dnd/HtuD7WadFx1d6i6WYSl9Cp3K0sVkEAgQENDg9Ju/9iTGUupkd+z+iOJ38ZLbPlyCPqYefgPDscXPQJbfCjmvHgRP0dEHaVRI15ot/WByCxl8P7AUuq2xawXhmz+bBDhs4aij56LN+YT3LHB2BKmYbkQT2dpCo+MKTTojuGtr3s6Fd1KuyaTiStXrvQFs5T+x09sHCcMmfIK2+d8gCFxGR4B5jk0HtvRWVjykwSYii6TigZ9Cl6Xo4+NHL5yyRHWF19Vtw2kRq0lLWoNl/46hqvahClzN7dEWa6dxi00NGvPY9ZlYS3T0iSWh7wGfSLl+6/D3tSWTu9fzcaQlwgLHczO+SO4kbQSZ8w4HHEh1B6bjeWymrbrybTdEOx0KtxOOzIZmZUcsvJaHACYJjTcKOY4fPLLRHwlaziHhrhR+A6NpS5xutDwEN231PTcVhPQJ+Hr17LsqsFgUJx/ljbhC/hxmMQq4fSG0DfRHviWup1Dubt7GJaDE6nIjaVVF0ubKHdhnHDZqnyquoUh8izLEdZriAJouaUj+0gkOUnbuZalxl1VQl1hAvbCROpvnMNvt+Cr1OAza/DXlNIsNJRblUue3f9/Xv8DmBsjnXtjwlsAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Diagram showing that as threshold decreases, likelihood of notes playing increases&quot;
+        title=&quot;Diagram showing that as threshold decreases, likelihood of notes playing increases&quot;
+        src=&quot;/tech-blog/static/3ef5e4599989b7deaf24e57f5da2660b/fcda8/threshold.png&quot;
+        srcset=&quot;/tech-blog/static/3ef5e4599989b7deaf24e57f5da2660b/12f09/threshold.png 148w,
+/tech-blog/static/3ef5e4599989b7deaf24e57f5da2660b/e4a3f/threshold.png 295w,
+/tech-blog/static/3ef5e4599989b7deaf24e57f5da2660b/fcda8/threshold.png 590w,
+/tech-blog/static/3ef5e4599989b7deaf24e57f5da2660b/efc66/threshold.png 885w,
+/tech-blog/static/3ef5e4599989b7deaf24e57f5da2660b/f43e4/threshold.png 1120w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Just a disclaimer, this is more meant to be a conceptual example not a precise description of how the code works. Anyway let’s recap the ideas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;We have 25 (5x5) drum probability patterns that are formed to create a 4x4 grid&lt;/li&gt;
+&lt;li&gt;We traverse this grid using an X and Y position&lt;/li&gt;
+&lt;li&gt;We blend the 4 patterns that surround the X/Y position in a way that’s biased towards the patterns we’re closest to&lt;/li&gt;
+&lt;li&gt;We read steps from this blended probability pattern and compare each step to a threshold to determine whether or not the step should trigger a gate&lt;/li&gt;
+&lt;li&gt;We do this for 32 steps for 3 instruments (sharing the X/Y coordinate but with each instrument having its own fill setting)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If things still aren’t clicking, play around with the visualizer that Adam Thomas made and which I modified to add a visualization of the coordinate grid: &lt;a href=&quot;https://handeyeco.github.io/mi-grids-viz/&quot;&gt;here’s that link again&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Whew that was a lot. What’s this blog post about again? Right, bit shifting.&lt;/p&gt;
+&lt;h2&gt;Understanding Grids’ bit shifting&lt;/h2&gt;
+&lt;p&gt;At this point you might be thinking we’re about to dig into an encyclopedia’s worth of code in order to work in this blended, multi-dimensional space - at least that’s what I was thinking. If so, you’ll be surprised to discover that the reading/blending code is relatively concise (if a little opaque).&lt;/p&gt;
+&lt;p&gt;I’m sure a lot went into the machine learning data crunching, but accessing and blending the data can be cleverly done with a few lines of code thanks to some &lt;a href=&quot;https://en.wikipedia.org/wiki/Bitwise_operation&quot;&gt;bitwise operators&lt;/a&gt;. Coming from JavaScript this was a novel idea - it’s rare that we need the speed or control that bit manipulation offers and numbers in JS are floats anyway so it’s not as straightforward as it is in C++.&lt;/p&gt;
+&lt;p&gt;Let’s look at the code. First we’ll make the 5x5 grid:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// pattern_generator.cc&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; prog_uint8_t&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; drum_map&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; node_10&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_8&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_0&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_9&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_11 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; node_15&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_7&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_13&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_12&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_6 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; node_18&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_14&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_4&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_5&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_3 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; node_23&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_16&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_21&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_2 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; node_24&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_19&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_17&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_20&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; node_22 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Each node here is is an array of 96 probabilities - 3 instruments (BD, SD, HH) times 32 steps - and each probability is represented as a byte (0-255). Now we’ll read a specific step (0-31), for a specific instrument (0-2), for a specific X/Y position (0-255 / 0-255):&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// pattern_generator.h&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; kStepsPerPattern &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// pattern_generator.cc&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;PatternGenerator&lt;/span&gt;&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;ReadDrumMap&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; step&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; instrument&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; x&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; y&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; x &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; j &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; y &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; prog_uint8_t&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; a_map &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; drum_map&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;j&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; prog_uint8_t&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; b_map &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; drum_map&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;j&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; prog_uint8_t&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; c_map &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; drum_map&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;j &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; prog_uint8_t&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; d_map &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; drum_map&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;j &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; offset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;instrument &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; kStepsPerPattern&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; step&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; a &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;pgm_read_byte&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a_map &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; offset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; b &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;pgm_read_byte&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;b_map &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; offset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; c &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;pgm_read_byte&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c_map &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; offset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; d &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;pgm_read_byte&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;d_map &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; offset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;U8Mix&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;U8Mix&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; b&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;U8Mix&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; d&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// In a shared utility repository&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;U8Mix&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; b&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; balance&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; a &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; balance&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; b &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; balance &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you look at this and think “yeah, that makes sense” then I wasted your time. I’m sorry. The rest of this article is just going to explain these 20-ish lines of code.&lt;/p&gt;
+&lt;p&gt;First let’s describe this with pseudocode:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;We declare a function called &lt;code class=&quot;language-text&quot;&gt;ReadDrumMap&lt;/code&gt; that accepts 4 bytes: &lt;code class=&quot;language-text&quot;&gt;step&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;instrument&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;x&lt;/code&gt;, and &lt;code class=&quot;language-text&quot;&gt;y&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;We use &lt;code class=&quot;language-text&quot;&gt;x&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;y&lt;/code&gt; to get indices (&lt;code class=&quot;language-text&quot;&gt;i&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;j&lt;/code&gt;) that we then use to get pointers to 4 patterns from &lt;code class=&quot;language-text&quot;&gt;drum_map&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Since each node in &lt;code class=&quot;language-text&quot;&gt;drum_map&lt;/code&gt; is an array of 96 probabilities and each of the three instruments takes up 32 of those 96 slots, we multiply &lt;code class=&quot;language-text&quot;&gt;instrument&lt;/code&gt; by &lt;code class=&quot;language-text&quot;&gt;kStepsPerPattern&lt;/code&gt; (32) and then apply the &lt;code class=&quot;language-text&quot;&gt;step&lt;/code&gt; offset to get our final index &lt;code class=&quot;language-text&quot;&gt;offset&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;We then get the probability for that instrument/step from each of the 4 patterns (&lt;code class=&quot;language-text&quot;&gt;a&lt;/code&gt; - &lt;code class=&quot;language-text&quot;&gt;d&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Finally we blend the 4 bytes representing the 4 probabilities into 1 byte.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;But wtf is &lt;code class=&quot;language-text&quot;&gt;x &amp;lt;&amp;lt; 2&lt;/code&gt;? How does &lt;code class=&quot;language-text&quot;&gt;x &gt;&gt; 6&lt;/code&gt; convert a byte into a 0-3 index? Why do we need &lt;code class=&quot;language-text&quot;&gt;&gt;&gt; 8&lt;/code&gt; at the end of &lt;code class=&quot;language-text&quot;&gt;U8Mix&lt;/code&gt;? This is the power of bit-shift operators. 🌈&lt;/p&gt;
+&lt;h3&gt;Mapping 0-255 to 0-3&lt;/h3&gt;
+&lt;p&gt;The first bit-shift operation we hit is &lt;code class=&quot;language-text&quot;&gt;uint8_t i = x &gt;&gt; 6;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;We know that &lt;code class=&quot;language-text&quot;&gt;x&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;y&lt;/code&gt; are values between 0 and 255, but we want to map this to 0-3 to get our first x- and y-patterns from &lt;code class=&quot;language-text&quot;&gt;drum_map&lt;/code&gt; (which we can use to get our second x- and y-patterns by adding 1 to the indices). What I probably would have done was use Arduino’s map:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; x&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; in_min&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; in_max&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; out_min&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; out_max&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; in_min&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;out_max &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; out_min&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;in_max &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; in_min&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; out_min&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;However, division is pretty inefficient which could be a problem in time-sensitive applications. Here’s a quote from Émilie that hints at her motivation for using bit shifting:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;…you need to divide by 255 instead of shifting by 8, and what took 1 CPU cycle will suddenly take 40+&lt;/p&gt;
+&lt;p&gt;(&lt;a href=&quot;https://handeyeco.github.io/mi-grids-viz/&quot;&gt;source is on my visualizer clone&lt;/a&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;That’s where bit shifting comes in. But what does a right shift do? Let’s look at some code.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;byte a &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;   &lt;span class=&quot;token comment&quot;&gt;// decimal 0   is 00000000 as a binary byte&lt;/span&gt;
+byte b &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// decimal 64  is 01000000&lt;/span&gt;
+byte d &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;128&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// decimal 128 is 10000000&lt;/span&gt;
+byte e &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;192&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// decimal 192 is 11000000&lt;/span&gt;
+byte f &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// decimal 255 is 11111111&lt;/span&gt;
+
+&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 11111111&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 01111111&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 00111111&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 00000001&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 00000000&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Some things to note:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Bit-shifting right moves all of the existing bits right, drops the right-most bit, and prepends the byte with a 0.&lt;/li&gt;
+&lt;li&gt;As we move from 0 to 255, the left-most two bits have 4 distict states: &lt;code class=&quot;language-text&quot;&gt;00&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;01&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;10&lt;/code&gt;, and &lt;code class=&quot;language-text&quot;&gt;11&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Counting 4 steps is exactly what we need.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;So enough being coy, let’s do the thing.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;  &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 00000000 becomes 00000000 = 0&lt;/span&gt;
+ &lt;span class=&quot;token number&quot;&gt;64&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 01000000 becomes 00000001 = 1&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;128&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 10000000 becomes 00000010 = 2&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;192&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 11000000 becomes 00000011 = 3&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Since bit-shifting right drops the right-most bits and prepends the byte with 0, we will always end up with 0-3 when keeping only two of the bits. By using the most significant bits (MSB), 0-3 maps fairly evenly across 0-255&lt;/p&gt;
+&lt;h3&gt;Reclaiming 6 bits&lt;/h3&gt;
+&lt;p&gt;While we want to be able to blend our 5x5 grid, we don’t just want 16 (4x4) steps of resolution - that’d be boring! &lt;code class=&quot;language-text&quot;&gt;x&lt;/code&gt; is 0-255 and &lt;code class=&quot;language-text&quot;&gt;y&lt;/code&gt; is 0-255, so we &lt;em&gt;should&lt;/em&gt; have 65,025 possibilities. So that’s why we blend between patterns. However we’re already using 2 bits for the indicies.&lt;/p&gt;
+&lt;p&gt;Here’s where the next shift happens: &lt;code class=&quot;language-text&quot;&gt;x &amp;lt;&amp;lt; 2&lt;/code&gt;. With a left bit shift, we drop the left-most bit and add a 0 to the right of the byte.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 11111111&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 11111110&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 11111100&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 10000000&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 00000000&lt;/span&gt;
+
+  &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 00000001 becomes 00000100 = 4&lt;/span&gt;
+  &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 00000010 becomes 00001000 = 8&lt;/span&gt;
+  &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 00000011 becomes 00001100 = 12&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;253&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 11111101 becomes 11110100 = 244&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;254&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 11111110 becomes 11111000 = 248&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 11111111 becomes 11111100 = 252&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note that it moves in increments of 4 when we shift by 2, which gives us 64 steps between 0 and 255. However this is 64 steps &lt;em&gt;per&lt;/em&gt; section in the 4x4 grid; 64*4 is 256 which is the number of steps from 0-255. We’re back baby!&lt;/p&gt;
+&lt;p&gt;So &lt;code class=&quot;language-text&quot;&gt;x &gt;&gt; 6&lt;/code&gt; helps us break 0-255 into 0-3 and &lt;code class=&quot;language-text&quot;&gt;x &amp;lt;&amp;lt; 2&lt;/code&gt; helps us get a 64 step resolution within a single section of the 4x4 grid. Together they let us traverse seemlessly while also letting us access the &lt;code class=&quot;language-text&quot;&gt;drum_map&lt;/code&gt; gracefully.&lt;/p&gt;
+&lt;h3&gt;Scaling up, scaling down&lt;/h3&gt;
+&lt;p&gt;This final bit of bit shifting is &lt;code class=&quot;language-text&quot;&gt;balance &gt;&gt; 8&lt;/code&gt; in &lt;code class=&quot;language-text&quot;&gt;U8Mix&lt;/code&gt;. For that it’s useful to look at the whole function again:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;U8Mix&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; b&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; balance&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; a &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; balance&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; b &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; balance &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It’s a crossfade between &lt;code class=&quot;language-text&quot;&gt;a&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;b&lt;/code&gt; where &lt;code class=&quot;language-text&quot;&gt;balance&lt;/code&gt; is the mix between the two. They’re all bytes, so they all have a range between 0 and 255.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token function&quot;&gt;U8Mix&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 255 - balance = 255 - 0 = 255&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// a * 255 = 0 * 255 = 0&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// b * balance = 255 * 0 = 0&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 0 + 0 = 0&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 00000000 &gt;&gt; 8 = 00000000&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// U8Mix(0, 255, 0) = 0&lt;/span&gt;
+
+&lt;span class=&quot;token function&quot;&gt;U8Mix&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 255 - balance = 255 - 255 = 0&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// a * 0 = 0 * 0 = 0&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// b * balance = 255 * 255 = 65025&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 0 + 65025 = 65025&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;//     65025 is bigger than a byte!!!&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;//     We need two bytes to represent it&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 1111111000000001 &gt;&gt; 8 = 11111110&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// U8Mix(0, 255, 255) = 254&lt;/span&gt;
+
+&lt;span class=&quot;token function&quot;&gt;U8Mix&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;37&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;145&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;36&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 255 - balance = 255 - 36 = 219&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// a * 219 = 37 * 219 = 8103&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// b * balance = 145 * 36 = 5220&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 8103 + 5220 = 13323&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;//     13323 is bigger than a byte!!!&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;//     We need two bytes to represent it&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 0011010000001011 &gt;&gt; 8 = 00110100&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// U8Mix(37, 145, 36) = 52&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So here’s what’s happening:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;We scale &lt;code class=&quot;language-text&quot;&gt;a&lt;/code&gt; up by the inverse of balance&lt;/li&gt;
+&lt;li&gt;We scale &lt;code class=&quot;language-text&quot;&gt;b&lt;/code&gt; up by balance&lt;/li&gt;
+&lt;li&gt;We add the two scaled numbers up, which may exceed a byte&lt;/li&gt;
+&lt;li&gt;We shift the whole thing right by 8 bits, which scales the number back down to a byte&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;So in a sense, &lt;code class=&quot;language-text&quot;&gt;n &gt;&gt; 8&lt;/code&gt; is an imperfect equivalent of &lt;code class=&quot;language-text&quot;&gt;n / 256&lt;/code&gt;, one that’s close enough to use in exchange for the added performance boost that comes from avoiding division.&lt;/p&gt;
+&lt;h2&gt;The whole thing&lt;/h2&gt;
+&lt;p&gt;So let’s go through the whole thing.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token function&quot;&gt;ReadDrumMap&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// step (0-31)&lt;/span&gt;
+    &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// instrument (0-2)&lt;/span&gt;
+    &lt;span class=&quot;token number&quot;&gt;89&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// x (0-255)&lt;/span&gt;
+    &lt;span class=&quot;token number&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// y (0-255)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We’ll immediately hit the first bit shift:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; x &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// 89 &gt;&gt; 6 = b01011001 &gt;&gt; 6 = b00000001 = 1&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; j &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; y &lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// 30 &gt;&gt; 6 = b00011110 &gt;&gt; 6 = b00000000 = 0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We can use those numbers to access &lt;code class=&quot;language-text&quot;&gt;drum_map&lt;/code&gt; now:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; prog_uint8_t&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; a_map &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; drum_map&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;j&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// drum_map[i][j] = drum_map[1][0] = node_15&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; prog_uint8_t&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; b_map &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; drum_map&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;j&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// drum_map[i + 1][j] = drum_map[2][0] = node_18&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; prog_uint8_t&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; c_map &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; drum_map&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;j &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// drum_map[i][j + 1] = drum_map[1][1] = node_7&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; prog_uint8_t&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; d_map &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; drum_map&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;j &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// drum_map[i + 1][j + 1] = drum_map[2][1] = node_14&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now we calculate the offset to access the specific probabilites. Note that &lt;code class=&quot;language-text&quot;&gt;a_map&lt;/code&gt; is a pointer to the first byte of the array; the address tells us where to look for the array and incrementing it tells us where in the array to look.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; offset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;instrument &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; kStepsPerPattern&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; step&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// offset = (2 * 32) + 2 = 64 + 2 = 66&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; a &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;pgm_read_byte&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a_map &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; offset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// node_15[66] = 28&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; b &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;pgm_read_byte&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;b_map &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; offset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// node_18[66] = 0&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; c &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;pgm_read_byte&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c_map &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; offset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// node_7[66]  = 72&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;uint8_t&lt;/span&gt; d &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;pgm_read_byte&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;d_map &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; offset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// node_14[66] = 8&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Then blend the four probabilities:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;U8Mix&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;U8Mix&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; b&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;U8Mix&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; d&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// U8Mix(a, b, x &amp;lt;&amp;lt; 2) =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     U8Mix(28, 0, 89 &amp;lt;&amp;lt; 2) =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     U8Mix(28, 0, b01011001 &amp;lt;&amp;lt; 2) =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     U8Mix(28, 0, b01100100) =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     U8Mix(28, 0, 100)&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// a * (255 - balance) + b * balance &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     28 * (255 - 100) + 0 * 100 &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     28 * 155 + 0 &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     4340 &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     b0001000011110100 &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     b00010000 = 16&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// U8Mix(a, b, x &amp;lt;&amp;lt; 2) = &lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     U8Mix(72, 8, 89 &amp;lt;&amp;lt; 2) =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     U8Mix(72, 8, b01011001 &amp;lt;&amp;lt; 2) = &lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     U8Mix(72, 8, b01100100) =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     U8Mix(72, 8, 100)&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// a * (255 - balance) + b * balance &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     72 * (255 - 100) + 8 * 100 &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     72 * 155 + 8 &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     11168 &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     b0010101110100000 &gt;&gt; 8 = &lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     b00101011 = 43&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// U8Mix(a, b, x &amp;lt;&amp;lt; 2) = U8Mix(16, 43, 30 &amp;lt;&amp;lt; 2) =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     U8Mix(16, 43, b00011110 &amp;lt;&amp;lt; 2) =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     U8Mix(16, 43, b01111000) =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     U8Mix(16, 43, 120)&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// a * (255 - balance) + b * balance &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     16 * (255 - 120) + 43 * 120 &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     16 * 135 + 5160 &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     7320 &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     b0001110010011000 &gt;&gt; 8 =&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//     b00011100 = 28&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So…&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token function&quot;&gt;ReadDrumMap&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// step (0-31)&lt;/span&gt;
+    &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// instrument (0-2)&lt;/span&gt;
+    &lt;span class=&quot;token number&quot;&gt;89&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// x (0-255)&lt;/span&gt;
+    &lt;span class=&quot;token number&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// y (0-255)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// returns 28&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Fill is kind of a reverse threshold, so if it’s turn up enough that the threshold for instrument 2 at step 2 is below 28 then the step will play.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;There’s a bunch of other bitwise operators in Grids, but these are the ones that stood out to me as I was trying to understand how Grids works. I’m not sure I’ll be using the same approach as Grids when/if I do something similar with Grandbot, but it was fun learning about this.&lt;/p&gt;
+&lt;p&gt;Again, my deepest gratitude to pichenettes and devdsp for sharing their knowledge.&lt;/p&gt;
+&lt;p&gt;Happy hacking!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[From MIDI to Ripchord]]></title><description><![CDATA[tl;dr: if you typed “free ripchord presets” and landed here, here’s a bunch of free Ripchord presets thanks to SHLD. Ripchord is a free…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/shld-ripchord/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/shld-ripchord/</guid><pubDate>Thu, 09 Jan 2025 20:29:13 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;tl;dr&lt;/strong&gt;: if you typed “free ripchord presets” and landed here, here’s a &lt;a href=&quot;/tech-blog/2978c33d261d9941a02ee756507b1e21/shld-ripchord-progressions.zip&quot;&gt;bunch of free Ripchord presets&lt;/a&gt; thanks to &lt;a href=&quot;https://github.com/ldrolez/free-midi-chords&quot;&gt;SHLD&lt;/a&gt;.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;a href=&quot;https://trackbout.com/&quot;&gt;Ripchord&lt;/a&gt; is a free, open-source VST for mapping single note presses into chords. It uses XML to store presets in this format:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;xml&quot;&gt;&lt;pre class=&quot;language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;&lt;span class=&quot;token prolog&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;/span&gt;
