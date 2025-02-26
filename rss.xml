@@ -1,4 +1,152 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 22 Feb 2025 19:04:02 GMT</lastBuildDate><item><title><![CDATA[Creative Commons on Bandcamp]]></title><description><![CDATA[tl;dr: I made a site to find Creative Commons music on Bandcamp called cc-bc (source). SUPPORT THE ARTISTS SUPPORT THE ARTISTS SUPPORT THE…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/cc-bc/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/cc-bc/</guid><pubDate>Mon, 17 Feb 2025 20:29:13 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;tl;dr&lt;/strong&gt;: I made a site to find Creative Commons music on Bandcamp called &lt;a href=&quot;https://handeyeco.github.io/cc-bc/&quot;&gt;cc-bc&lt;/a&gt; (&lt;a href=&quot;https://github.com/handeyeco/cc-bc&quot;&gt;source&lt;/a&gt;).&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 26 Feb 2025 15:26:54 GMT</lastBuildDate><item><title><![CDATA[Midipal on the Arduino Nano]]></title><description><![CDATA[Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I think I learned…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/nano-midipal/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/nano-midipal/</guid><pubDate>Wed, 26 Feb 2025 21:25:23 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I &lt;strong&gt;think&lt;/strong&gt; I learned, but that doesn’t make it the truth.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;I have not succeeded, this is a WIP and might never be finished. Please let me know if you make more progress than I did.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;The Goal&lt;/h2&gt;
+&lt;p&gt;If you’ve ever read anything on this blog, it’s obvious I’m going through a MIDI phase right now. After working for awhile on &lt;a href=&quot;https://github.com/handeyeco/Grandbot&quot;&gt;Grandbot&lt;/a&gt;, I’ve started thinking about what I want to do next and I was thinking of a MIDI utility tool.&lt;/p&gt;
+&lt;p&gt;One Saturday morning I was reading about Mutable Instrument’s &lt;a href=&quot;https://pichenettes.github.io/mutable-instruments-diy-archive/midipal/manual/&quot;&gt;Midipal&lt;/a&gt; and realized the microcontroller used was an ATmega328P, the same MCU as the Arduino Nano (and Arduino Uno). I had an extra 16x2 display from working on the &lt;a href=&quot;https://github.com/handeyeco/minidexed-pcb&quot;&gt;MiniDexed PCB&lt;/a&gt; and some leftover Nanos from working on Grandbot, so I thought it would be a fun weekend project to try and get Midipal running on a Nano.&lt;/p&gt;
+&lt;p&gt;I wanted to share my findings so that SynthDIY newbies would have an easy project to build (had I succeeded, which I didn’t).&lt;/p&gt;
+&lt;h2&gt;The Schematic&lt;/h2&gt;
+&lt;p&gt;I couldn’t actually open the Midipal schematics because they’re EAGLE files. I ended up looking at the schematics of forks and reading through the code for the pins. Here’s what I came up with.&lt;/p&gt;
+&lt;p&gt;The main UI schematic:&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/e0f010e7014ba4c16822676e1732c27d/0ff19/ui-schematic.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 85.8108108108108%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABYlAAAWJQFJUiTwAAACyElEQVQ4y3VU2XKbQBDU9+c38gF58FE+EvlK2VV+UPmQLLAkBALEsrAsN8iO05ld5FiOlIep3RqYnpmenu1VVYpdVpYSJZ31hk/dmzpFW2ef/JvW23LWOZpVhZyChORomlz71VnQydMETCZ0z7SvpnMnYK2yEliZhZALA/z5HsI1UVOQqpaFHhbuDIvJFeynU7pPwCJ/d4UKLMtipIlAKQYo6xNEyTEifoQy8nTVeZEg5R7E3Vf4x18Q2CNY/hRpxnT8FqBhDmGOH+FM+hCrH1jhCo/zbxBzA3VbomkLxKELGYyRcxMlJcgygZB8W4Btm8O2pzCe7jE3v6P9fY43AkzTU2TMobYLCkqpao68Io7bquNWdUZ0aI7XoL13wp3FDKbxgNn4GC+4APATPDpEbI31kCoK7IKkNpFFOomauOI4Ico2KiwwmRoYD+9gj47WgNfg4T7YcID2tV4D5jp5U5eIAh82Wb5uNZUhWvrWVUgt+9Ta7HmE+cMBampZA7IPQFVNnATgNBjpDRCzG1jTCywjFwmZT3SJXKCnsoqcQVQhEvp5creH7K1PgDcIwj0EBKhajvgCC2bBcQx41iEanKHJSAmBjYSqY7aJmNruKcVHzgyBa2FhPYP7tyhpGHNnD2l4gjL2qc0CXITEVYpcClTiGuXbuf6HTx5QlAlkwjQdPaV0SQLNBEMaL7uNkAz+fASPxMxoW0IytYar14p0GcIx9vELl1gVfUSkUzUQkUbdUNQmRJYJj2TjEocJka9EHFGCUsmC7nkh9SR5HGA5M2AbB1pWL3kfRRFr+fyVjQKU3IWg6iIaTL7WlTrVILqV7B6DsTnCcHADb7qPV1LCqjhFtQb8JGweMyKW0xS70b9vz797KtU/3Efs3tJ5SaK/Jjkl24DFhv3vWXpfAP3CkDLipYsiFVuJex8vTbazqp1GVHA9KLkV8wc4Ff37qjbt/wAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Schematic for Arduino, LCD, and encoder&quot;
+        title=&quot;Schematic for Arduino, LCD, and encoder&quot;
+        src=&quot;/tech-blog/static/e0f010e7014ba4c16822676e1732c27d/fcda8/ui-schematic.png&quot;
+        srcset=&quot;/tech-blog/static/e0f010e7014ba4c16822676e1732c27d/12f09/ui-schematic.png 148w,
+/tech-blog/static/e0f010e7014ba4c16822676e1732c27d/e4a3f/ui-schematic.png 295w,
+/tech-blog/static/e0f010e7014ba4c16822676e1732c27d/fcda8/ui-schematic.png 590w,
+/tech-blog/static/e0f010e7014ba4c16822676e1732c27d/efc66/ui-schematic.png 885w,
+/tech-blog/static/e0f010e7014ba4c16822676e1732c27d/c83ae/ui-schematic.png 1180w,
+/tech-blog/static/e0f010e7014ba4c16822676e1732c27d/0ff19/ui-schematic.png 2084w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;This is roughly the MIDI schematic (not exact, I just have a stripboard with everything I need for Arduino MIDI on it and I don’t remember the exact values):&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/tech-blog/static/234c5332198669b73d7642b5f35da08a/a3c4c/midi-schematic.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 83.78378378378379%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABYlAAAWJQFJUiTwAAACX0lEQVQ4y41Uy3LTQBDU/38FfAAHKheOUBxSRRUFgcQoOA5y9NiXdlf70ErmQDMruwhxnoeptazZ6emeHhXjOOCxSMlhmjxCtOBaLM9P5ecojv+Y6VLKxUYHF3sMA8cYB+i+w/SSghl1nsPSSUoe3aAQ6MU0BfSBg/EbhKGHbK9hg3m2y8J7jbbdQqoOwffY/FzBGo5IIVZnYG2FQTZoyu+46fmzXRaR9NGUqK2AsR18fQ3Fa9SfTuFEA3X+Fe2mhB/NrbbPUc50lyDKaRcw0ulkh4E6t90W0VukLMnxwB7o9t5Q8gBysh8tKiqoSdMMdjx95w2kkfc0LR6ziycpJBWzpHE6ckEG0IaRRBwzDe/BggulI7RMKaX/wEiK1iikeUQtL9E2awJ2d+4VWbd5F2F5C0fJ+feOUCvZQlqF33Q5e3KaKKevUa4/Q7ENtKhQlxdorbyjZdEHAbleQZbnEBdnUPUGZlQQZB+1XYPZLUwQC72h/oA/6R3s6i2adg3lu70MxC57OXda8KEDW53Dk0XM9gr8ao04DYiuRwwa2y+n+La9REPv5dkJdPkK5scJetqgxpFHI4GLFozdIFuwMFEsCH39C5Zo7ohyRkqLlQKYuoZ0HYRm1OF7JPUG3cfX4LJaCgpXww4Sxog95dy2jxqV7sAHgUgGDpHicOb1m7POpGHQFW0QmVxdwSZNS1ChrTYY8voerFVkfbTnUI6h9wyaCuxDLKcNkhLdwQnZ9MSAiqvI0HYlOpZ33P6z1jLlp+L+x8DuY3LodUN7z5aBPGnsl0SmKOkbKUm7aboF/Qtxowp2w/1wfAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Schematic for Arduino MIDI I/O&quot;
+        title=&quot;Schematic for Arduino MIDI I/O&quot;
+        src=&quot;/tech-blog/static/234c5332198669b73d7642b5f35da08a/fcda8/midi-schematic.png&quot;
+        srcset=&quot;/tech-blog/static/234c5332198669b73d7642b5f35da08a/12f09/midi-schematic.png 148w,
+/tech-blog/static/234c5332198669b73d7642b5f35da08a/e4a3f/midi-schematic.png 295w,
+/tech-blog/static/234c5332198669b73d7642b5f35da08a/fcda8/midi-schematic.png 590w,
+/tech-blog/static/234c5332198669b73d7642b5f35da08a/efc66/midi-schematic.png 885w,
+/tech-blog/static/234c5332198669b73d7642b5f35da08a/c83ae/midi-schematic.png 1180w,
+/tech-blog/static/234c5332198669b73d7642b5f35da08a/a3c4c/midi-schematic.png 2196w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h2&gt;Getting Started&lt;/h2&gt;
+&lt;p&gt;First &lt;code class=&quot;language-text&quot;&gt;git clone https://github.com/pichenettes/midipal&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;.gitmodules&lt;/code&gt; needs to be updated to use &lt;code class=&quot;language-text&quot;&gt;https://&lt;/code&gt; urls instead of &lt;code class=&quot;language-text&quot;&gt;git://&lt;/code&gt; urls:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;[submodule &quot;avrlib&quot;]
+	path = avrlib
+	url = https://github.com/pichenettes/avril.git
+[submodule &quot;tools&quot;]
+	path = tools
+	url = https://github.com/pichenettes/avril-firmware_tools.git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Then:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;git submodule init&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;git submodule update&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;make&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Problem: CrossPack and Microchip Technology’s Acquisition of Atmel&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/obdev/CrossPack-AVR&quot;&gt;CrossPack-AVR&lt;/a&gt; seems to have been a helper for fetching the AVR toolchain. It hardcodes the location of the distribution to &lt;code class=&quot;language-text&quot;&gt;http://distribute.atmel.no/tools/opensource/Atmel-AVR-GNU-Toolchain/$atmelToolchainVersion&lt;/code&gt;. However Atmel was aquired by Microchip Technologies and that link no longer works.&lt;/p&gt;
+&lt;p&gt;You can see in Midipal what dependencies we wanted:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;// makefile.mk
+
+CC             = $(AVRLIB_TOOLS_PATH)avr-gcc
+CXX            = $(AVRLIB_TOOLS_PATH)avr-g++
+OBJCOPY        = $(AVRLIB_TOOLS_PATH)avr-objcopy
+OBJDUMP        = $(AVRLIB_TOOLS_PATH)avr-objdump
+AR             = $(AVRLIB_TOOLS_PATH)avr-ar
+SIZE           = $(AVRLIB_TOOLS_PATH)avr-size
+NM             = $(AVRLIB_TOOLS_PATH)avr-nm
+AVRDUDE        = $(AVRLIB_TOOLS_PATH)avrdude&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you have the Arduino IDE installed, you should pretty much have all this stuff on your computer already. Unfortunately it’s probably not the &lt;code class=&quot;language-text&quot;&gt;3.5.4&lt;/code&gt; version of the toolchain that Midipal uses.&lt;/p&gt;
+&lt;p&gt;What I ended up doing was &lt;code class=&quot;language-text&quot;&gt;brew install avrdude&lt;/code&gt;, downloaded the &lt;code class=&quot;language-text&quot;&gt;3.7.0&lt;/code&gt; toolchain &lt;a href=&quot;https://www.microchip.com/en-us/tools-resources/develop/microchip-studio/gcc-compilers&quot;&gt;from here&lt;/a&gt;, updated the &lt;code class=&quot;language-text&quot;&gt;makefile.mk&lt;/code&gt; to point to the directory with the &lt;code class=&quot;language-text&quot;&gt;3.7.0&lt;/code&gt; toolchain, and made a small tweak to &lt;code class=&quot;language-text&quot;&gt;makefile.mk&lt;/code&gt; for &lt;code class=&quot;language-text&quot;&gt;avrdude&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;- AVRDUDE        = $(AVRLIB_TOOLS_PATH)avrdude
++ AVRDUDE        = avrdude&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;At this point I got a little further with &lt;code class=&quot;language-text&quot;&gt;make&lt;/code&gt; except after that I was getting compilation errors due to incompatibilities between the 3.5.4 and 3.7.0 toolchains. I needed to change a few things in the code:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;// &gt;&gt; midipal/resources.h
+
+- extern const prog_char* string_table[];
++ extern const prog_char* const string_table[];
+
+- extern const prog_uint16_t* lookup_table_table[];
++ extern const prog_uint16_t* const lookup_table_table[];
+
+// &gt;&gt; midipal/resources.cc
+
+- PROGMEM const prog_char* string_table[]
++ const prog_char* const string_table[] PROGMEM
+
+- PROGMEM const prog_uint16_t* lookup_table_table[]
++ const prog_uint16_t* const lookup_table_table[] PROGMEM
+
+// &gt;&gt; avrlib/devices/pot_scanner.h
+
++ #include &amp;lt;string.h&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;At this point I think things were basically compiling.&lt;/p&gt;
+&lt;h2&gt;Problem: the Clock&lt;/h2&gt;
+&lt;p&gt;While debugging issues, someone on Reddit pointed out a possible problem that I was going to have: Midipal was using a 20Mhz clock and the Nano uses a 16Mhz clock. I’m not totally sure how big of an impact that would have but the Midipal code does make a couple of references to the fact that the clock is running at 20Mhz, so I imagine it would have &lt;em&gt;some&lt;/em&gt; impact.&lt;/p&gt;
+&lt;h2&gt;Problem: the Bootloader&lt;/h2&gt;
+&lt;p&gt;One of the big things I learned while doing this is that you can’t program the 328’s bootloader over USB. The bootloader is the code that runs when the microcontroller boots and I believe that it needs to be written to the microcontroller via ICSP.&lt;/p&gt;
+&lt;p&gt;Why does the bootloader matter? It’s my understanding that the bootloader is what helps the Arduino accept firmware over USB and the Midipal’s bootloader cleverly accepts firmware via MIDI. Put a different way, this is what lets Midipal accept alternative firmware over MIDI.&lt;/p&gt;
+&lt;p&gt;Unfortunately this makes having the full Midipal experience on the Nano much more difficult: people would need an ICSP programmer or a second Arduino that could work as an ICSP programmer.&lt;/p&gt;
+&lt;p&gt;On top of this, Midipal is manipulating the fuses on the 328. &lt;strong&gt;This makes the whole thing a lot more risky to newbies because a simple mistake could brick the MCU.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;Installing the firmware without the bootloader&lt;/h2&gt;
+&lt;p&gt;Just out of curiosity though, I pressed on. At this point I had a &lt;code class=&quot;language-text&quot;&gt;midipal.hex&lt;/code&gt; (which I believe is the firmware) and &lt;code class=&quot;language-text&quot;&gt;muboot.hex&lt;/code&gt; (which I think is the bootloader), so I thought: why don’t I just try to send the firmware to the Arduino without the bootloader and see what happens?&lt;/p&gt;
+&lt;p&gt;I made a test script in the Arduino IDE, turned on “show verbose output during compile and upload” in the settings, and sent the script to the Nano. That gave me a command that I then modified to point at &lt;code class=&quot;language-text&quot;&gt;midipal.hex&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&quot;/Users/me/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude&quot; /
+    &quot;-C/Users/me/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf&quot; /
+    -v -V -patmega328p -carduino &quot;-P/dev/cu.usbserial-310&quot; -b115200 -D /
+    &quot;-Uflash:w:/Users/me/code/_backups/mutable-instruments/midipal/build/midipal/midipal.hex:i&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Surprisingly…that kinda worked…in the sense that the display was showing the Midipal UI and the encoder navigated around. It’s pretty janky and it’s not handling MIDI correctly - maybe having to do with the clock? It receives and sends MIDI, but the MIDI it’s sending is random/erratic. To be honest, I was shocked to get this far.&lt;/p&gt;
+&lt;h2&gt;Where things stand&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;I’m not convinced this will ever work at all due to the clock (without maintaining a fork of the repo)&lt;/li&gt;
+&lt;li&gt;Some of the fun features of Midipal depends on a custom bootloader, so I don’t think this would be a good beginner project&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://cs.gmu.edu/~sean/projects/gizmo/&quot;&gt;Gizmo&lt;/a&gt; exists, is easy to make, and is probably more feature-rich than Midipal&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I might keep hacking away at this just as a learning experience, but right now I’m considering this a failed project. It’s important to share the failures too though! Hopefully it’ll save someone some trouble.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Creative Commons on Bandcamp]]></title><description><![CDATA[tl;dr: I made a site to find Creative Commons music on Bandcamp called cc-bc (source). SUPPORT THE ARTISTS SUPPORT THE ARTISTS SUPPORT THE…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/cc-bc/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/cc-bc/</guid><pubDate>Mon, 17 Feb 2025 20:29:13 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;tl;dr&lt;/strong&gt;: I made a site to find Creative Commons music on Bandcamp called &lt;a href=&quot;https://handeyeco.github.io/cc-bc/&quot;&gt;cc-bc&lt;/a&gt; (&lt;a href=&quot;https://github.com/handeyeco/cc-bc&quot;&gt;source&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;SUPPORT THE ARTISTS&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;SUPPORT THE ARTISTS&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;SUPPORT THE ARTISTS&lt;/strong&gt;&lt;/p&gt;
