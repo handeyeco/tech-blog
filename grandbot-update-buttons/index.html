@@ -124,32 +124,32 @@
 <h2>Debouncing</h2>
 <p>Debouncing sucks and it sucks even more when trying to do button combos. My dream was to be able to enter/exit the menu with a combo and to use things like combos to trigger events or speed up increment/decrement actions. I made it happen, but it was a pain!</p>
 <p>I ended up using the method explained by <a href="https://hackaday.com/2015/12/10/embed-with-elliot-debounce-your-noisy-buttons-part-ii/">Elliot Williams on Hackaday</a>. Basically what it’s doing is maintaining a history of button reads and only considers it a press/release when the history matches a certain expected state. <a href="https://github.com/handeyeco/Grandbot/pull/8">Here’s the PR</a>.</p>
-<div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">#define BUTTON_MASK 0b11000111
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">BUTTON_MASK</span> <span class="token expression"><span class="token number">0b11000111</span></span></span>
 
-void Button::read() {
-  bool read = digitalRead(pin);
+<span class="token keyword">void</span> <span class="token class-name">Button</span><span class="token double-colon punctuation">::</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">bool</span> read <span class="token operator">=</span> <span class="token function">digitalRead</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // Debounce method tracks state over several reads
-  history = history &lt;&lt; 1;
-  history |= (read == false);
+  <span class="token comment">// Debounce method tracks state over several reads</span>
+  history <span class="token operator">=</span> history <span class="token operator">&lt;&lt;</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  history <span class="token operator">|=</span> <span class="token punctuation">(</span>read <span class="token operator">==</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  pressed = false;
-  released = false;
+  pressed <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  released <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 
-  // handle press
-  if ((history &amp; BUTTON_MASK) == 0b00000111) {
-    pressed = true;
-    history = 0b11111111;
-  }
-  // handle release
-  else if ((history &amp; BUTTON_MASK) == 0b11000000) {
-    released = ignoreRelease ? false : true;
-    ignoreRelease = false;
-    history = 0b00000000;
-  }
+  <span class="token comment">// handle press</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>history <span class="token operator">&amp;</span> BUTTON_MASK<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0b00000111</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    pressed <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    history <span class="token operator">=</span> <span class="token number">0b11111111</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// handle release</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>history <span class="token operator">&amp;</span> BUTTON_MASK<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0b11000000</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    released <span class="token operator">=</span> ignoreRelease <span class="token operator">?</span> <span class="token boolean">false</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    ignoreRelease <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    history <span class="token operator">=</span> <span class="token number">0b00000000</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-  held = history == 0b11111111;
-}</code></pre></div>
+  held <span class="token operator">=</span> history <span class="token operator">==</span> <span class="token number">0b11111111</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
 <p>It works <em>reasonably</em> well, but it can still be a little flaky. Some possible solutions:</p>
 <ul>
 <li>I used a bunch of analog pins on the Arduino for the buttons. I thought it would be nice to expose these pins because it meant that people could make their own custom Grandbot boards and they would be able to use the analog pins as both an analog and a digital input (because you can do <code class="language-text">digitalRead</code> on analog pins). While this <em>is</em> true, apparently analog pins can be slightly slower than digital pins when reading. I’m not confident this is part of the problem, but it’s just something I read about while researching the debouncing issues.</li>

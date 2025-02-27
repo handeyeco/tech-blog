@@ -90,16 +90,16 @@
 <h2>Problem: CrossPack and Microchip Technology’s Acquisition of Atmel</h2>
 <p><a href="https://github.com/obdev/CrossPack-AVR">CrossPack-AVR</a> seems to have been a helper for fetching the AVR toolchain. It hardcodes the location of the distribution to <code class="language-text">http://distribute.atmel.no/tools/opensource/Atmel-AVR-GNU-Toolchain/$atmelToolchainVersion</code>. However Atmel was aquired by Microchip Technologies and that link no longer works.</p>
 <p>You can see in Midipal what dependencies we wanted:</p>
-<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">// makefile.mk
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token comment">// makefile.mk</span>
 
-CC             = $(AVRLIB_TOOLS_PATH)avr-gcc
-CXX            = $(AVRLIB_TOOLS_PATH)avr-g++
-OBJCOPY        = $(AVRLIB_TOOLS_PATH)avr-objcopy
-OBJDUMP        = $(AVRLIB_TOOLS_PATH)avr-objdump
-AR             = $(AVRLIB_TOOLS_PATH)avr-ar
-SIZE           = $(AVRLIB_TOOLS_PATH)avr-size
-NM             = $(AVRLIB_TOOLS_PATH)avr-nm
-AVRDUDE        = $(AVRLIB_TOOLS_PATH)avrdude</code></pre></div>
+CC             <span class="token operator">=</span> $<span class="token punctuation">(</span>AVRLIB_TOOLS_PATH<span class="token punctuation">)</span>avr<span class="token operator">-</span>gcc
+CXX            <span class="token operator">=</span> $<span class="token punctuation">(</span>AVRLIB_TOOLS_PATH<span class="token punctuation">)</span>avr<span class="token operator">-</span>g<span class="token operator">++</span>
+OBJCOPY        <span class="token operator">=</span> $<span class="token punctuation">(</span>AVRLIB_TOOLS_PATH<span class="token punctuation">)</span>avr<span class="token operator">-</span>objcopy
+OBJDUMP        <span class="token operator">=</span> $<span class="token punctuation">(</span>AVRLIB_TOOLS_PATH<span class="token punctuation">)</span>avr<span class="token operator">-</span>objdump
+AR             <span class="token operator">=</span> $<span class="token punctuation">(</span>AVRLIB_TOOLS_PATH<span class="token punctuation">)</span>avr<span class="token operator">-</span>ar
+SIZE           <span class="token operator">=</span> $<span class="token punctuation">(</span>AVRLIB_TOOLS_PATH<span class="token punctuation">)</span>avr<span class="token operator">-</span>size
+NM             <span class="token operator">=</span> $<span class="token punctuation">(</span>AVRLIB_TOOLS_PATH<span class="token punctuation">)</span>avr<span class="token operator">-</span>nm
+AVRDUDE        <span class="token operator">=</span> $<span class="token punctuation">(</span>AVRLIB_TOOLS_PATH<span class="token punctuation">)</span>avrdude</code></pre></div>
 <p>If you have the Arduino IDE installed, you should pretty much have all this stuff on your computer already. Unfortunately it’s probably not the <code class="language-text">3.5.4</code> version of the toolchain that Midipal uses.</p>
 <p>What I ended up doing was <code class="language-text">brew install avrdude</code>, downloaded the <code class="language-text">3.7.0</code> toolchain <a href="https://www.microchip.com/en-us/tools-resources/develop/microchip-studio/gcc-compilers">from here</a>, updated the <code class="language-text">makefile.mk</code> to point to the directory with the <code class="language-text">3.7.0</code> toolchain, and made a small tweak to <code class="language-text">makefile.mk</code> for <code class="language-text">avrdude</code>:</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">- AVRDUDE        = $(AVRLIB_TOOLS_PATH)avrdude
@@ -146,7 +146,7 @@ AVRDUDE        = $(AVRLIB_TOOLS_PATH)avrdude</code></pre></div>
 <li>Some of the fun features of Midipal depends on a custom bootloader, so I don’t think this would be a good beginner project</li>
 <li><a href="https://cs.gmu.edu/~sean/projects/gizmo/">Gizmo</a> exists, is easy to make, and is probably more feature-rich than Midipal</li>
 </ul>
-<p>I might keep hacking away at this just as a learning experience, but right now I’m considering this a failed project. It’s important to share the failures too though! Hopefully it’ll save someone some trouble.</p></section><hr style="margin-bottom:1.75rem"/><footer><div style="display:flex;margin-bottom:4.375rem"><p>Written by Matthew Curtis - community organizer, artist, and developer in Fayetteville, AR.<!-- --> <!-- -->Here are my <a href="https://h-e.io/">links</a>.</p></div></footer></article><nav><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"><li><a rel="prev" href="/tech-blog/cc-bc/">← <!-- -->Creative Commons on Bandcamp</a></li><li></li></ul></nav></main><footer><span><svg style="height:1rem;width:1rem" version="1.0" id="Layer_1" x="0px" y="0px" width="64px" height="64px" viewBox="5.5 -3.5 64 64" enable-background="new 5.5 -3.5 64 64" xml:space="preserve"><g><circle fill="#FFFFFF" cx="37.785" cy="28.501" r="28.836"></circle><path d="M37.441-3.5c8.951,0,16.572,3.125,22.857,9.372c3.008,3.009,5.295,6.448,6.857,10.314
+<p>I might keep hacking away at this just as a learning experience, but right now I’m considering this a failed project. It’s important to share the failures too though! Hopefully it’ll save someone some trouble.</p></section><hr style="margin-bottom:1.75rem"/><footer><div style="display:flex;margin-bottom:4.375rem"><p>Written by Matthew Curtis - community organizer, artist, and developer in Fayetteville, AR.<!-- --> <!-- -->Here are my <a href="https://h-e.io/">links</a>.</p></div></footer></article><nav><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"><li><a rel="prev" href="/tech-blog/cc-bc/">← <!-- -->Creative Commons on Bandcamp</a></li><li><a rel="next" href="/tech-blog/fun-with-midi/">Fun with MIDI<!-- --> →</a></li></ul></nav></main><footer><span><svg style="height:1rem;width:1rem" version="1.0" id="Layer_1" x="0px" y="0px" width="64px" height="64px" viewBox="5.5 -3.5 64 64" enable-background="new 5.5 -3.5 64 64" xml:space="preserve"><g><circle fill="#FFFFFF" cx="37.785" cy="28.501" r="28.836"></circle><path d="M37.441-3.5c8.951,0,16.572,3.125,22.857,9.372c3.008,3.009,5.295,6.448,6.857,10.314
 		c1.561,3.867,2.344,7.971,2.344,12.314c0,4.381-0.773,8.486-2.314,12.313c-1.543,3.828-3.82,7.21-6.828,10.143
 		c-3.123,3.085-6.666,5.448-10.629,7.086c-3.961,1.638-8.057,2.457-12.285,2.457s-8.276-0.808-12.143-2.429
 		c-3.866-1.618-7.333-3.961-10.4-7.027c-3.067-3.066-5.4-6.524-7-10.372S5.5,32.767,5.5,28.5c0-4.229,0.809-8.295,2.428-12.2

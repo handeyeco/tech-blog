@@ -62,92 +62,92 @@
 <h2>Sketch #1: Board Test</h2>
 <p><a href="https://github.com/handeyeco/fun-with-midi/blob/main/board-test/board-test.ino">Source code</a></p>
 <p>This first sketch is just testing the pots, buttons, and LEDs. First we let the program know which pins we’re using for everything:</p>
-<div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">// button pins (digital)
-byte S3_PIN = 4;
-byte S4_PIN = 3;
-byte S5_PIN = 2;
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token comment">// button pins (digital)</span>
+byte S3_PIN <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+byte S4_PIN <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+byte S5_PIN <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
 
-// pot pins (analog)
-byte RV1_PIN = A1;
-byte RV2_PIN = A0;
+<span class="token comment">// pot pins (analog)</span>
+byte RV1_PIN <span class="token operator">=</span> A1<span class="token punctuation">;</span>
+byte RV2_PIN <span class="token operator">=</span> A0<span class="token punctuation">;</span>
 
-// LED pins (digital)
-byte GRN_LED_PIN = 6;
-byte RED_LED_PIN = 7;</code></pre></div>
+<span class="token comment">// LED pins (digital)</span>
+byte GRN_LED_PIN <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
+byte RED_LED_PIN <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span></code></pre></div>
 <p>Then we declare some variables so we can keep track of what everything is doing as the sketch runs:</p>
-<div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">// declare read state
-bool S3_STATE = 1;
-bool S4_STATE = 1;
-bool S5_STATE = 1;
-int RV1_STATE = 0;
-int RV2_STATE = 0;</code></pre></div>
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token comment">// declare read state</span>
+<span class="token keyword">bool</span> S3_STATE <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">bool</span> S4_STATE <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">bool</span> S5_STATE <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> RV1_STATE <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> RV2_STATE <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre></div>
 <p><code class="language-text">setup</code> is the code that runs at the beginning of the sketch:</p>
-<div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">void setup() {
-  // setup for printing to our monitor
-  Serial.begin(9600);
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// setup for printing to our monitor</span>
+  Serial<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token number">9600</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // the switches use the built-in pull-up resistors
-  pinMode(S3_PIN, INPUT_PULLUP);
-  pinMode(S4_PIN, INPUT_PULLUP);
-  pinMode(S5_PIN, INPUT_PULLUP);
+  <span class="token comment">// the switches use the built-in pull-up resistors</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>S3_PIN<span class="token punctuation">,</span> INPUT_PULLUP<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>S4_PIN<span class="token punctuation">,</span> INPUT_PULLUP<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>S5_PIN<span class="token punctuation">,</span> INPUT_PULLUP<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // the pots don&#39;t use the pull-up resistors
-  pinMode(RV1_PIN, INPUT);
-  pinMode(RV2_PIN, INPUT);
+  <span class="token comment">// the pots don't use the pull-up resistors</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>RV1_PIN<span class="token punctuation">,</span> INPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>RV2_PIN<span class="token punctuation">,</span> INPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // then set up the LEDs as outputs
-  pinMode(GRN_LED_PIN, OUTPUT);
-  pinMode(RED_LED_PIN, OUTPUT);
+  <span class="token comment">// then set up the LEDs as outputs</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>GRN_LED_PIN<span class="token punctuation">,</span> OUTPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>RED_LED_PIN<span class="token punctuation">,</span> OUTPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // do an initial read of everything
-  // so we can start looking for changes
-  S3_STATE = digitalRead(S3_PIN);
-  S4_STATE = digitalRead(S4_PIN);
-  S5_STATE = digitalRead(S5_PIN);
-  RV1_STATE = analogRead(RV1_PIN);
-  RV2_STATE = analogRead(RV2_PIN);
-}</code></pre></div>
+  <span class="token comment">// do an initial read of everything</span>
+  <span class="token comment">// so we can start looking for changes</span>
+  S3_STATE <span class="token operator">=</span> <span class="token function">digitalRead</span><span class="token punctuation">(</span>S3_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  S4_STATE <span class="token operator">=</span> <span class="token function">digitalRead</span><span class="token punctuation">(</span>S4_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  S5_STATE <span class="token operator">=</span> <span class="token function">digitalRead</span><span class="token punctuation">(</span>S5_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  RV1_STATE <span class="token operator">=</span> <span class="token function">analogRead</span><span class="token punctuation">(</span>RV1_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  RV2_STATE <span class="token operator">=</span> <span class="token function">analogRead</span><span class="token punctuation">(</span>RV2_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
 <p><code class="language-text">loop</code> runs over and over again so we can watch for changes:</p>
-<div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">// pot change threshold,
-// for what we consider a change
-int RV_THRESH = 3;
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token comment">// pot change threshold,</span>
+<span class="token comment">// for what we consider a change</span>
+<span class="token keyword">int</span> RV_THRESH <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
 
-void loop() {
-  // read pins
-  bool S3_READ = digitalRead(S3_PIN);
-  bool S4_READ = digitalRead(S4_PIN);
-  bool S5_READ = digitalRead(S5_PIN);
-  int RV1_READ = analogRead(RV1_PIN);
-  int RV2_READ = analogRead(RV2_PIN);
+<span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// read pins</span>
+  <span class="token keyword">bool</span> S3_READ <span class="token operator">=</span> <span class="token function">digitalRead</span><span class="token punctuation">(</span>S3_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">bool</span> S4_READ <span class="token operator">=</span> <span class="token function">digitalRead</span><span class="token punctuation">(</span>S4_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">bool</span> S5_READ <span class="token operator">=</span> <span class="token function">digitalRead</span><span class="token punctuation">(</span>S5_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">int</span> RV1_READ <span class="token operator">=</span> <span class="token function">analogRead</span><span class="token punctuation">(</span>RV1_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">int</span> RV2_READ <span class="token operator">=</span> <span class="token function">analogRead</span><span class="token punctuation">(</span>RV2_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // if any button is pressed, light LED
-  bool pressed = S3_READ &amp;&amp; S4_READ &amp;&amp; S5_READ;
-  digitalWrite(GRN_LED_PIN, pressed);
-  digitalWrite(RED_LED_PIN, pressed);
+  <span class="token comment">// if any button is pressed, light LED</span>
+  <span class="token keyword">bool</span> pressed <span class="token operator">=</span> S3_READ <span class="token operator">&amp;&amp;</span> S4_READ <span class="token operator">&amp;&amp;</span> S5_READ<span class="token punctuation">;</span>
+  <span class="token function">digitalWrite</span><span class="token punctuation">(</span>GRN_LED_PIN<span class="token punctuation">,</span> pressed<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">digitalWrite</span><span class="token punctuation">(</span>RED_LED_PIN<span class="token punctuation">,</span> pressed<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // print and update state
-  // if a change is detected
-  if (S3_READ != S3_STATE) {
-    Serial.println(&quot;S3&quot;);
-    S3_STATE = S3_READ;
-  }
-  if (S4_READ != S4_STATE) {
-    Serial.println(&quot;S4&quot;);
-    S4_STATE = S4_READ;
-  }
-  if (S5_READ != S5_STATE) {
-    Serial.println(&quot;S5&quot;);
-    S5_STATE = S5_READ;
-  }
-  if (abs(RV1_READ - RV1_STATE) &gt; RV_THRESH) {
-    Serial.println(&quot;RV1&quot;);
-    RV1_STATE = RV1_READ;
-  }
-  if (abs(RV2_READ - RV2_STATE) &gt; RV_THRESH) {
-    Serial.println(&quot;RV2&quot;);
-    RV2_STATE = RV2_READ;
-  }
-}</code></pre></div>
+  <span class="token comment">// print and update state</span>
+  <span class="token comment">// if a change is detected</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>S3_READ <span class="token operator">!=</span> S3_STATE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Serial<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"S3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    S3_STATE <span class="token operator">=</span> S3_READ<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>S4_READ <span class="token operator">!=</span> S4_STATE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Serial<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"S4"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    S4_STATE <span class="token operator">=</span> S4_READ<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>S5_READ <span class="token operator">!=</span> S5_STATE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Serial<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"S5"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    S5_STATE <span class="token operator">=</span> S5_READ<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">abs</span><span class="token punctuation">(</span>RV1_READ <span class="token operator">-</span> RV1_STATE<span class="token punctuation">)</span> <span class="token operator">></span> RV_THRESH<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Serial<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"RV1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    RV1_STATE <span class="token operator">=</span> RV1_READ<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">abs</span><span class="token punctuation">(</span>RV2_READ <span class="token operator">-</span> RV2_STATE<span class="token punctuation">)</span> <span class="token operator">></span> RV_THRESH<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Serial<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"RV2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    RV2_STATE <span class="token operator">=</span> RV2_READ<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
 <p>What it’s doing:</p>
 <ol>
 <li>If any buttons are pressed, light up the LEDs</li>
@@ -175,55 +175,55 @@ void loop() {
 <li>The other pot will control the value of the MIDI CC. Most of MIDI works with 7 bits which gives us a range between 0 and 127 (128 steps).</li>
 </ul>
 <p>First we import <a href="https://github.com/FortySevenEffects/arduino_midi_library">FortySevenEffects’ MIDI library</a> and initialize it:</p>
-<div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">#include &lt;MIDI.h&gt;
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;MIDI.h></span></span>
 
-MIDI_CREATE_DEFAULT_INSTANCE();</code></pre></div>
+<span class="token function">MIDI_CREATE_DEFAULT_INSTANCE</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
 <p>We set pins and initalize state like before; this time though we also have to start the MIDI library. Additionally I’ve added a helper function to map 0-1023 (the full range that an Arduino’s <code class="language-text">analogRead</code> can supply) to 0-127 (the full range that MIDI can use).</p>
-<div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">// pot pins
-byte RV1_PIN = A1;
-byte RV2_PIN = A0;
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token comment">// pot pins</span>
+byte RV1_PIN <span class="token operator">=</span> A1<span class="token punctuation">;</span>
+byte RV2_PIN <span class="token operator">=</span> A0<span class="token punctuation">;</span>
 
-// declare read state
-int RV1_STATE = 0;
-int RV2_STATE = 0;
+<span class="token comment">// declare read state</span>
+<span class="token keyword">int</span> RV1_STATE <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> RV2_STATE <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-int read_and_map(byte pin) {
-  int read = analogRead(pin);
-  return map(read, 0, 1023, 0, 127);
-}
+<span class="token keyword">int</span> <span class="token function">read_and_map</span><span class="token punctuation">(</span>byte pin<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> read <span class="token operator">=</span> <span class="token function">analogRead</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">map</span><span class="token punctuation">(</span>read<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1023</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">127</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-void setup() {
-  MIDI.begin(MIDI_CHANNEL_OMNI);
+<span class="token keyword">void</span> <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  MIDI<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span>MIDI_CHANNEL_OMNI<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // set pin modes
-  pinMode(RV1_PIN, INPUT);
-  pinMode(RV2_PIN, INPUT);
+  <span class="token comment">// set pin modes</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>RV1_PIN<span class="token punctuation">,</span> INPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>RV2_PIN<span class="token punctuation">,</span> INPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // initialize read state
-  RV1_STATE = read_and_map(RV1_PIN);
-  RV2_STATE = read_and_map(RV2_PIN);
-}</code></pre></div>
+  <span class="token comment">// initialize read state</span>
+  RV1_STATE <span class="token operator">=</span> <span class="token function">read_and_map</span><span class="token punctuation">(</span>RV1_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  RV2_STATE <span class="token operator">=</span> <span class="token function">read_and_map</span><span class="token punctuation">(</span>RV2_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
 <p>Now the juicy bit:</p>
-<div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">// there are 16 MIDI channels,
-// I just used the first one
-byte MIDI_CH = 1;
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token comment">// there are 16 MIDI channels,</span>
+<span class="token comment">// I just used the first one</span>
+byte MIDI_CH <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 
-void loop() {
-  // read pins
-  int RV1_READ = read_and_map(RV1_PIN);
-  int RV2_READ = read_and_map(RV2_PIN);
+<span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// read pins</span>
+  <span class="token keyword">int</span> RV1_READ <span class="token operator">=</span> <span class="token function">read_and_map</span><span class="token punctuation">(</span>RV1_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">int</span> RV2_READ <span class="token operator">=</span> <span class="token function">read_and_map</span><span class="token punctuation">(</span>RV2_PIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // RV1 adjusts which CC channel we&#39;re changing
-  if (RV1_READ != RV1_STATE) {
-    RV1_STATE = RV1_READ;
-  }
-  // RV2 adjusts the CC value
-  if (RV2_READ != RV2_STATE) {
-    RV2_STATE = RV2_READ;
-    // sendControlChange(CC, value, channel)
-    MIDI.sendControlChange(RV1_STATE, RV2_STATE, MIDI_CH);
-  }
-}</code></pre></div>
+  <span class="token comment">// RV1 adjusts which CC channel we're changing</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>RV1_READ <span class="token operator">!=</span> RV1_STATE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    RV1_STATE <span class="token operator">=</span> RV1_READ<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// RV2 adjusts the CC value</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>RV2_READ <span class="token operator">!=</span> RV2_STATE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    RV2_STATE <span class="token operator">=</span> RV2_READ<span class="token punctuation">;</span>
+    <span class="token comment">// sendControlChange(CC, value, channel)</span>
+    MIDI<span class="token punctuation">.</span><span class="token function">sendControlChange</span><span class="token punctuation">(</span>RV1_STATE<span class="token punctuation">,</span> RV2_STATE<span class="token punctuation">,</span> MIDI_CH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
 <p>What this sketch does:</p>
 <ul>
 <li>It watches for changes on the RV1 potentiometer and if it changes we change the MIDI CC we’re going to adjust</li>
@@ -315,80 +315,80 @@ void loop() {
   </a>
     </span></p>
 <p>This code shares a lot from the first two examples, so I’m just going to talk about the important changes. First we initialize some state:</p>
-<div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">// what editing mode we&#39;re in:
-// 0 = offset (no LEDs)
-// 1 = depth (green LED)
-// 2 = CC (red LED)
-byte RV1_edit_mode = 0;
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token comment">// what editing mode we're in:</span>
+<span class="token comment">// 0 = offset (no LEDs)</span>
+<span class="token comment">// 1 = depth (green LED)</span>
+<span class="token comment">// 2 = CC (red LED)</span>
+byte RV1_edit_mode <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-// offset is our lowest possible CC
-int offset = 0;
-// depth is how far from
-// the lowest CC we can go
-int depth = 127;
-// the MIDI CC we&#39;re sending values for
-// 74 is commonly the CC for filter cutoff
-byte cc = 74;
+<span class="token comment">// offset is our lowest possible CC</span>
+<span class="token keyword">int</span> offset <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token comment">// depth is how far from</span>
+<span class="token comment">// the lowest CC we can go</span>
+<span class="token keyword">int</span> depth <span class="token operator">=</span> <span class="token number">127</span><span class="token punctuation">;</span>
+<span class="token comment">// the MIDI CC we're sending values for</span>
+<span class="token comment">// 74 is commonly the CC for filter cutoff</span>
+byte cc <span class="token operator">=</span> <span class="token number">74</span><span class="token punctuation">;</span>
 
-// these are used to set our
-// MIDI message interval
-int MIN_SPEED = 60;
-int MAX_SPEED = 1000;
-int speed = MAX_SPEED;
-unsigned long last_cc_sent = 0;</code></pre></div>
+<span class="token comment">// these are used to set our</span>
+<span class="token comment">// MIDI message interval</span>
+<span class="token keyword">int</span> MIN_SPEED <span class="token operator">=</span> <span class="token number">60</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> MAX_SPEED <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> speed <span class="token operator">=</span> MAX_SPEED<span class="token punctuation">;</span>
+<span class="token keyword">unsigned</span> <span class="token keyword">long</span> last_cc_sent <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre></div>
 <p>Next we check each button to see if they have been pressed and if we detect a change we update the mode we’re in, for example:</p>
-<div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">  byte old_RV1_edit_mode = RV1_edit_mode;
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp">  byte old_RV1_edit_mode <span class="token operator">=</span> RV1_edit_mode<span class="token punctuation">;</span>
 
-  // update edit state if button change detected
-  if (S3_READ != S3_STATE) {
-    S3_STATE = S3_READ;
-    // set RV1_edit_mode to offset
-    if (S3_STATE == LOW) {
-      RV1_edit_mode = 0;
-    }
-  }
+  <span class="token comment">// update edit state if button change detected</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>S3_READ <span class="token operator">!=</span> S3_STATE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    S3_STATE <span class="token operator">=</span> S3_READ<span class="token punctuation">;</span>
+    <span class="token comment">// set RV1_edit_mode to offset</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>S3_STATE <span class="token operator">==</span> LOW<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      RV1_edit_mode <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
 
-  // ...similar for the other buttons...
+  <span class="token comment">// ...similar for the other buttons...</span>
 
-  // watch for changes to edit mode and update LEDs
-  if (old_RV1_edit_mode != RV1_edit_mode) {
-      digitalWrite(GRN_LED_PIN, RV1_edit_mode != 1);
-      digitalWrite(RED_LED_PIN, RV1_edit_mode != 2);
-  }</code></pre></div>
+  <span class="token comment">// watch for changes to edit mode and update LEDs</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>old_RV1_edit_mode <span class="token operator">!=</span> RV1_edit_mode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">digitalWrite</span><span class="token punctuation">(</span>GRN_LED_PIN<span class="token punctuation">,</span> RV1_edit_mode <span class="token operator">!=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">digitalWrite</span><span class="token punctuation">(</span>RED_LED_PIN<span class="token punctuation">,</span> RV1_edit_mode <span class="token operator">!=</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span></code></pre></div>
 <p>Then we read the pots. For RV1, we update the settings based on what mode we’re in. For RV2, we map the read value between our min/max interval speed:</p>
-<div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">  // if RV1 changes, look at the edit mode
-  // to determine which setting should be updated
-  if (RV1_READ != RV1_STATE) {
-    RV1_STATE = RV1_READ;
-    if (RV1_edit_mode == 0) {
-      offset = RV1_STATE;
-    } else if (RV1_edit_mode == 1) {
-      depth = RV1_STATE;
-    } else if (RV1_edit_mode == 2) {
-      cc = RV1_STATE;
-    }
-  }
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp">  <span class="token comment">// if RV1 changes, look at the edit mode</span>
+  <span class="token comment">// to determine which setting should be updated</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>RV1_READ <span class="token operator">!=</span> RV1_STATE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    RV1_STATE <span class="token operator">=</span> RV1_READ<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>RV1_edit_mode <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      offset <span class="token operator">=</span> RV1_STATE<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>RV1_edit_mode <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      depth <span class="token operator">=</span> RV1_STATE<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>RV1_edit_mode <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      cc <span class="token operator">=</span> RV1_STATE<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
 
-  // use RV2 to update the speed of the interval
-  if (RV2_READ != RV2_STATE) {
-    RV2_STATE = RV2_READ;
-    // we map pot reads from 0-1023 to 0-127 for MIDI
-    // but now we&#39;re mapping 0-127 to MIN/MAX_SPEED
-    speed = map(RV2_STATE, 0, 127, MIN_SPEED, MAX_SPEED);
-  }</code></pre></div>
+  <span class="token comment">// use RV2 to update the speed of the interval</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>RV2_READ <span class="token operator">!=</span> RV2_STATE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    RV2_STATE <span class="token operator">=</span> RV2_READ<span class="token punctuation">;</span>
+    <span class="token comment">// we map pot reads from 0-1023 to 0-127 for MIDI</span>
+    <span class="token comment">// but now we're mapping 0-127 to MIN/MAX_SPEED</span>
+    speed <span class="token operator">=</span> <span class="token function">map</span><span class="token punctuation">(</span>RV2_STATE<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">127</span><span class="token punctuation">,</span> MIN_SPEED<span class="token punctuation">,</span> MAX_SPEED<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span></code></pre></div>
 <p>Finally we continuously check to see if the current timestamp minus the timestamp for the last message is larger than our interval; if so, send a new message:</p>
-<div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">  // 1. check the current time
-  // 2. compare it to the last time we sent a message
-  // 3. if we&#39;re past our interval, send a new message
-  unsigned long now = millis();
-  if (now - last_cc_sent &gt; speed) {
-    last_cc_sent = now;
-    // max is offset + depth, as long as it&#39;s between 0 and 127
-    int max_val = constrain(offset + depth, 0, 127);
-    int rand_val = random(offset, max_val);
-    // sendControlChange(CC, value, channel)
-    MIDI.sendControlChange(cc, rand_val, MIDI_CH);
-  }</code></pre></div>
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp">  <span class="token comment">// 1. check the current time</span>
+  <span class="token comment">// 2. compare it to the last time we sent a message</span>
+  <span class="token comment">// 3. if we're past our interval, send a new message</span>
+  <span class="token keyword">unsigned</span> <span class="token keyword">long</span> now <span class="token operator">=</span> <span class="token function">millis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>now <span class="token operator">-</span> last_cc_sent <span class="token operator">></span> speed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    last_cc_sent <span class="token operator">=</span> now<span class="token punctuation">;</span>
+    <span class="token comment">// max is offset + depth, as long as it's between 0 and 127</span>
+    <span class="token keyword">int</span> max_val <span class="token operator">=</span> <span class="token function">constrain</span><span class="token punctuation">(</span>offset <span class="token operator">+</span> depth<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">127</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> rand_val <span class="token operator">=</span> <span class="token function">random</span><span class="token punctuation">(</span>offset<span class="token punctuation">,</span> max_val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// sendControlChange(CC, value, channel)</span>
+    MIDI<span class="token punctuation">.</span><span class="token function">sendControlChange</span><span class="token punctuation">(</span>cc<span class="token punctuation">,</span> rand_val<span class="token punctuation">,</span> MIDI_CH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span></code></pre></div>
 <h2>Adding MIDI in</h2>
 <p>Addind MIDI in isn’t too much work either, it’s just that the MIDI specification require the use of an optocoupler to electrically isolate the receiving circuit from the sending circuit. Looking at the Sparkfun schematic, the important pieces are:</p>
 <p><span

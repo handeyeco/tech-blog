@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 27 Feb 2025 02:14:49 GMT</lastBuildDate><item><title><![CDATA[Fun with MIDI]]></title><description><![CDATA[This was originally written for a zine. Code, schematics, etc can be found on Github. Hey 👋 My name is Matthew and I don’t understand…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/fun-with-midi/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/fun-with-midi/</guid><pubDate>Thu, 27 Feb 2025 21:25:23 GMT</pubDate><content:encoded>&lt;p&gt;This was originally written for a zine. Code, schematics, etc can be &lt;a href=&quot;https://github.com/handeyeco/fun-with-midi&quot;&gt;found on Github&lt;/a&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 27 Feb 2025 02:19:20 GMT</lastBuildDate><item><title><![CDATA[Fun with MIDI]]></title><description><![CDATA[This was originally written for a zine. Code, schematics, etc can be found on Github. Hey 👋 My name is Matthew and I don’t understand…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/fun-with-midi/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/fun-with-midi/</guid><pubDate>Thu, 27 Feb 2025 21:25:23 GMT</pubDate><content:encoded>&lt;p&gt;This was originally written for a zine. Code, schematics, etc can be &lt;a href=&quot;https://github.com/handeyeco/fun-with-midi&quot;&gt;found on Github&lt;/a&gt;.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;Hey 👋 My name is Matthew and I don’t understand analog circuits.&lt;/p&gt;
 &lt;p&gt;Boy have I tried though. Just looking around my desk I can see my copy of There Are No Electrons by Amdahl, Practical Electronics For Inventors by Scherz, and Electronic Projects For Musicians by Anderton. My degree is in Music Business, Performance, and Technology and I’ve worked TWO jobs assembling modular synthesizers - one before and one after my career as an audio engineer, before I made the switch to software development.&lt;/p&gt;
@@ -62,92 +62,92 @@
 &lt;h2&gt;Sketch #1: Board Test&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/handeyeco/fun-with-midi/blob/main/board-test/board-test.ino&quot;&gt;Source code&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This first sketch is just testing the pots, buttons, and LEDs. First we let the program know which pins we’re using for everything:&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;// button pins (digital)
-byte S3_PIN = 4;
-byte S4_PIN = 3;
-byte S5_PIN = 2;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// button pins (digital)&lt;/span&gt;
+byte S3_PIN &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+byte S4_PIN &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+byte S5_PIN &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-// pot pins (analog)
-byte RV1_PIN = A1;
-byte RV2_PIN = A0;
+&lt;span class=&quot;token comment&quot;&gt;// pot pins (analog)&lt;/span&gt;
+byte RV1_PIN &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; A1&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+byte RV2_PIN &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; A0&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-// LED pins (digital)
-byte GRN_LED_PIN = 6;
-byte RED_LED_PIN = 7;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;token comment&quot;&gt;// LED pins (digital)&lt;/span&gt;
+byte GRN_LED_PIN &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+byte RED_LED_PIN &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Then we declare some variables so we can keep track of what everything is doing as the sketch runs:&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;// declare read state
-bool S3_STATE = 1;
-bool S4_STATE = 1;
-bool S5_STATE = 1;
-int RV1_STATE = 0;
-int RV2_STATE = 0;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// declare read state&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;bool&lt;/span&gt; S3_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;bool&lt;/span&gt; S4_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;bool&lt;/span&gt; S5_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; RV1_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; RV2_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;setup&lt;/code&gt; is the code that runs at the beginning of the sketch:&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;void setup() {
-  // setup for printing to our monitor
-  Serial.begin(9600);
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// setup for printing to our monitor&lt;/span&gt;
+  Serial&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;9600&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  // the switches use the built-in pull-up resistors
-  pinMode(S3_PIN, INPUT_PULLUP);
-  pinMode(S4_PIN, INPUT_PULLUP);
-  pinMode(S5_PIN, INPUT_PULLUP);
+  &lt;span class=&quot;token comment&quot;&gt;// the switches use the built-in pull-up resistors&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S3_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; INPUT_PULLUP&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S4_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; INPUT_PULLUP&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S5_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; INPUT_PULLUP&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  // the pots don&amp;#39;t use the pull-up resistors
-  pinMode(RV1_PIN, INPUT);
-  pinMode(RV2_PIN, INPUT);
+  &lt;span class=&quot;token comment&quot;&gt;// the pots don&apos;t use the pull-up resistors&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; INPUT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV2_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; INPUT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  // then set up the LEDs as outputs
-  pinMode(GRN_LED_PIN, OUTPUT);
-  pinMode(RED_LED_PIN, OUTPUT);
+  &lt;span class=&quot;token comment&quot;&gt;// then set up the LEDs as outputs&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;GRN_LED_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; OUTPUT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RED_LED_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; OUTPUT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  // do an initial read of everything
-  // so we can start looking for changes
-  S3_STATE = digitalRead(S3_PIN);
-  S4_STATE = digitalRead(S4_PIN);
-  S5_STATE = digitalRead(S5_PIN);
-  RV1_STATE = analogRead(RV1_PIN);
-  RV2_STATE = analogRead(RV2_PIN);
-}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// do an initial read of everything&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// so we can start looking for changes&lt;/span&gt;
+  S3_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;digitalRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S3_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  S4_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;digitalRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S4_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  S5_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;digitalRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S5_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  RV1_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;analogRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  RV2_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;analogRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV2_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;loop&lt;/code&gt; runs over and over again so we can watch for changes:&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;// pot change threshold,
-// for what we consider a change
-int RV_THRESH = 3;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// pot change threshold,&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// for what we consider a change&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; RV_THRESH &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-void loop() {
-  // read pins
-  bool S3_READ = digitalRead(S3_PIN);
-  bool S4_READ = digitalRead(S4_PIN);
-  bool S5_READ = digitalRead(S5_PIN);
-  int RV1_READ = analogRead(RV1_PIN);
-  int RV2_READ = analogRead(RV2_PIN);
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// read pins&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;bool&lt;/span&gt; S3_READ &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;digitalRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S3_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;bool&lt;/span&gt; S4_READ &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;digitalRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S4_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;bool&lt;/span&gt; S5_READ &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;digitalRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S5_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; RV1_READ &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;analogRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; RV2_READ &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;analogRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV2_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  // if any button is pressed, light LED
-  bool pressed = S3_READ &amp;amp;&amp;amp; S4_READ &amp;amp;&amp;amp; S5_READ;
-  digitalWrite(GRN_LED_PIN, pressed);
-  digitalWrite(RED_LED_PIN, pressed);
+  &lt;span class=&quot;token comment&quot;&gt;// if any button is pressed, light LED&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;bool&lt;/span&gt; pressed &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; S3_READ &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; S4_READ &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; S5_READ&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;GRN_LED_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; pressed&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RED_LED_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; pressed&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  // print and update state
-  // if a change is detected
-  if (S3_READ != S3_STATE) {
-    Serial.println(&amp;quot;S3&amp;quot;);
-    S3_STATE = S3_READ;
-  }
-  if (S4_READ != S4_STATE) {
-    Serial.println(&amp;quot;S4&amp;quot;);
-    S4_STATE = S4_READ;
-  }
-  if (S5_READ != S5_STATE) {
-    Serial.println(&amp;quot;S5&amp;quot;);
-    S5_STATE = S5_READ;
-  }
-  if (abs(RV1_READ - RV1_STATE) &amp;gt; RV_THRESH) {
-    Serial.println(&amp;quot;RV1&amp;quot;);
-    RV1_STATE = RV1_READ;
-  }
-  if (abs(RV2_READ - RV2_STATE) &amp;gt; RV_THRESH) {
-    Serial.println(&amp;quot;RV2&amp;quot;);
-    RV2_STATE = RV2_READ;
-  }
-}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// print and update state&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// if a change is detected&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S3_READ &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; S3_STATE&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    Serial&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;S3&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    S3_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; S3_READ&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S4_READ &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; S4_STATE&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    Serial&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;S4&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    S4_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; S4_READ&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S5_READ &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; S5_STATE&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    Serial&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;S5&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    S5_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; S5_READ&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_READ &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; RV1_STATE&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; RV_THRESH&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    Serial&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;RV1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    RV1_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; RV1_READ&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV2_READ &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; RV2_STATE&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; RV_THRESH&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    Serial&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;RV2&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    RV2_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; RV2_READ&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;What it’s doing:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;If any buttons are pressed, light up the LEDs&lt;/li&gt;
@@ -175,55 +175,55 @@ void loop() {
 &lt;li&gt;The other pot will control the value of the MIDI CC. Most of MIDI works with 7 bits which gives us a range between 0 and 127 (128 steps).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;First we import &lt;a href=&quot;https://github.com/FortySevenEffects/arduino_midi_library&quot;&gt;FortySevenEffects’ MIDI library&lt;/a&gt; and initialize it:&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;MIDI.h&amp;gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token macro property&quot;&gt;&lt;span class=&quot;token directive-hash&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;token directive keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&amp;lt;MIDI.h&gt;&lt;/span&gt;&lt;/span&gt;
 
-MIDI_CREATE_DEFAULT_INSTANCE();&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;token function&quot;&gt;MIDI_CREATE_DEFAULT_INSTANCE&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;We set pins and initalize state like before; this time though we also have to start the MIDI library. Additionally I’ve added a helper function to map 0-1023 (the full range that an Arduino’s &lt;code class=&quot;language-text&quot;&gt;analogRead&lt;/code&gt; can supply) to 0-127 (the full range that MIDI can use).&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;// pot pins
-byte RV1_PIN = A1;
-byte RV2_PIN = A0;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// pot pins&lt;/span&gt;
+byte RV1_PIN &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; A1&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+byte RV2_PIN &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; A0&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-// declare read state
-int RV1_STATE = 0;
-int RV2_STATE = 0;
+&lt;span class=&quot;token comment&quot;&gt;// declare read state&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; RV1_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; RV2_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-int read_and_map(byte pin) {
-  int read = analogRead(pin);
-  return map(read, 0, 1023, 0, 127);
-}
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;read_and_map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;byte pin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; read &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;analogRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;pin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;read&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1023&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;127&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-void setup() {
-  MIDI.begin(MIDI_CHANNEL_OMNI);
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  MIDI&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;MIDI_CHANNEL_OMNI&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  // set pin modes
-  pinMode(RV1_PIN, INPUT);
-  pinMode(RV2_PIN, INPUT);
+  &lt;span class=&quot;token comment&quot;&gt;// set pin modes&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; INPUT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV2_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; INPUT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  // initialize read state
-  RV1_STATE = read_and_map(RV1_PIN);
-  RV2_STATE = read_and_map(RV2_PIN);
-}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// initialize read state&lt;/span&gt;
+  RV1_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;read_and_map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  RV2_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;read_and_map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV2_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now the juicy bit:&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;// there are 16 MIDI channels,
-// I just used the first one
-byte MIDI_CH = 1;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// there are 16 MIDI channels,&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// I just used the first one&lt;/span&gt;
+byte MIDI_CH &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-void loop() {
-  // read pins
-  int RV1_READ = read_and_map(RV1_PIN);
-  int RV2_READ = read_and_map(RV2_PIN);
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// read pins&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; RV1_READ &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;read_and_map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; RV2_READ &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;read_and_map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV2_PIN&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  // RV1 adjusts which CC channel we&amp;#39;re changing
-  if (RV1_READ != RV1_STATE) {
-    RV1_STATE = RV1_READ;
-  }
-  // RV2 adjusts the CC value
-  if (RV2_READ != RV2_STATE) {
-    RV2_STATE = RV2_READ;
-    // sendControlChange(CC, value, channel)
-    MIDI.sendControlChange(RV1_STATE, RV2_STATE, MIDI_CH);
-  }
-}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// RV1 adjusts which CC channel we&apos;re changing&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_READ &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; RV1_STATE&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    RV1_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; RV1_READ&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// RV2 adjusts the CC value&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV2_READ &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; RV2_STATE&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    RV2_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; RV2_READ&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// sendControlChange(CC, value, channel)&lt;/span&gt;
+    MIDI&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;sendControlChange&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_STATE&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; RV2_STATE&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; MIDI_CH&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;What this sketch does:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;It watches for changes on the RV1 potentiometer and if it changes we change the MIDI CC we’re going to adjust&lt;/li&gt;
@@ -315,80 +315,80 @@ void loop() {
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;This code shares a lot from the first two examples, so I’m just going to talk about the important changes. First we initialize some state:&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;// what editing mode we&amp;#39;re in:
-// 0 = offset (no LEDs)
-// 1 = depth (green LED)
-// 2 = CC (red LED)
-byte RV1_edit_mode = 0;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// what editing mode we&apos;re in:&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 0 = offset (no LEDs)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 1 = depth (green LED)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 2 = CC (red LED)&lt;/span&gt;
+byte RV1_edit_mode &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-// offset is our lowest possible CC
-int offset = 0;
-// depth is how far from
-// the lowest CC we can go
-int depth = 127;
-// the MIDI CC we&amp;#39;re sending values for
-// 74 is commonly the CC for filter cutoff
-byte cc = 74;
+&lt;span class=&quot;token comment&quot;&gt;// offset is our lowest possible CC&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; offset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// depth is how far from&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// the lowest CC we can go&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; depth &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;127&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// the MIDI CC we&apos;re sending values for&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 74 is commonly the CC for filter cutoff&lt;/span&gt;
+byte cc &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;74&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-// these are used to set our
-// MIDI message interval
-int MIN_SPEED = 60;
-int MAX_SPEED = 1000;
-int speed = MAX_SPEED;
-unsigned long last_cc_sent = 0;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;token comment&quot;&gt;// these are used to set our&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// MIDI message interval&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; MIN_SPEED &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; MAX_SPEED &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; speed &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; MAX_SPEED&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; last_cc_sent &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Next we check each button to see if they have been pressed and if we detect a change we update the mode we’re in, for example:&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;  byte old_RV1_edit_mode = RV1_edit_mode;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;  byte old_RV1_edit_mode &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; RV1_edit_mode&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  // update edit state if button change detected
-  if (S3_READ != S3_STATE) {
-    S3_STATE = S3_READ;
-    // set RV1_edit_mode to offset
-    if (S3_STATE == LOW) {
-      RV1_edit_mode = 0;
-    }
-  }
+  &lt;span class=&quot;token comment&quot;&gt;// update edit state if button change detected&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S3_READ &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; S3_STATE&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    S3_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; S3_READ&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// set RV1_edit_mode to offset&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;S3_STATE &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; LOW&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      RV1_edit_mode &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-  // ...similar for the other buttons...
+  &lt;span class=&quot;token comment&quot;&gt;// ...similar for the other buttons...&lt;/span&gt;
 
-  // watch for changes to edit mode and update LEDs
-  if (old_RV1_edit_mode != RV1_edit_mode) {
-      digitalWrite(GRN_LED_PIN, RV1_edit_mode != 1);
-      digitalWrite(RED_LED_PIN, RV1_edit_mode != 2);
-  }&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// watch for changes to edit mode and update LEDs&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;old_RV1_edit_mode &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; RV1_edit_mode&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;GRN_LED_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; RV1_edit_mode &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RED_LED_PIN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; RV1_edit_mode &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Then we read the pots. For RV1, we update the settings based on what mode we’re in. For RV2, we map the read value between our min/max interval speed:&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;  // if RV1 changes, look at the edit mode
-  // to determine which setting should be updated
-  if (RV1_READ != RV1_STATE) {
-    RV1_STATE = RV1_READ;
-    if (RV1_edit_mode == 0) {
-      offset = RV1_STATE;
-    } else if (RV1_edit_mode == 1) {
-      depth = RV1_STATE;
-    } else if (RV1_edit_mode == 2) {
-      cc = RV1_STATE;
-    }
-  }
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;  &lt;span class=&quot;token comment&quot;&gt;// if RV1 changes, look at the edit mode&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// to determine which setting should be updated&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_READ &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; RV1_STATE&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    RV1_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; RV1_READ&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_edit_mode &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      offset &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; RV1_STATE&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_edit_mode &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      depth &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; RV1_STATE&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV1_edit_mode &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      cc &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; RV1_STATE&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-  // use RV2 to update the speed of the interval
-  if (RV2_READ != RV2_STATE) {
-    RV2_STATE = RV2_READ;
-    // we map pot reads from 0-1023 to 0-127 for MIDI
-    // but now we&amp;#39;re mapping 0-127 to MIN/MAX_SPEED
-    speed = map(RV2_STATE, 0, 127, MIN_SPEED, MAX_SPEED);
-  }&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// use RV2 to update the speed of the interval&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV2_READ &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; RV2_STATE&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    RV2_STATE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; RV2_READ&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// we map pot reads from 0-1023 to 0-127 for MIDI&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// but now we&apos;re mapping 0-127 to MIN/MAX_SPEED&lt;/span&gt;
+    speed &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;RV2_STATE&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;127&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; MIN_SPEED&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; MAX_SPEED&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Finally we continuously check to see if the current timestamp minus the timestamp for the last message is larger than our interval; if so, send a new message:&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;  // 1. check the current time
-  // 2. compare it to the last time we sent a message
-  // 3. if we&amp;#39;re past our interval, send a new message
-  unsigned long now = millis();
-  if (now - last_cc_sent &amp;gt; speed) {
-    last_cc_sent = now;
-    // max is offset + depth, as long as it&amp;#39;s between 0 and 127
-    int max_val = constrain(offset + depth, 0, 127);
-    int rand_val = random(offset, max_val);
-    // sendControlChange(CC, value, channel)
-    MIDI.sendControlChange(cc, rand_val, MIDI_CH);
-  }&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;  &lt;span class=&quot;token comment&quot;&gt;// 1. check the current time&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// 2. compare it to the last time we sent a message&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// 3. if we&apos;re past our interval, send a new message&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;long&lt;/span&gt; now &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;millis&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;now &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; last_cc_sent &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; speed&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    last_cc_sent &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; now&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// max is offset + depth, as long as it&apos;s between 0 and 127&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; max_val &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;constrain&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;offset &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; depth&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;127&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; rand_val &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;offset&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; max_val&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// sendControlChange(CC, value, channel)&lt;/span&gt;
+    MIDI&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;sendControlChange&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cc&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; rand_val&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; MIDI_CH&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Adding MIDI in&lt;/h2&gt;
 &lt;p&gt;Addind MIDI in isn’t too much work either, it’s just that the MIDI specification require the use of an optocoupler to electrically isolate the receiving circuit from the sending circuit. Looking at the Sparkfun schematic, the important pieces are:&lt;/p&gt;
 &lt;p&gt;&lt;span
@@ -542,16 +542,16 @@ unsigned long last_cc_sent = 0;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Problem: CrossPack and Microchip Technology’s Acquisition of Atmel&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/obdev/CrossPack-AVR&quot;&gt;CrossPack-AVR&lt;/a&gt; seems to have been a helper for fetching the AVR toolchain. It hardcodes the location of the distribution to &lt;code class=&quot;language-text&quot;&gt;http://distribute.atmel.no/tools/opensource/Atmel-AVR-GNU-Toolchain/$atmelToolchainVersion&lt;/code&gt;. However Atmel was aquired by Microchip Technologies and that link no longer works.&lt;/p&gt;
 &lt;p&gt;You can see in Midipal what dependencies we wanted:&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;// makefile.mk
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// makefile.mk&lt;/span&gt;
 
-CC             = $(AVRLIB_TOOLS_PATH)avr-gcc
-CXX            = $(AVRLIB_TOOLS_PATH)avr-g++
-OBJCOPY        = $(AVRLIB_TOOLS_PATH)avr-objcopy
-OBJDUMP        = $(AVRLIB_TOOLS_PATH)avr-objdump
-AR             = $(AVRLIB_TOOLS_PATH)avr-ar
-SIZE           = $(AVRLIB_TOOLS_PATH)avr-size
-NM             = $(AVRLIB_TOOLS_PATH)avr-nm
-AVRDUDE        = $(AVRLIB_TOOLS_PATH)avrdude&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+CC             &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;AVRLIB_TOOLS_PATH&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;avr&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;gcc
+CXX            &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;AVRLIB_TOOLS_PATH&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;avr&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;g&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;
+OBJCOPY        &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;AVRLIB_TOOLS_PATH&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;avr&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;objcopy
+OBJDUMP        &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;AVRLIB_TOOLS_PATH&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;avr&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;objdump
+AR             &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;AVRLIB_TOOLS_PATH&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;avr&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;ar
+SIZE           &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;AVRLIB_TOOLS_PATH&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;avr&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;size
+NM             &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;AVRLIB_TOOLS_PATH&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;avr&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;nm
+AVRDUDE        &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;AVRLIB_TOOLS_PATH&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;avrdude&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;If you have the Arduino IDE installed, you should pretty much have all this stuff on your computer already. Unfortunately it’s probably not the &lt;code class=&quot;language-text&quot;&gt;3.5.4&lt;/code&gt; version of the toolchain that Midipal uses.&lt;/p&gt;
 &lt;p&gt;What I ended up doing was &lt;code class=&quot;language-text&quot;&gt;brew install avrdude&lt;/code&gt;, downloaded the &lt;code class=&quot;language-text&quot;&gt;3.7.0&lt;/code&gt; toolchain &lt;a href=&quot;https://www.microchip.com/en-us/tools-resources/develop/microchip-studio/gcc-compilers&quot;&gt;from here&lt;/a&gt;, updated the &lt;code class=&quot;language-text&quot;&gt;makefile.mk&lt;/code&gt; to point to the directory with the &lt;code class=&quot;language-text&quot;&gt;3.7.0&lt;/code&gt; toolchain, and made a small tweak to &lt;code class=&quot;language-text&quot;&gt;makefile.mk&lt;/code&gt; for &lt;code class=&quot;language-text&quot;&gt;avrdude&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;- AVRDUDE        = $(AVRLIB_TOOLS_PATH)avrdude
@@ -1416,32 +1416,32 @@ output&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span cla
 &lt;h2&gt;Debouncing&lt;/h2&gt;
 &lt;p&gt;Debouncing sucks and it sucks even more when trying to do button combos. My dream was to be able to enter/exit the menu with a combo and to use things like combos to trigger events or speed up increment/decrement actions. I made it happen, but it was a pain!&lt;/p&gt;
 &lt;p&gt;I ended up using the method explained by &lt;a href=&quot;https://hackaday.com/2015/12/10/embed-with-elliot-debounce-your-noisy-buttons-part-ii/&quot;&gt;Elliot Williams on Hackaday&lt;/a&gt;. Basically what it’s doing is maintaining a history of button reads and only considers it a press/release when the history matches a certain expected state. &lt;a href=&quot;https://github.com/handeyeco/Grandbot/pull/8&quot;&gt;Here’s the PR&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;#define BUTTON_MASK 0b11000111
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token macro property&quot;&gt;&lt;span class=&quot;token directive-hash&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;token directive keyword&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;token macro-name&quot;&gt;BUTTON_MASK&lt;/span&gt; &lt;span class=&quot;token expression&quot;&gt;&lt;span class=&quot;token number&quot;&gt;0b11000111&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 
-void Button::read() {
-  bool read = digitalRead(pin);
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;bool&lt;/span&gt; read &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;digitalRead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;pin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  // Debounce method tracks state over several reads
-  history = history &amp;lt;&amp;lt; 1;
-  history |= (read == false);
+  &lt;span class=&quot;token comment&quot;&gt;// Debounce method tracks state over several reads&lt;/span&gt;
+  history &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; history &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  history &lt;span class=&quot;token operator&quot;&gt;|=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;read &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  pressed = false;
-  released = false;
+  pressed &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  released &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-  // handle press
-  if ((history &amp;amp; BUTTON_MASK) == 0b00000111) {
-    pressed = true;
-    history = 0b11111111;
-  }
-  // handle release
-  else if ((history &amp;amp; BUTTON_MASK) == 0b11000000) {
-    released = ignoreRelease ? false : true;
-    ignoreRelease = false;
-    history = 0b00000000;
-  }
+  &lt;span class=&quot;token comment&quot;&gt;// handle press&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;history &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; BUTTON_MASK&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0b00000111&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    pressed &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    history &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0b11111111&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// handle release&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;history &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; BUTTON_MASK&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0b11000000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    released &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ignoreRelease &lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    ignoreRelease &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    history &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0b00000000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-  held = history == 0b11111111;
-}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  held &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; history &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0b11111111&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;It works &lt;em&gt;reasonably&lt;/em&gt; well, but it can still be a little flaky. Some possible solutions:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;I used a bunch of analog pins on the Arduino for the buttons. I thought it would be nice to expose these pins because it meant that people could make their own custom Grandbot boards and they would be able to use the analog pins as both an analog and a digital input (because you can do &lt;code class=&quot;language-text&quot;&gt;digitalRead&lt;/code&gt; on analog pins). While this &lt;em&gt;is&lt;/em&gt; true, apparently analog pins can be slightly slower than digital pins when reading. I’m not confident this is part of the problem, but it’s just something I read about while researching the debouncing issues.&lt;/li&gt;
