@@ -53,7 +53,7 @@ If you've been playing with electronics already, there's a good chance you have 
 
 ## Sketch #1: Board Test
 
-Source: https://github.com/handeyeco/fun-with-midi/blob/main/board-test/board-test.ino
+[Source code](https://github.com/handeyeco/fun-with-midi/blob/main/board-test/board-test.ino)
 
 This first sketch is just testing the pots, buttons, and LEDs. First we let the program know which pins we're using for everything:
 
@@ -182,7 +182,7 @@ So:
 
 ## Sketch #2: MIDI CC Controller
 
-Source: https://github.com/handeyeco/fun-with-midi/blob/main/cc-controller/cc-controller.ino
+[Source code](https://github.com/handeyeco/fun-with-midi/blob/main/cc-controller/cc-controller.ino)
 
 I'm not going to explain MIDI or MIDI CC in a lot of detail. You have access to the internet. I'm just going to say that MIDI is how digital music devices communicate with one another and MIDI CC is how we control parameters on one device from another device.
 
@@ -193,7 +193,7 @@ The code is much more concise as it takes the last example and cuts a lot away f
 - One pot will control which CC we're modifying. For instance on the Hydrasynth, filter 1 cutoff is MIDI CC 74 and LFO 1 rate is MIDI CC 72. Your synth's manual should tell you what CC controls what parameter.
 - The other pot will control the value of the MIDI CC. Most of MIDI works with 7 bits which gives us a range between 0 and 127 (128 steps).
 
-First we import FortySevenEffects' MIDI library (https://github.com/FortySevenEffects/arduino_midi_library) and initialize it:
+First we import [FortySevenEffects' MIDI library](https://github.com/FortySevenEffects/arduino_midi_library) and initialize it:
 
 ``` C++
 #include <MIDI.h>
@@ -266,7 +266,7 @@ In practice this is a little tough because we don't have a display to tell us wh
 
 ## Sketch #3: Random CC
 
-Source: https://github.com/handeyeco/fun-with-midi/blob/main/random-cc/random-cc.ino
+[Source code](https://github.com/handeyeco/fun-with-midi/blob/main/random-cc/random-cc.ino)
 
 Let's go one step further and make something that's actually fun to use without adding a screen or connecting it to a computer. Modular folks think they have all the fun with their bleeps and their bloops and their endless modulation options, but now that we know we can control synths using MIDI CC, we can make our own obnoxious sounds!
 
@@ -409,9 +409,9 @@ We're not just limited to parameter changes either, with MIDI you can:
 
 If you're interested in open-source MIDI projects, be sure to check out:
 
-- Norns (https://monome.org/docs/norns/)
-- Gizmo (https://cs.gmu.edu/~sean/projects/gizmo/)
-- MIDI Goblin (https://www.midigoblin.com/)
-- Midipal (https://github.com/pichenettes/midipal)
+- [Norns](https://monome.org/docs/norns/)
+- [Gizmo](https://cs.gmu.edu/~sean/projects/gizmo/)
+- [MIDI Goblin](https://www.midigoblin.com/)
+- [Midipal](https://github.com/pichenettes/midipal)
 
-Finally, I'm working on an open-source generative sequencer called Grandbot (https://github.com/handeyeco/Grandbot).
+Finally, I'm working on an open-source generative sequencer called [Grandbot](https://github.com/handeyeco/Grandbot).
