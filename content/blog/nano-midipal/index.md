@@ -55,7 +55,7 @@ Then:
 
 You can see in Midipal what dependencies we wanted:
 
-```
+``` cpp
 // makefile.mk
 
 CC             = $(AVRLIB_TOOLS_PATH)avr-gcc

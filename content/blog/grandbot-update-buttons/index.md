@@ -53,7 +53,7 @@ Debouncing sucks and it sucks even more when trying to do button combos. My drea
 
 I ended up using the method explained by [Elliot Williams on Hackaday](https://hackaday.com/2015/12/10/embed-with-elliot-debounce-your-noisy-buttons-part-ii/). Basically what it's doing is maintaining a history of button reads and only considers it a press/release when the history matches a certain expected state. [Here's the PR](https://github.com/handeyeco/Grandbot/pull/8).
 
-``` C++
+``` cpp
 #define BUTTON_MASK 0b11000111
 
 void Button::read() {
