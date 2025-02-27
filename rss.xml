@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 27 Feb 2025 02:14:16 GMT</lastBuildDate><item><title><![CDATA[Fun with MIDI]]></title><description><![CDATA[This was originally written for a zine. Code, schematics, etc can be found on Github. Hey 👋 My name is Matthew and I don’t understand…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/fun-with-midi/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/fun-with-midi/</guid><pubDate>Thu, 27 Feb 2025 21:25:23 GMT</pubDate><content:encoded>&lt;p&gt;This was originally written for a zine. Code, schematics, etc can be &lt;a href=&quot;https://github.com/handeyeco/fun-with-midi&quot;&gt;found on Github&lt;/a&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tech Blog]]></title><description><![CDATA[Notes on tech by Matthew Curtis.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 27 Feb 2025 02:14:49 GMT</lastBuildDate><item><title><![CDATA[Fun with MIDI]]></title><description><![CDATA[This was originally written for a zine. Code, schematics, etc can be found on Github. Hey 👋 My name is Matthew and I don’t understand…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/fun-with-midi/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/fun-with-midi/</guid><pubDate>Thu, 27 Feb 2025 21:25:23 GMT</pubDate><content:encoded>&lt;p&gt;This was originally written for a zine. Code, schematics, etc can be &lt;a href=&quot;https://github.com/handeyeco/fun-with-midi&quot;&gt;found on Github&lt;/a&gt;.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;Hey 👋 My name is Matthew and I don’t understand analog circuits.&lt;/p&gt;
 &lt;p&gt;Boy have I tried though. Just looking around my desk I can see my copy of There Are No Electrons by Amdahl, Practical Electronics For Inventors by Scherz, and Electronic Projects For Musicians by Anderton. My degree is in Music Business, Performance, and Technology and I’ve worked TWO jobs assembling modular synthesizers - one before and one after my career as an audio engineer, before I made the switch to software development.&lt;/p&gt;
@@ -60,7 +60,7 @@
 &lt;/ul&gt;
 &lt;p&gt;If you’ve been playing with electronics already, there’s a good chance you have most of this stuff lying around except maybe the Arduino and the DIN socket (using a 3.5mm jack for TRS MIDI is also an option).&lt;/p&gt;
 &lt;h2&gt;Sketch #1: Board Test&lt;/h2&gt;
-&lt;p&gt;Source: &lt;a href=&quot;https://github.com/handeyeco/fun-with-midi/blob/main/board-test/board-test.ino&quot;&gt;https://github.com/handeyeco/fun-with-midi/blob/main/board-test/board-test.ino&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/handeyeco/fun-with-midi/blob/main/board-test/board-test.ino&quot;&gt;Source code&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This first sketch is just testing the pots, buttons, and LEDs. First we let the program know which pins we’re using for everything:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;// button pins (digital)
 byte S3_PIN = 4;
@@ -166,7 +166,7 @@ void loop() {
 &lt;li&gt;If in the future we design our own circuits, we’ll use a microcontroller with multiple UARTS so MIDI can be on its own&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2&gt;Sketch #2: MIDI CC Controller&lt;/h2&gt;
-&lt;p&gt;Source: &lt;a href=&quot;https://github.com/handeyeco/fun-with-midi/blob/main/cc-controller/cc-controller.ino&quot;&gt;https://github.com/handeyeco/fun-with-midi/blob/main/cc-controller/cc-controller.ino&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/handeyeco/fun-with-midi/blob/main/cc-controller/cc-controller.ino&quot;&gt;Source code&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;I’m not going to explain MIDI or MIDI CC in a lot of detail. You have access to the internet. I’m just going to say that MIDI is how digital music devices communicate with one another and MIDI CC is how we control parameters on one device from another device.&lt;/p&gt;
 &lt;p&gt;This script will give us the power to change parameters on a remote device from our Arduino. Imagine being able to change the filter cutoff on your synth from the other side of the room - that &lt;em&gt;can&lt;/em&gt; be a reality for you!&lt;/p&gt;
 &lt;p&gt;The code is much more concise as it takes the last example and cuts a lot away from it. We’re only going to use the pots here:&lt;/p&gt;
@@ -174,7 +174,7 @@ void loop() {
 &lt;li&gt;One pot will control which CC we’re modifying. For instance on the Hydrasynth, filter 1 cutoff is MIDI CC 74 and LFO 1 rate is MIDI CC 72. Your synth’s manual should tell you what CC controls what parameter.&lt;/li&gt;
 &lt;li&gt;The other pot will control the value of the MIDI CC. Most of MIDI works with 7 bits which gives us a range between 0 and 127 (128 steps).&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;First we import FortySevenEffects’ MIDI library (&lt;a href=&quot;https://github.com/FortySevenEffects/arduino_midi_library&quot;&gt;https://github.com/FortySevenEffects/arduino_midi_library&lt;/a&gt;) and initialize it:&lt;/p&gt;
+&lt;p&gt;First we import &lt;a href=&quot;https://github.com/FortySevenEffects/arduino_midi_library&quot;&gt;FortySevenEffects’ MIDI library&lt;/a&gt; and initialize it:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c++&quot;&gt;&lt;pre class=&quot;language-c++&quot;&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;MIDI.h&amp;gt;
 
 MIDI_CREATE_DEFAULT_INSTANCE();&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -232,7 +232,7 @@ void loop() {
 &lt;p&gt;In theory we could use RV1 to go to MIDI CC 74 then use RV2 to adjust the filter cutoff on our Hydrasynth. Or use RV1 to go to MIDI CC 81 then use RV2 to adjust envelope 1 attack.&lt;/p&gt;
 &lt;p&gt;In practice this is a little tough because we don’t have a display to tell us what MIDI CC we’re on. For now we could use an app like MIDI Monitor to see our work in action and later we could add a cheap I2C OLED screen to tell us what’s happening.&lt;/p&gt;
 &lt;h2&gt;Sketch #3: Random CC&lt;/h2&gt;
-&lt;p&gt;Source: &lt;a href=&quot;https://github.com/handeyeco/fun-with-midi/blob/main/random-cc/random-cc.ino&quot;&gt;https://github.com/handeyeco/fun-with-midi/blob/main/random-cc/random-cc.ino&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/handeyeco/fun-with-midi/blob/main/random-cc/random-cc.ino&quot;&gt;Source code&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Let’s go one step further and make something that’s actually fun to use without adding a screen or connecting it to a computer. Modular folks think they have all the fun with their bleeps and their bloops and their endless modulation options, but now that we know we can control synths using MIDI CC, we can make our own obnoxious sounds!&lt;/p&gt;
 &lt;p&gt;Here’s what this sketch is going to do:&lt;/p&gt;
 &lt;ul&gt;
@@ -445,12 +445,12 @@ unsigned long last_cc_sent = 0;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/ul&gt;
 &lt;p&gt;If you’re interested in open-source MIDI projects, be sure to check out:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Norns (&lt;a href=&quot;https://monome.org/docs/norns/&quot;&gt;https://monome.org/docs/norns/&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;Gizmo (&lt;a href=&quot;https://cs.gmu.edu/~sean/projects/gizmo/&quot;&gt;https://cs.gmu.edu/~sean/projects/gizmo/&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;MIDI Goblin (&lt;a href=&quot;https://www.midigoblin.com/&quot;&gt;https://www.midigoblin.com/&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;Midipal (&lt;a href=&quot;https://github.com/pichenettes/midipal&quot;&gt;https://github.com/pichenettes/midipal&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://monome.org/docs/norns/&quot;&gt;Norns&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://cs.gmu.edu/~sean/projects/gizmo/&quot;&gt;Gizmo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.midigoblin.com/&quot;&gt;MIDI Goblin&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/pichenettes/midipal&quot;&gt;Midipal&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Finally, I’m working on an open-source generative sequencer called Grandbot (&lt;a href=&quot;https://github.com/handeyeco/Grandbot&quot;&gt;https://github.com/handeyeco/Grandbot&lt;/a&gt;).&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Midipal on the Arduino Nano]]></title><description><![CDATA[Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I think I learned…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/nano-midipal/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/nano-midipal/</guid><pubDate>Wed, 26 Feb 2025 21:25:23 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I &lt;strong&gt;think&lt;/strong&gt; I learned, but that doesn’t make it the truth.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Finally, I’m working on an open-source generative sequencer called &lt;a href=&quot;https://github.com/handeyeco/Grandbot&quot;&gt;Grandbot&lt;/a&gt;.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Midipal on the Arduino Nano]]></title><description><![CDATA[Disclaimer: I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I think I learned…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/nano-midipal/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/nano-midipal/</guid><pubDate>Wed, 26 Feb 2025 21:25:23 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I don’t know what I’m talking about. I’m a JavaScript dev who’s just learning this stuff too. I’m sharing what I &lt;strong&gt;think&lt;/strong&gt; I learned, but that doesn’t make it the truth.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;I have not succeeded, this is a WIP and might never be finished. Please let me know if you make more progress than I did.&lt;/strong&gt;&lt;/p&gt;
 &lt;h2&gt;The Goal&lt;/h2&gt;
 &lt;p&gt;If you’ve ever read anything on this blog, it’s obvious I’m going through a MIDI phase right now. After working for awhile on &lt;a href=&quot;https://github.com/handeyeco/Grandbot&quot;&gt;Grandbot&lt;/a&gt;, I’ve started thinking about what I want to do next and I was thinking of a MIDI utility tool.&lt;/p&gt;

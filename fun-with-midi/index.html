@@ -60,7 +60,7 @@
 </ul>
 <p>If you’ve been playing with electronics already, there’s a good chance you have most of this stuff lying around except maybe the Arduino and the DIN socket (using a 3.5mm jack for TRS MIDI is also an option).</p>
 <h2>Sketch #1: Board Test</h2>
-<p>Source: <a href="https://github.com/handeyeco/fun-with-midi/blob/main/board-test/board-test.ino">https://github.com/handeyeco/fun-with-midi/blob/main/board-test/board-test.ino</a></p>
+<p><a href="https://github.com/handeyeco/fun-with-midi/blob/main/board-test/board-test.ino">Source code</a></p>
 <p>This first sketch is just testing the pots, buttons, and LEDs. First we let the program know which pins we’re using for everything:</p>
 <div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">// button pins (digital)
 byte S3_PIN = 4;
@@ -166,7 +166,7 @@ void loop() {
 <li>If in the future we design our own circuits, we’ll use a microcontroller with multiple UARTS so MIDI can be on its own</li>
 </ol>
 <h2>Sketch #2: MIDI CC Controller</h2>
-<p>Source: <a href="https://github.com/handeyeco/fun-with-midi/blob/main/cc-controller/cc-controller.ino">https://github.com/handeyeco/fun-with-midi/blob/main/cc-controller/cc-controller.ino</a></p>
+<p><a href="https://github.com/handeyeco/fun-with-midi/blob/main/cc-controller/cc-controller.ino">Source code</a></p>
 <p>I’m not going to explain MIDI or MIDI CC in a lot of detail. You have access to the internet. I’m just going to say that MIDI is how digital music devices communicate with one another and MIDI CC is how we control parameters on one device from another device.</p>
 <p>This script will give us the power to change parameters on a remote device from our Arduino. Imagine being able to change the filter cutoff on your synth from the other side of the room - that <em>can</em> be a reality for you!</p>
 <p>The code is much more concise as it takes the last example and cuts a lot away from it. We’re only going to use the pots here:</p>
@@ -174,7 +174,7 @@ void loop() {
 <li>One pot will control which CC we’re modifying. For instance on the Hydrasynth, filter 1 cutoff is MIDI CC 74 and LFO 1 rate is MIDI CC 72. Your synth’s manual should tell you what CC controls what parameter.</li>
 <li>The other pot will control the value of the MIDI CC. Most of MIDI works with 7 bits which gives us a range between 0 and 127 (128 steps).</li>
 </ul>
-<p>First we import FortySevenEffects’ MIDI library (<a href="https://github.com/FortySevenEffects/arduino_midi_library">https://github.com/FortySevenEffects/arduino_midi_library</a>) and initialize it:</p>
+<p>First we import <a href="https://github.com/FortySevenEffects/arduino_midi_library">FortySevenEffects’ MIDI library</a> and initialize it:</p>
 <div class="gatsby-highlight" data-language="c++"><pre class="language-c++"><code class="language-c++">#include &lt;MIDI.h&gt;
 
 MIDI_CREATE_DEFAULT_INSTANCE();</code></pre></div>
@@ -232,7 +232,7 @@ void loop() {
 <p>In theory we could use RV1 to go to MIDI CC 74 then use RV2 to adjust the filter cutoff on our Hydrasynth. Or use RV1 to go to MIDI CC 81 then use RV2 to adjust envelope 1 attack.</p>
 <p>In practice this is a little tough because we don’t have a display to tell us what MIDI CC we’re on. For now we could use an app like MIDI Monitor to see our work in action and later we could add a cheap I2C OLED screen to tell us what’s happening.</p>
 <h2>Sketch #3: Random CC</h2>
-<p>Source: <a href="https://github.com/handeyeco/fun-with-midi/blob/main/random-cc/random-cc.ino">https://github.com/handeyeco/fun-with-midi/blob/main/random-cc/random-cc.ino</a></p>
+<p><a href="https://github.com/handeyeco/fun-with-midi/blob/main/random-cc/random-cc.ino">Source code</a></p>
 <p>Let’s go one step further and make something that’s actually fun to use without adding a screen or connecting it to a computer. Modular folks think they have all the fun with their bleeps and their bloops and their endless modulation options, but now that we know we can control synths using MIDI CC, we can make our own obnoxious sounds!</p>
 <p>Here’s what this sketch is going to do:</p>
 <ul>
@@ -445,12 +445,12 @@ unsigned long last_cc_sent = 0;</code></pre></div>
 </ul>
 <p>If you’re interested in open-source MIDI projects, be sure to check out:</p>
 <ul>
-<li>Norns (<a href="https://monome.org/docs/norns/">https://monome.org/docs/norns/</a>)</li>
-<li>Gizmo (<a href="https://cs.gmu.edu/~sean/projects/gizmo/">https://cs.gmu.edu/~sean/projects/gizmo/</a>)</li>
-<li>MIDI Goblin (<a href="https://www.midigoblin.com/">https://www.midigoblin.com/</a>)</li>
-<li>Midipal (<a href="https://github.com/pichenettes/midipal">https://github.com/pichenettes/midipal</a>)</li>
+<li><a href="https://monome.org/docs/norns/">Norns</a></li>
+<li><a href="https://cs.gmu.edu/~sean/projects/gizmo/">Gizmo</a></li>
+<li><a href="https://www.midigoblin.com/">MIDI Goblin</a></li>
+<li><a href="https://github.com/pichenettes/midipal">Midipal</a></li>
 </ul>
-<p>Finally, I’m working on an open-source generative sequencer called Grandbot (<a href="https://github.com/handeyeco/Grandbot">https://github.com/handeyeco/Grandbot</a>).</p></section><hr style="margin-bottom:1.75rem"/><footer><div style="display:flex;margin-bottom:4.375rem"><p>Written by Matthew Curtis - community organizer, artist, and developer in Fayetteville, AR.<!-- --> <!-- -->Here are my <a href="https://h-e.io/">links</a>.</p></div></footer></article><nav><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"><li><a rel="prev" href="/tech-blog/nano-midipal/">← <!-- -->Midipal on the Arduino Nano</a></li><li></li></ul></nav></main><footer><span><svg style="height:1rem;width:1rem" version="1.0" id="Layer_1" x="0px" y="0px" width="64px" height="64px" viewBox="5.5 -3.5 64 64" enable-background="new 5.5 -3.5 64 64" xml:space="preserve"><g><circle fill="#FFFFFF" cx="37.785" cy="28.501" r="28.836"></circle><path d="M37.441-3.5c8.951,0,16.572,3.125,22.857,9.372c3.008,3.009,5.295,6.448,6.857,10.314
+<p>Finally, I’m working on an open-source generative sequencer called <a href="https://github.com/handeyeco/Grandbot">Grandbot</a>.</p></section><hr style="margin-bottom:1.75rem"/><footer><div style="display:flex;margin-bottom:4.375rem"><p>Written by Matthew Curtis - community organizer, artist, and developer in Fayetteville, AR.<!-- --> <!-- -->Here are my <a href="https://h-e.io/">links</a>.</p></div></footer></article><nav><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"><li><a rel="prev" href="/tech-blog/nano-midipal/">← <!-- -->Midipal on the Arduino Nano</a></li><li></li></ul></nav></main><footer><span><svg style="height:1rem;width:1rem" version="1.0" id="Layer_1" x="0px" y="0px" width="64px" height="64px" viewBox="5.5 -3.5 64 64" enable-background="new 5.5 -3.5 64 64" xml:space="preserve"><g><circle fill="#FFFFFF" cx="37.785" cy="28.501" r="28.836"></circle><path d="M37.441-3.5c8.951,0,16.572,3.125,22.857,9.372c3.008,3.009,5.295,6.448,6.857,10.314
 		c1.561,3.867,2.344,7.971,2.344,12.314c0,4.381-0.773,8.486-2.314,12.313c-1.543,3.828-3.82,7.21-6.828,10.143
 		c-3.123,3.085-6.666,5.448-10.629,7.086c-3.961,1.638-8.057,2.457-12.285,2.457s-8.276-0.808-12.143-2.429
 		c-3.866-1.618-7.333-3.961-10.4-7.027c-3.067-3.066-5.4-6.524-7-10.372S5.5,32.767,5.5,28.5c0-4.229,0.809-8.295,2.428-12.2
