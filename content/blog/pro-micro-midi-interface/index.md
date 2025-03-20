@@ -86,6 +86,6 @@ That's it! A microcontroller, a couple of common components, and a few lines of 
 
 Connecting the Pro Micro to the Norns provides power and sets up the USB connection. The device shows up as "Arduino Micro" in the Norns. Haven't spotted any issues, but some people talk about problems with SysEx when doing this kind of thing; I haven't tried that yet since that's not what I'm using this for.
 
-I _did_ finally break last night and ordered a Zoom L6 which seems to have a USB-to-MIDI interface built in. I wanted something I could use to mix these synths but originally planned to DIY a small mixer; I still might because I want 3.5mm TRS audio I/O, but I'm moving so I don't have a lot of time to design/order PCBs for that. Plus the L6 has the MIDI...and can record...and has effects..and is pretty small...and it's not _that_ expensive...
+I _did_ finally break last night and ordered a Zoom L6 which seems to have a USB-to-TRS interface built in. I wanted something I could use to mix these synths but originally planned to DIY a small mixer; I still might because I want 3.5mm TRS audio I/O, but I'm moving so I don't have a lot of time to design/order PCBs for that. Plus the L6 has the MIDI...and can record...and has effects..and is pretty small...and it's not _that_ expensive...
 
 Either way, this was a fun diversion. Hope this writeup helps. Happy hacking!
