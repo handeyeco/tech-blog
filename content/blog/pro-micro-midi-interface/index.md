@@ -10,7 +10,7 @@ Quick note: diyelectromusic.com has [a bunch of writeups](https://diyelectromusi
 
 ---
 
-It's been fun working with the [Denki Oto shield XL](https://www.denki-oto.com/store/p98/shieldXL_(DIY_norns_synthesizer_kit).html) - a small, scriptable computer for music and a clone of the [Monome Norns](https://monome.org/docs/norns/). As a programmer it's great to have an idea for some MIDI utility and, after a little bit of Lua programming, have the utility running on real hardware.
+It's been fun working with the [Denki Oto shieldXL](https://www.denki-oto.com/store/p98/shieldXL_(DIY_norns_synthesizer_kit).html) - a small, scriptable computer for music and a clone of the [Monome Norns](https://monome.org/docs/norns/). As a programmer it's great to have an idea for some MIDI utility and, after a little bit of Lua programming, have the utility running on real hardware.
 
 I found a deal on an older model Norns, so I decided to splurge on a fixer-upper; you can see [my video for that here](https://www.youtube.com/watch?v=3S8zLlK_vk0). While an authentic Norns has a lot of benefits over the shieldXL, one of the major problems with the Norns is that it doesn't have hardware MIDI I/O.
 
