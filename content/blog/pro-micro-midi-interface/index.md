@@ -6,6 +6,8 @@ description: I made a MIDI interface for my Monome Norns.
 
 _**Disclaimer:** I don't know what I'm talking about. I'm a JavaScript dev who's just learning this stuff too. I'm sharing what I **think** I learned, but that doesn't make it the truth._
 
+Quick note: diyelectromusic.com has [a bunch of writeups](https://diyelectromusic.com/2022/03/22/arduino-and-usb-midi/) on doing stuff like this, so those posts would be good references too.
+
 ---
 
 It's been fun working with the [Denki Oto shield XL](https://www.denki-oto.com/store/p98/shieldXL_(DIY_norns_synthesizer_kit).html) - a small, scriptable computer for music and a clone of the [Monome Norns](https://monome.org/docs/norns/). As a programmer it's great to have an idea for some MIDI utility and, after a little bit of Lua programming, have the utility running on real hardware.
